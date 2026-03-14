@@ -79,15 +79,16 @@ def agregar_headers_seguridad(response):
     response.headers['X-Frame-Options'] = 'DENY'
     response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
     response.headers['Content-Security-Policy'] = (
-        "default-src 'self'; "
-        "script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com; "
-        "style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com; "
-        "font-src fonts.gstatic.com cdnjs.cloudflare.com; "
-        "img-src 'self' data: blob: images.unsplash.com upload.wikimedia.org videos.pexels.com; "
-        "media-src 'self' videos.pexels.com; "
-        "connect-src 'self' cdnjs.cloudflare.com blob:; "
-        "worker-src blob:;"
-    )
+    "default-src 'self'; "
+    "script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com; "
+    "style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com; "
+    "font-src fonts.gstatic.com cdnjs.cloudflare.com; "
+    "img-src 'self' data: blob: images.unsplash.com upload.wikimedia.org i.vimeocdn.com; "
+    "media-src 'self'; "
+    "frame-src 'self' https://player.vimeo.com; "
+    "connect-src 'self' cdnjs.cloudflare.com blob: https://player.vimeo.com; "
+    "worker-src blob:;"
+)
     response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
     return response
 
