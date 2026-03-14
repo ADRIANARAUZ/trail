@@ -10,7 +10,6 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        /* Font Awesome icons */
         .nav-btn i,
         .cta-neon i,
         .section-title i,
@@ -400,21 +399,55 @@
             }
         }
 
-        .slide img,
-        .slide video {
+        .slide img {
             width: 100%;
             height: 210px;
             object-fit: cover;
             display: block;
-        }
-
-        .slide img {
             cursor: zoom-in;
         }
 
-        .slide-video-wrap {
-            cursor: zoom-in;
+        /* Vimeo embed en carrusel */
+        .vimeo-slide-wrap {
             position: relative;
+            width: 100%;
+            height: 210px;
+            background: #000;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .vimeo-slide-wrap iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 177.78%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+        }
+
+        .vimeo-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.55);
+            border-radius: 50%;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .vimeo-play-btn span {
+            color: #ccff00;
+            font-size: 1.4rem;
+            margin-left: 4px;
         }
 
         .car-btn {
@@ -448,6 +481,24 @@
 
         .car-btn.right {
             right: 8px;
+        }
+
+        /* Ruta video vimeo */
+        .vimeo-ruta-wrap {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .vimeo-ruta-wrap iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
         .memory-img {
@@ -646,150 +697,12 @@
             display: none;
         }
 
-        .gal-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, transparent 50%);
-            display: flex;
-            align-items: flex-end;
-            padding: 8px 10px;
-            opacity: 0;
-            transition: opacity 0.25s;
-        }
-
-        .gal-item:hover .gal-overlay {
-            opacity: 1;
-        }
-
-        .gal-overlay span {
-            color: white;
-            font-family: 'Teko';
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .form-header {
-            background: rgba(0, 0, 0, 0.4);
-            margin: -22px -16px 20px;
-            padding: 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-            text-align: center;
-        }
-
-        .form-header h2 {
-            font-family: 'Teko';
-            font-size: 1.4rem;
-            letter-spacing: 2px;
-        }
-
-        .form-header p {
-            font-size: 0.72rem;
-            color: #64748b;
-            margin-top: 3px;
-        }
-
-        .neon-form input,
-        .neon-form select {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.35);
-            border: 1px solid #1e293b;
-            padding: 13px 12px;
-            color: white;
-            border-radius: 6px;
-            font-family: 'Roboto';
-            font-size: 1rem;
-            transition: border-color 0.2s;
-            -webkit-appearance: none;
-            appearance: none;
-            min-height: 48px;
-        }
-
-        .neon-form input:focus,
-        .neon-form select:focus {
-            outline: none;
-            border-color: #ccff00;
-            box-shadow: 0 0 0 3px rgba(204, 255, 0, 0.12);
-        }
-
-        .neon-form select option {
-            background: #0f172a;
-        }
-
-        .input-group {
-            margin-bottom: 14px;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 0.62rem;
-            color: #ccff00;
-            margin-bottom: 5px;
-            letter-spacing: 1px;
-            font-weight: 700;
-        }
-
-        .row-split {
-            display: flex;
-            gap: 10px;
-        }
-
-        .row-split .input-group {
-            flex: 1;
-            min-width: 0;
-        }
-
-        @media (max-width: 480px) {
-            .row-split {
-                flex-direction: column;
-                gap: 0;
-            }
-        }
-
-        .error-msg {
-            color: #ff4d6d;
-            font-size: 0.72rem;
-            margin-top: 4px;
-            display: none;
-        }
-
-        .input-group.has-error input,
-        .input-group.has-error select {
-            border-color: #ff4d6d !important;
-        }
-
-        .btn-spinner {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(0, 0, 0, 0.3);
-            border-top-color: #000;
-            border-radius: 50%;
-            animation: spin 0.7s linear infinite;
-            vertical-align: middle;
-            margin-right: 6px;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
         .route-img-wrap {
             border: 2px solid #ccff00;
             border-radius: 10px;
             overflow: hidden;
             position: relative;
             margin: 14px 0;
-        }
-
-        .route-img-wrap img {
-            width: 100%;
-            display: block;
-            height: 200px;
-            object-fit: cover;
-            filter: brightness(0.75);
         }
 
         .route-badge {
@@ -939,6 +852,55 @@
             text-align: center;
         }
 
+        /* Modal Vimeo fullscreen */
+        #vimeo-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 7000;
+            background: rgba(0, 0, 0, 0.97);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        #vimeo-modal.open {
+            display: flex;
+        }
+
+        #vimeo-modal-frame {
+            width: min(900px, 95vw);
+            height: min(506px, 53.4vw);
+            max-height: 80vh;
+            border: none;
+            border-radius: 8px;
+        }
+
+        #vimeo-modal-caption {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-top: 12px;
+            font-family: 'Teko';
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        #vimeo-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            color: white;
+            font-size: 2.4rem;
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.2s;
+        }
+
+        #vimeo-modal-close:hover {
+            color: #ccff00;
+        }
+
         .custom-modal-overlay {
             position: fixed;
             inset: 0;
@@ -991,7 +953,6 @@
             color: #ccff00;
         }
 
-        /* ── EDICIONES GRID ── */
         .ediciones-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -1069,7 +1030,6 @@
             letter-spacing: 1px;
         }
 
-        /* ── MODAL 3D ── */
         #modal3d-overlay {
             display: none;
             position: fixed;
@@ -1186,6 +1146,113 @@
             color: #ccff00;
         }
 
+        .form-header {
+            background: rgba(0, 0, 0, 0.4);
+            margin: -22px -16px 20px;
+            padding: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            text-align: center;
+        }
+
+        .form-header h2 {
+            font-family: 'Teko';
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+        }
+
+        .form-header p {
+            font-size: 0.72rem;
+            color: #64748b;
+            margin-top: 3px;
+        }
+
+        .neon-form input,
+        .neon-form select {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid #1e293b;
+            padding: 13px 12px;
+            color: white;
+            border-radius: 6px;
+            font-family: 'Roboto';
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            -webkit-appearance: none;
+            appearance: none;
+            min-height: 48px;
+        }
+
+        .neon-form input:focus,
+        .neon-form select:focus {
+            outline: none;
+            border-color: #ccff00;
+            box-shadow: 0 0 0 3px rgba(204, 255, 0, 0.12);
+        }
+
+        .neon-form select option {
+            background: #0f172a;
+        }
+
+        .input-group {
+            margin-bottom: 14px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.62rem;
+            color: #ccff00;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .row-split {
+            display: flex;
+            gap: 10px;
+        }
+
+        .row-split .input-group {
+            flex: 1;
+            min-width: 0;
+        }
+
+        @media (max-width: 480px) {
+            .row-split {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+
+        .error-msg {
+            color: #ff4d6d;
+            font-size: 0.72rem;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .input-group.has-error input,
+        .input-group.has-error select {
+            border-color: #ff4d6d !important;
+        }
+
+        .btn-spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(0, 0, 0, 0.3);
+            border-top-color: #000;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
         @media (min-width: 640px) {
             .logo {
                 font-size: 3rem;
@@ -1243,8 +1310,11 @@
                 font-size: 0.85rem;
             }
 
-            .slide img,
-            .slide video {
+            .slide img {
+                height: 320px;
+            }
+
+            .vimeo-slide-wrap {
                 height: 320px;
             }
 
@@ -1254,10 +1324,6 @@
 
             .card-img {
                 height: 220px;
-            }
-
-            .route-img-wrap img {
-                height: 260px;
             }
 
             .info-grid {
@@ -1362,6 +1428,7 @@
 
         <div class="glass-container">
 
+            <!-- INICIO -->
             <div id="inicio" class="content-section active" style="text-align:center;">
                 <h1 class="big-title">ROMPE TUS<br>LÍMITES</h1>
                 <p class="hero-text">21 de Septiembre · 10k en total de pura resistencia y adrenalina</p>
@@ -1375,20 +1442,24 @@
                 <a href="/check" class="cta-link">¿Ya te registraste? Sube tu comprobante aquí →</a>
             </div>
 
+            <!-- RUTA -->
             <div id="ruta" class="content-section" style="text-align:center;">
                 <h2 class="section-title"><i class="fa-solid fa-location-dot"></i> DESAFÍO COSTERO</h2>
                 <div class="route-img-wrap">
-                    <video controls loop playsinline
-                        style="width:100%; display:block; max-height:450px; object-fit:contain;">
-                        <source src="/static/video/ruta.mp4" type="video/mp4">
-                        Tu navegador no soporta video.
-                    </video>
+                    <!-- ruta.mp4 → Vimeo 1173500589 -->
+                    <div class="vimeo-ruta-wrap">
+                        <iframe id="ruta-iframe"
+                            src="https://player.vimeo.com/video/1173500589?autoplay=0&loop=1&muted=1&controls=1&title=0&byline=0&portrait=0"
+                            allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
+                        </iframe>
+                    </div>
                     <div class="route-badge"><i class="fa-solid fa-mountain"></i> ALTITUD: 60m</div>
                 </div>
                 <p style="color:#94a3b8; font-size:0.88rem; line-height:1.6;">Ruta mixta · 40% Sendero Técnico · 30%
                     Playa · 30% Lastre</p>
             </div>
 
+            <!-- HISTORIA / GALERÍA -->
             <div id="galeria" class="content-section">
                 <h2 class="section-title" style="text-align:center;"><i class="fa-solid fa-film"></i> EL LEGADO
                     2021–2025</h2>
@@ -1401,62 +1472,64 @@
                         style="font-family:'Teko'; font-size:0.95rem; color:#475569; letter-spacing:2px;"></span>
                 </div>
                 <div class="carousel-container" id="carrusel-historia">
+
+                    <!-- SLIDE 1: 2021 imagen -->
                     <div class="slide active-slide" data-titulo="2021 — EL NACIMIENTO"
                         data-texto="Todo empezó con 30 valientes y un sueño: correr del bosque al mar. Sin arcos, sin sponsors, solo tierra, adrenalina y ganas de conquistar la costa.">
-                        <img loading="lazy"
-                            src="/static/img/nacimiento.jpeg"
-                            alt="2021 - El Nacimiento" onclick="openModal(this)">
+                        <img loading="lazy" src="/static/img/nacimiento.jpeg" alt="2021 - El Nacimiento"
+                            onclick="openModal(this)">
                     </div>
+
+                    <!-- SLIDE 2: 2022 imagen -->
                     <div class="slide" data-titulo="2022 — LA EXPANSIÓN"
                         data-texto="El boca a boca hizo su magia. Más de 80 corredores de tres provincias distintas se unieron al reto. Se sumó el cruce del mar.">
-                        <img loading="lazy"
-                            src="/static/img/expansion.jpg"
-                            alt="2022 - La Expansión" onclick="openModal(this)">
+                        <img loading="lazy" src="/static/img/expansion.jpg" alt="2022 - La Expansión"
+                            onclick="openModal(this)">
                     </div>
+
+                    <!-- SLIDE 3: 2023 video → Vimeo 1173501358 -->
                     <div class="slide slide-video-wrap" data-titulo="2023 — CLIMA HOSPIDO"
                         data-texto="Nadie esperaba un clima frio, con lluvisna, pero eso no fue impedimiento para que los atletas completaran su meta."
-                        onclick="openModalVideo('/static/video/2023.mp4', '2023 — Clima Hospido')">
-                        <video autoplay muted loop playsinline
-                            style="width:100%;height:210px;object-fit:cover;display:block;pointer-events:none;">
-                            <source src="/static/video/2023.mp4" type="video/mp4">
-                        </video>
-                        <div
-                            style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.55);border-radius:50%;width:52px;height:52px;display:flex;align-items:center;justify-content:center;pointer-events:none;">
-                            <span style="color:#ccff00;font-size:1.4rem;margin-left:4px;">▶</span>
-                        </div>
-                    </div>
-                    <div class="slide slide-video-wrap" data-titulo="2024 — EL RECORD"
-                        data-texto="Mas de 300 atletas participando en esta cuarta edicion, con sudor, esfuerzo y disciplina llegan a la meta."
-                        onclick="openModalVideo('/static/video/cuarta_edicion.mp4', '2024 — El Record')">
-                        <video autoplay muted loop playsinline
-                            style="width:100%;height:210px;object-fit:cover;display:block;pointer-events:none;">
-                            <source src="/static/video/cuarta_edicion.mp4" type="video/mp4">
-                        </video>
-                        <div
-                            style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.55);border-radius:50%;width:52px;height:52px;display:flex;align-items:center;justify-content:center;pointer-events:none;">
-                            <span style="color:#ccff00;font-size:1.4rem;margin-left:4px;">▶</span>
+                        onclick="abrirVimeo('1173501358', '2023 — Clima Hospido')">
+                        <div class="vimeo-slide-wrap">
+                            <iframe
+                                src="https://player.vimeo.com/video/1173501358?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1"
+                                allow="autoplay" loading="lazy"></iframe>
+                            <div class="vimeo-play-btn"><span>▶</span></div>
                         </div>
                     </div>
 
-                    <div class="slide slide-video-wrap" data-titulo="2025 — EL PRESENTE"
-                        data-texto="Se estrenó el sendero técnico más exigente, con seguridad de la Policia Nacional, 3 km de curvas cerradas con vista al mar. Más de 250 finishers sellaron la edición más grande de esta historia y seguiremos logrando mas..."
-                        onclick="openModalVideo('/static/video/2025_2.mp4')">
-                        <video autoplay muted loop playsinline
-                            style="width:100%;height:210px;object-fit:cover;display:block;pointer-events:none;">
-                            <source src="/static/video/2025.mp4"
-                                type="video/mp4">
-                        </video>
-                        <div
-                            style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.55);border-radius:50%;width:52px;height:52px;display:flex;align-items:center;justify-content:center;pointer-events:none;">
-                            <span style="color:#ccff00;font-size:1.4rem;margin-left:4px;">▶</span>
+                    <!-- SLIDE 4: 2024 cuarta_edicion → Vimeo 1173500509 -->
+                    <div class="slide slide-video-wrap" data-titulo="2024 — EL RECORD"
+                        data-texto="Mas de 300 atletas participando en esta cuarta edicion, con sudor, esfuerzo y disciplina llegan a la meta."
+                        onclick="abrirVimeo('1173500509', '2024 — El Record')">
+                        <div class="vimeo-slide-wrap">
+                            <iframe
+                                src="https://player.vimeo.com/video/1173500509?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1"
+                                allow="autoplay" loading="lazy"></iframe>
+                            <div class="vimeo-play-btn"><span>▶</span></div>
                         </div>
                     </div>
+
+                    <!-- SLIDE 5: 2025 → Vimeo 1173500410 (2025_2) -->
+                    <div class="slide slide-video-wrap" data-titulo="2025 — EL PRESENTE"
+                        data-texto="Se estrenó el sendero técnico más exigente, con seguridad de la Policia Nacional, 3 km de curvas cerradas con vista al mar. Más de 250 finishers sellaron la edición más grande de esta historia y seguiremos logrando mas..."
+                        onclick="abrirVimeo('1173500410', '2025 — El Presente')">
+                        <div class="vimeo-slide-wrap">
+                            <iframe
+                                src="https://player.vimeo.com/video/1173500389?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1"
+                                allow="autoplay" loading="lazy"></iframe>
+                            <div class="vimeo-play-btn"><span>▶</span></div>
+                        </div>
+                    </div>
+
                     <button class="car-btn left" onclick="moveSlide(-1)" aria-label="Anterior">&#10094;</button>
                     <button class="car-btn right" onclick="moveSlide(1)" aria-label="Siguiente">&#10095;</button>
                 </div>
                 <div style="display:flex; justify-content:center; gap:8px; margin-top:12px;" id="slide-dots"></div>
             </div>
 
+            <!-- MEMORIAS -->
             <div id="memorias" class="content-section">
                 <div style="text-align:center; margin-bottom:16px;">
                     <h2 class="big-title" style="font-size:2.4rem; margin-bottom:4px;"><i
@@ -1499,6 +1572,7 @@
                 </div>
             </div>
 
+            <!-- KITS -->
             <div id="kits" class="content-section" style="text-align:center;">
                 <h2 class="big-title" style="font-size:2.6rem; margin-bottom:6px;"><i class="fa-solid fa-shirt"></i>
                     CAMISA OFICIAL</h2>
@@ -1529,6 +1603,7 @@
                 </div>
             </div>
 
+            <!-- EDICIONES -->
             <div id="ediciones" class="content-section">
                 <div style="text-align:center; margin-bottom:18px;">
                     <h2 class="big-title" style="font-size:2.4rem; margin-bottom:4px;"><i
@@ -1539,6 +1614,7 @@
                 <div class="ediciones-grid" id="ediciones-grid"></div>
             </div>
 
+            <!-- INFO -->
             <div id="conceptos" class="content-section">
                 <h2 class="section-title"><i class="fa-solid fa-circle-info"></i> GUÍA OFICIAL</h2>
                 <div class="info-grid">
@@ -1558,9 +1634,7 @@
                             <li><strong style="color:#00d2ff;">SAB 20 SEPT</strong></li>
                             <li>10:00–18:00 | Entrega de Kits (llevar cédula o certificado)</li>
                             <li><strong style="color:#00d2ff;">DOM 21 SEPT</strong></li>
-                            <li>06:00 AM | <i class="fa-solid fa-flag"
-                                    style="width:14px;height:14px;vertical-align:middle;"></i> Explanada, Parque Jome
-                            </li>
+                            <li>06:00 AM | Explanada, Parque Jome</li>
                         </ul>
                     </div>
                     <div class="info-card accent-red">
@@ -1581,6 +1655,7 @@
                 </div>
             </div>
 
+            <!-- REGISTRO -->
             <div id="registro" class="content-section">
                 <div class="form-header">
                     <h2>TRAIL RUNNING <span class="highlight">2026</span></h2>
@@ -1654,7 +1729,7 @@
                 </form>
             </div>
 
-        </div>
+        </div><!-- /glass-container -->
 
         <section class="sponsors-section">
             <p class="section-subtitle">NUESTROS ALIADOS</p>
@@ -1674,21 +1749,29 @@
             </div>
         </section>
 
-    </div>
+    </div><!-- /main-layout -->
 
-    <a href="https://wa.me/593985053113?text=Hola,%20quiero%20info%20sobre elTrail Running%202026" class="whatsapp-btn"
-        target="_blank" aria-label="WhatsApp">
+    <a href="https://wa.me/593985053113?text=Hola,%20quiero%20info%20sobre%20el%20Trail%20Running%202026"
+        class="whatsapp-btn" target="_blank" aria-label="WhatsApp">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
     </a>
     <a href="javascript:void(0)" onclick="seguridadAdmin()" class="admin-lock-btn"><i class="fa-solid fa-lock"></i></a>
 
+    <!-- Lightbox imagen -->
     <div id="myModal" class="lightbox" onclick="if(event.target===this)closeModal()">
         <span class="close-zoom" onclick="closeModal()">&times;</span>
         <img class="lightbox-content" id="img01">
         <div id="caption-zoom"></div>
     </div>
 
-    <!-- MODAL 3D -->
+    <!-- Modal Vimeo fullscreen -->
+    <div id="vimeo-modal" onclick="if(event.target===this)cerrarVimeo()">
+        <span id="vimeo-modal-close" onclick="cerrarVimeo()">&times;</span>
+        <iframe id="vimeo-modal-frame" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <div id="vimeo-modal-caption"></div>
+    </div>
+
+    <!-- Modal 3D -->
     <div id="modal3d-overlay" onclick="if(event.target===this)cerrar3D()">
         <span id="modal3d-close" onclick="cerrar3D()">&times;</span>
         <div id="modal3d-header">
@@ -1708,6 +1791,7 @@
         </div>
     </div>
 
+    <!-- Alert pago pendiente -->
     <div id="custom-alert" class="custom-modal-overlay">
         <div class="custom-modal-box">
             <span class="close-modal-x" id="close-x-alert">&times;</span>
@@ -1726,6 +1810,44 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="/static/js/GLTFLoader.js"></script>
     <script>
+
+        // ── VIMEO IDs ──
+        const VIMEO = {
+            ruta: '1173500589',
+            promo2025: '1173500572',
+            nestor_bravo: '1173500556',
+            cuarta_edicion: '1173500509',
+            cuarta_1: '1173500466',
+            bajada: '1173500437',
+            v2025_2: '1173500410',
+            v2025: '1173500389',
+            v2024_1: '1173500352',
+            v2021: '1173501316',
+            v2023: '1173501358',
+            tercera_edicion: '1173500606',
+        };
+
+        function vimeoEmbed(id, opts) {
+            const o = Object.assign({ autoplay: 1, loop: 1, muted: 1, controls: 0, background: 1 }, opts);
+            const p = new URLSearchParams(Object.assign(o, { title: 0, byline: 0, portrait: 0 }));
+            return `https://player.vimeo.com/video/${id}?${p}`;
+        }
+
+        // ── MODAL VIMEO ──
+        function abrirVimeo(id, caption) {
+            const frame = document.getElementById('vimeo-modal-frame');
+            frame.src = `https://player.vimeo.com/video/${id}?autoplay=1&title=0&byline=0&portrait=0`;
+            document.getElementById('vimeo-modal-caption').innerText = caption || '';
+            document.getElementById('vimeo-modal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function cerrarVimeo() {
+            document.getElementById('vimeo-modal').classList.remove('open');
+            document.getElementById('vimeo-modal-frame').src = '';
+            document.body.style.overflow = '';
+        }
+
+        // ── COUNTDOWN ──
         (function initClock() {
             const fecha = new Date("September 21, 2026 06:00:00").getTime();
             setInterval(() => {
@@ -1738,6 +1860,7 @@
             }, 1000);
         })();
 
+        // ── TABS ──
         function switchTab(id) {
             document.querySelectorAll('.content-section').forEach(el => { el.classList.remove('active'); el.style.display = 'none'; });
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -1745,10 +1868,15 @@
             if (t) { t.style.display = 'block'; setTimeout(() => t.classList.add('active'), 10); }
             const b = document.getElementById('btn-' + id);
             if (b) { b.classList.add('active'); b.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); }
-            const video = document.querySelector('#ruta video');
-            if (video) { id === 'ruta' ? video.play() : video.pause(); }
+            // Ruta: play/pause iframe via postMessage
+            const rutaFrame = document.getElementById('ruta-iframe');
+            if (rutaFrame) {
+                if (id === 'ruta') rutaFrame.contentWindow.postMessage('{"method":"play"}', '*');
+                else rutaFrame.contentWindow.postMessage('{"method":"pause"}', '*');
+            }
         }
 
+        // ── CARRUSEL HISTORIA ──
         let slideIndex = 1;
 
         function buildSlideDots() {
@@ -1808,19 +1936,20 @@
             el.addEventListener('touchend', e => { const diff = startX - e.changedTouches[0].clientX; if (Math.abs(diff) > 40) moveSlide(diff > 0 ? 1 : -1); }, { passive: true });
         })();
 
+        // ── MEMORIAS ──
         const memFotos = [
             { año: "2021", titulo: "PRIMERA EDICION.", desc: "Los primeros 30 valientes que abrieron el camino.", src: "/static/img/salida_2021.jpeg" },
-            { año: "2021", titulo: "LA VERDADERA COMPETENCIA", desc: "Sin arcos ni sponsors, solo tierra y adrenalina.", src: "/static/video/2021.mp4", tipo: "video" },
+            { año: "2021", titulo: "LA VERDADERA COMPETENCIA", desc: "Sin arcos ni sponsors, solo tierra y adrenalina.", vimeoId: VIMEO.v2021, tipo: "video" },
             { año: "2022", titulo: "SEGUNDA EDICION.", desc: "Se sumó 'El Lavadero' — el punto donde todo se complica.", src: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=800&q=80" },
             { año: "2022", titulo: "PODIO 2022", desc: "Primer podio oficial con premiación en la playa.", src: "https://images.unsplash.com/photo-1571008887538-b36bb32f4571?auto=format&fit=crop&w=800&q=80" },
             { año: "2023", titulo: "TERCERA EDICION", desc: "Salida de los participantes. Hacia el horizonte de la Victoria.", src: "/static/img/tercera.jpeg" },
             { año: "2023", titulo: "CALENTAMIENTO", desc: "Un buen calentamiento para esta larga aventura.", src: "/static/img/calentamiento.jpeg" },
-            { año: "2024", titulo: "CUARTA EDICION.", desc: "Todo subiendo la loma las cabras, para lograr sus objetivo. Llegar a la meta. ", src: "/static/video/cuarta_1.mp4", tipo: "video" },
-            { año: "2024", titulo: "TIERRA, ASFALTO,MAR.", desc: "Que no te detenga ningun terreno, eres mucho mas que una piedra, asfalto.", src: "/static/video/2024_1.mp4", tipo: "video" },
-            { año: "2024", titulo: "PRIMER ATLETA DE LOS 10K .", desc: "Cada llegada tiene su propia historia de superación. Nestor, primer atleta de cruzar la linea de meta.", src: "/static/video/nestor_bravo.mp4", tipo: "video" },
-            { año: "2025", titulo: "QUINTA EDICION.", desc: "2025, seguiremos fortaleciendo esta historia, con el apoyo de todos, lograremos muchas mas, GRACIAS.", src: "/static/video/promo2025.mp4", tipo:"video" },
-            { año: "2025", titulo: "BAILOTERAPIA", desc: "Nada mejor que una Bailoterapia para ejercitar el cuerpo antes del reto.", src: "/static/video/2025.mp4", tipo: "video" },
-            { año: "2025", titulo: "LOMA LAS CABRAS", desc: "La recompensa al final del esfuerzo es la perseverancia.", src: "/static/video/bajada.mp4", tipo: "video" },
+            { año: "2024", titulo: "CUARTA EDICION.", desc: "Todo subiendo la loma las cabras, para lograr sus objetivo.", vimeoId: VIMEO.cuarta_1, tipo: "video" },
+            { año: "2024", titulo: "TIERRA, ASFALTO, MAR.", desc: "Que no te detenga ningun terreno, eres mucho mas que una piedra.", vimeoId: VIMEO.v2024_1, tipo: "video" },
+            { año: "2024", titulo: "PRIMER ATLETA 10K.", desc: "Nestor, primer atleta en cruzar la linea de meta.", vimeoId: VIMEO.nestor_bravo, tipo: "video" },
+            { año: "2025", titulo: "QUINTA EDICION.", desc: "2025, seguiremos fortaleciendo esta historia. GRACIAS.", vimeoId: VIMEO.promo2025, tipo: "video" },
+            { año: "2025", titulo: "BAILOTERAPIA", desc: "Nada mejor que una Bailoterapia para ejercitar el cuerpo antes del reto.", vimeoId: VIMEO.v2025, tipo: "video" },
+            { año: "2025", titulo: "LOMA LAS CABRAS", desc: "La recompensa al final del esfuerzo es la perseverancia.", vimeoId: VIMEO.bajada, tipo: "video" },
         ];
 
         let memActual = 0;
@@ -1831,10 +1960,12 @@
             cont.innerHTML = '';
             memFotos.forEach((f, i) => {
                 const div = document.createElement("div");
-                div.style.cssText = `flex-shrink:0;width:72px;height:52px;border-radius:6px;overflow:hidden;cursor:pointer;border:2px solid ${i === memActual ? '#ccff00' : 'transparent'};transition:border-color 0.2s;position:relative;`;
-                div.innerHTML = f.tipo === 'video'
-                    ? `<video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;pointer-events:none;"><source src="${f.src}" type="video/mp4"></video><div style="position:absolute;bottom:2px;left:3px;background:rgba(0,0,0,0.7);color:#ccff00;font-family:'Teko';font-size:0.6rem;padding:1px 4px;border-radius:3px;">${f.año}</div>`
-                    : `<img src="${f.src}" loading="lazy" style="width:100%;height:100%;object-fit:cover;"><div style="position:absolute;bottom:2px;left:3px;background:rgba(0,0,0,0.7);color:#ccff00;font-family:'Teko';font-size:0.6rem;padding:1px 4px;border-radius:3px;">${f.año}</div>`;
+                div.style.cssText = `flex-shrink:0;width:72px;height:52px;border-radius:6px;overflow:hidden;cursor:pointer;border:2px solid ${i === memActual ? '#ccff00' : 'transparent'};transition:border-color 0.2s;position:relative;background:#000;`;
+                if (f.tipo === 'video') {
+                    div.innerHTML = `<iframe src="${vimeoEmbed(f.vimeoId)}" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:180%;height:100%;border:none;pointer-events:none;" loading="lazy"></iframe><div style="position:absolute;bottom:2px;left:3px;background:rgba(0,0,0,0.7);color:#ccff00;font-family:'Teko';font-size:0.6rem;padding:1px 4px;border-radius:3px;">${f.año}</div>`;
+                } else {
+                    div.innerHTML = `<img src="${f.src}" loading="lazy" style="width:100%;height:100%;object-fit:cover;"><div style="position:absolute;bottom:2px;left:3px;background:rgba(0,0,0,0.7);color:#ccff00;font-family:'Teko';font-size:0.6rem;padding:1px 4px;border-radius:3px;">${f.año}</div>`;
+                }
                 div.onclick = () => irAMem(i);
                 cont.appendChild(div);
             });
@@ -1850,18 +1981,19 @@
 
             let media;
             if (f.tipo === "video") {
-                media = document.createElement("video");
-                media.autoplay = true; media.muted = true; media.loop = true; media.playsInline = true;
-                media.style.cssText = "width:100%;height:100%;object-fit:cover;transition:opacity 0.3s;opacity:0;";
-                media.innerHTML = `<source src="${f.src}" type="video/mp4">`;
+                // Mostrar thumbnail de Vimeo con iframe de fondo
+                media = document.createElement("div");
+                media.id = "mem-main-img";
+                media.style.cssText = "position:absolute;inset:0;background:#000;";
+                media.innerHTML = `<iframe src="${vimeoEmbed(f.vimeoId, { autoplay: 1, loop: 1, muted: 1, controls: 0, background: 1 })}" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:177.78%;height:100%;border:none;pointer-events:none;" allow="autoplay" loading="lazy"></iframe>`;
             } else {
                 media = document.createElement("img");
                 media.loading = "lazy";
-                media.style.cssText = "width:100%;height:100%;object-fit:cover;transition:opacity 0.3s,transform 0.5s;opacity:0;";
+                media.style.cssText = "width:100%;height:100%;object-fit:cover;";
+                media.src = f.src;
+                media.id = "mem-main-img";
             }
-            media.id = "mem-main-img";
             contenedor.insertBefore(media, contenedor.firstChild);
-            setTimeout(() => { if (f.tipo === "video") { media.load(); } else { media.src = f.src; } media.style.opacity = 1; }, 50);
 
             document.getElementById("mem-main-title").innerText = f.titulo;
             document.getElementById("mem-main-desc").innerText = f.desc;
@@ -1881,55 +2013,31 @@
             el.addEventListener('touchend', e => { const diff = startX - e.changedTouches[0].clientX; if (Math.abs(diff) > 40) moverMem(diff > 0 ? 1 : -1); }, { passive: true });
         })();
 
-        function openModal(el) {
-            const modal = document.getElementById("myModal");
-            const img = document.getElementById("img01");
-            const vid = document.getElementById("modal-video");
-            if (vid) { vid.pause(); vid.src = ""; vid.style.display = "none"; }
-            img.src = el.src;
-            img.style.display = "block";
-            document.getElementById("caption-zoom").innerHTML = el.alt;
-            modal.classList.add("open");
-        }
-
-        function openModalVideo(src, caption) {
-            const modal = document.getElementById("myModal");
-            const img = document.getElementById("img01");
-            img.style.display = "none";
-            let vid = document.getElementById("modal-video");
-            if (!vid) {
-                vid = document.createElement("video");
-                vid.id = "modal-video";
-                vid.controls = true;
-                vid.autoplay = true;
-                vid.className = "lightbox-content";
-                vid.style.cssText = "max-width:95vw;max-height:80vh;";
-                modal.insertBefore(vid, document.getElementById("caption-zoom"));
-            }
-            vid.style.display = "block";
-            vid.src = src;
-            vid.load();
-            vid.play().catch(() => { });
-            document.getElementById("caption-zoom").innerHTML = caption;
-            modal.classList.add("open");
-        }
-
         function openMemModal() {
             const f = memFotos[memActual];
             if (f.tipo === "video") {
-                openModalVideo(f.src, `${f.año} — ${f.titulo}`);
+                abrirVimeo(f.vimeoId, `${f.año} — ${f.titulo}`);
             } else {
                 openModal({ src: f.src, alt: `${f.año} — ${f.titulo}` });
             }
         }
 
-        function closeModal() {
-            document.getElementById("myModal").classList.remove("open");
-            const vid = document.getElementById("modal-video");
-            if (vid) { vid.pause(); vid.src = ""; }
+        // ── LIGHTBOX IMAGEN ──
+        function openModal(el) {
+            const modal = document.getElementById("myModal");
+            document.getElementById("img01").src = el.src;
+            document.getElementById("img01").style.display = "block";
+            document.getElementById("caption-zoom").innerHTML = el.alt;
+            modal.classList.add("open");
         }
 
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); cerrar3D(); } });
+        function closeModal() {
+            document.getElementById("myModal").classList.remove("open");
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') { closeModal(); cerrarVimeo(); cerrar3D(); }
+        });
 
         (function initSwipeLightbox() {
             let startY = 0;
@@ -1938,18 +2046,16 @@
             lb.addEventListener('touchend', e => { if (e.changedTouches[0].clientY - startY > 60) closeModal(); }, { passive: true });
         })();
 
+        // ── FORMULARIO ──
         function actualizarSubcategorias() {
             const dist = document.getElementById("distancia").value;
             const genero = document.getElementById("genero").value;
             const sub = document.getElementById("subcategoria");
-            sub.style.pointerEvents = "";
-            sub.style.opacity = "";
             if (!dist) return;
             if (dist === "7K") {
                 sub.innerHTML = '<option value="7K GENERAL" selected>7K GENERAL</option>';
                 sub.disabled = false;
-                sub.style.pointerEvents = "none";
-                sub.style.opacity = "0.6";
+                sub.style.pointerEvents = "none"; sub.style.opacity = "0.6";
                 document.getElementById("ig-genero").style.display = "none";
                 return;
             }
@@ -1958,7 +2064,7 @@
             const prefijo = genero === "M" ? "VARONIL" : "FEMENIL";
             const cats = ['JUVENIL (HASTA 19 AÑOS)', 'SENIOR (20-29 AÑOS)', 'MASTER A (30-39 AÑOS)', 'MASTER B (40-49 AÑOS)', 'MASTER C (50-59 AÑOS)', 'INVENCIBLE (60+ AÑOS)'];
             sub.innerHTML = '<option value="" disabled selected>Selecciona tu categoría</option>';
-            sub.disabled = false;
+            sub.disabled = false; sub.style.pointerEvents = ""; sub.style.opacity = "";
             cats.forEach(cat => {
                 const opt = document.createElement("option");
                 opt.value = `10K ${prefijo} - ${cat}`;
@@ -1982,58 +2088,26 @@
             if (err) err.style.display = valido ? 'none' : 'block';
         }
 
-        /* ══════════════ EDICIONES DATA + 3D ══════════════ */
-
+        // ── EDICIONES 3D ──
         const edicionesData = [
-            {
-                año: "2021", nombre: "1ª EDICIÓN", desc: "La que empezó todo · 30 valientes",
-                color: "#e74c3c", colorB: "#c0392b",
-                img: "/static/img/camisa_2021.jpeg"        // ← reemplazar con foto real
-            },
-            {
-                año: "2022", nombre: "2ª EDICIÓN", desc: "El Lavadero hace su debut · 80 corredores",
-                color: "#8e44ad", colorB: "#6c3483",
-                img: "/static/img/camisa_2022.jpeg"        // ← reemplazar con foto real
-            },
-            {
-                año: "2023", nombre: "3ª EDICIÓN", desc: "La Tormenta legendaria · 120 atletas",
-                color: "#2980b9", colorB: "#1a5276",
-                img: "/static/img/camisa_2023.jpeg"        // ← reemplazar con foto real
-            },
-            {
-                año: "2024", nombre: "4ª EDICIÓN", desc: "El año del récord · Juan M. 3h 15m",
-                color: "#d35400", colorB: "#a04000",
-                img: "/static/img/camisa_2024.jpeg"        // ← reemplazar con foto real
-            },
-            {
-                año: "2025", nombre: "5ª EDICIÓN", desc: "La Víbora · 200 finishers",
-                color: "#27ae60", colorB: "#1e8449",
-                img: "/static/img/Camisa sin mangas.jpeg",
-                imgB: "/static/img/Con mangas.jpeg"
-            },
+            { año: "2021", nombre: "1ª EDICIÓN", desc: "La que empezó todo · 30 valientes", color: "#e74c3c", colorB: "#c0392b", img: "/static/img/camisa_2021.jpeg" },
+            { año: "2022", nombre: "2ª EDICIÓN", desc: "El Lavadero hace su debut · 80 corredores", color: "#8e44ad", colorB: "#6c3483", img: "/static/img/camisa_2022.jpeg" },
+            { año: "2023", nombre: "3ª EDICIÓN", desc: "La Tormenta legendaria · 120 atletas", color: "#2980b9", colorB: "#1a5276", img: "/static/img/camisa_2023.jpeg" },
+            { año: "2024", nombre: "4ª EDICIÓN", desc: "El año del récord · Juan M. 3h 15m", color: "#d35400", colorB: "#a04000", img: "/static/img/camisa_2024.jpeg" },
+            { año: "2025", nombre: "5ª EDICIÓN", desc: "La Víbora · 200 finishers", color: "#27ae60", colorB: "#1e8449", img: "/static/img/Camisa sin mangas.jpeg" },
         ];
 
         function generarThumbCanvas(ed) {
-            const c = document.createElement("canvas");
-            c.width = 300; c.height = 200;
+            const c = document.createElement("canvas"); c.width = 300; c.height = 200;
             const ctx = c.getContext("2d");
             const grad = ctx.createLinearGradient(0, 0, 300, 200);
-            grad.addColorStop(0, ed.color);
-            grad.addColorStop(1, ed.colorB);
-            ctx.fillStyle = grad;
-            ctx.fillRect(0, 0, 300, 200);
-            ctx.fillStyle = "rgba(0,0,0,0.25)";
-            ctx.fillRect(0, 0, 300, 200);
-            ctx.fillStyle = "white";
-            ctx.font = "bold 48px 'Teko', sans-serif";
-            ctx.textAlign = "center";
-            ctx.fillText("TRAIL " + ed.año, 150, 90);
-            ctx.font = "22px 'Roboto', sans-serif";
-            ctx.fillStyle = "rgba(255,255,255,0.7)";
-            ctx.fillText(ed.nombre, 150, 125);
-            ctx.fillStyle = "#ccff00";
-            ctx.font = "bold 28px 'Teko', sans-serif";
-            ctx.fillText("VER EN 3D ↗", 150, 170);
+            grad.addColorStop(0, ed.color); grad.addColorStop(1, ed.colorB);
+            ctx.fillStyle = grad; ctx.fillRect(0, 0, 300, 200);
+            ctx.fillStyle = "rgba(0,0,0,0.25)"; ctx.fillRect(0, 0, 300, 200);
+            ctx.fillStyle = "white"; ctx.font = "bold 48px 'Teko',sans-serif"; ctx.textAlign = "center";
+            ctx.fillText("TRAIL " + ed.año, 150, 90); ctx.font = "22px 'Roboto',sans-serif";
+            ctx.fillStyle = "rgba(255,255,255,0.7)"; ctx.fillText(ed.nombre, 150, 125);
+            ctx.fillStyle = "#ccff00"; ctx.font = "bold 28px 'Teko',sans-serif"; ctx.fillText("VER EN 3D ↗", 150, 170);
             return c.toDataURL();
         }
 
@@ -2044,43 +2118,30 @@
                 const card = document.createElement("div");
                 card.className = "edicion-card";
                 card.onclick = () => abrir3D(i);
-
                 const thumbSrc = ed.img || generarThumbCanvas(ed);
-
                 card.innerHTML = `
-                    <div style="overflow:hidden;height:160px;position:relative;">
-                        <img class="edicion-thumb" src="${thumbSrc}" alt="${ed.nombre}" loading="lazy">
-                        <div class="edicion-badge">${ed.año}</div>
-                    </div>
-                    <div class="edicion-info">
-                        <h3>${ed.nombre}</h3>
-                        <p>${ed.desc}</p>
-                        <div class="edicion-3d-hint">⬡ VER EN 3D</div>
-                    </div>
-                `;
+            <div style="overflow:hidden;height:160px;position:relative;">
+                <img class="edicion-thumb" src="${thumbSrc}" alt="${ed.nombre}" loading="lazy">
+                <div class="edicion-badge">${ed.año}</div>
+            </div>
+            <div class="edicion-info">
+                <h3>${ed.nombre}</h3><p>${ed.desc}</p>
+                <div class="edicion-3d-hint">⬡ VER EN 3D</div>
+            </div>`;
                 grid.appendChild(card);
             });
         }
 
-        /* ── THREE.JS 3D VIEWER ── */
         let three = null;
 
         function abrir3D(idx) {
             const ed = edicionesData[idx];
             document.getElementById("modal3d-title").innerText = ed.año + " — " + ed.nombre;
             document.getElementById("modal3d-sub").innerText = ed.desc;
-
-            // Mostrar u ocultar foto según si existe
             const fotoWrap = document.getElementById("modal3d-foto-wrap");
             const fotoImg = document.getElementById("modal3d-foto");
-            if (ed.img) {
-                fotoImg.src = ed.img;
-                fotoWrap.classList.remove("sin-foto");
-            } else {
-                fotoImg.src = "";
-                fotoWrap.classList.add("sin-foto");
-            }
-
+            if (ed.img) { fotoImg.src = ed.img; fotoWrap.classList.remove("sin-foto"); }
+            else { fotoImg.src = ""; fotoWrap.classList.add("sin-foto"); }
             document.getElementById("modal3d-overlay").classList.add("open");
             document.body.style.overflow = "hidden";
             iniciar3D(ed);
@@ -2089,152 +2150,79 @@
         function cerrar3D() {
             document.getElementById("modal3d-overlay").classList.remove("open");
             document.body.style.overflow = "";
-            if (three) {
-                cancelAnimationFrame(three.rafId);
-                three.renderer.dispose();
-                three = null;
-            }
+            if (three) { cancelAnimationFrame(three.rafId); three.renderer.dispose(); three = null; }
         }
 
         function iniciar3D(ed) {
-            if (three) {
-                cancelAnimationFrame(three.rafId);
-                three.renderer.dispose();
-                three = null;
-            }
-
+            if (three) { cancelAnimationFrame(three.rafId); three.renderer.dispose(); three = null; }
             const canvas = document.getElementById("canvas3d");
-            const W = canvas.clientWidth || 480;
-            const H = canvas.clientHeight || 480;
-
+            const W = canvas.clientWidth || 480, H = canvas.clientHeight || 480;
             const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-            renderer.setSize(W, H);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            renderer.setClearColor(0x000000, 0);
-            renderer.outputEncoding = THREE.sRGBEncoding;
+            renderer.setSize(W, H); renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setClearColor(0x000000, 0); renderer.outputEncoding = THREE.sRGBEncoding;
             renderer.shadowMap.enabled = true;
-
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 100);
             camera.position.set(0, 0.5, 3.5);
-
             scene.add(new THREE.AmbientLight(0xffffff, 0.7));
-            const dLight = new THREE.DirectionalLight(0xffffff, 1.0);
-            dLight.position.set(3, 5, 5);
-            dLight.castShadow = true;
-            scene.add(dLight);
-            const dLight2 = new THREE.DirectionalLight(0xccff00, 0.25);
-            dLight2.position.set(-3, -2, 3);
-            scene.add(dLight2);
-            const dLight3 = new THREE.DirectionalLight(0xffffff, 0.4);
-            dLight3.position.set(0, -3, 2);
-            scene.add(dLight3);
-
+            const dLight = new THREE.DirectionalLight(0xffffff, 1.0); dLight.position.set(3, 5, 5); dLight.castShadow = true; scene.add(dLight);
+            scene.add(Object.assign(new THREE.DirectionalLight(0xccff00, 0.25), { position: new THREE.Vector3(-3, -2, 3) }));
+            scene.add(Object.assign(new THREE.DirectionalLight(0xffffff, 0.4), { position: new THREE.Vector3(0, -3, 2) }));
             let model = null;
-
-            function buildColorTexture() {
-                const c = document.createElement("canvas");
-                c.width = 512; c.height = 512;
-                const ctx = c.getContext("2d");
-                const g = ctx.createLinearGradient(0, 0, 512, 512);
-                g.addColorStop(0, ed.color);
-                g.addColorStop(1, ed.colorB);
-                ctx.fillStyle = g;
-                ctx.fillRect(0, 0, 512, 512);
-                ctx.fillStyle = "rgba(0,0,0,0.15)";
-                ctx.fillRect(0, 0, 512, 512);
-                ctx.fillStyle = "white";
-                ctx.font = "bold 72px sans-serif";
-                ctx.textAlign = "center";
-                ctx.fillText("TRAIL", 256, 190);
-                ctx.fillText(ed.año, 256, 275);
-                ctx.fillStyle = "#ccff00";
-                ctx.font = "bold 38px sans-serif";
-                ctx.fillText(ed.nombre, 256, 350);
-                return new THREE.CanvasTexture(c);
-            }
-
-            function applyTextureToModel(gltf, texture) {
-                model = gltf.scene;
-
-                // Centrar y escalar el modelo automáticamente
-                const box = new THREE.Box3().setFromObject(model);
-                const center = box.getCenter(new THREE.Vector3());
-                const size = box.getSize(new THREE.Vector3());
-                const maxDim = Math.max(size.x, size.y, size.z);
-                const scale = 2.2 / maxDim;
-                model.scale.setScalar(scale);
-                model.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
-                model.rotation.y = Math.PI;
-
-                // Usar textura original del GLB
-                model.traverse(child => {
-                    if (child.isMesh) {
-                        child.castShadow = true;
-                        child.receiveShadow = true;
-                    }
-                });
-
-                scene.add(model);
-            }
-
             const gltfLoader = new THREE.GLTFLoader();
-
-            function cargarModelo() {
-                gltfLoader.load(
-                    '/static/3d/t-shirt.glb',
-                    gltf => applyTextureToModel(gltf, null),
-                    undefined,
-                    err => {
-                        console.warn('GLB no encontrado:', err);
-                        const geo = new THREE.PlaneGeometry(1.6, 2, 20, 20);
-                        const mat = new THREE.MeshStandardMaterial({ map: buildColorTexture(), side: THREE.DoubleSide, roughness: 0.8 });
-                        model = new THREE.Mesh(geo, mat);
-                        scene.add(model);
-                    }
-                );
-            }
-
-            cargarModelo();
-
-            let isDragging = false;
-            let prevX = 0, prevY = 0;
-            let rotY = Math.PI, rotX = 0;
-
+            gltfLoader.load('/static/3d/t-shirt.glb',
+                gltf => {
+                    model = gltf.scene;
+                    const box = new THREE.Box3().setFromObject(model);
+                    const center = box.getCenter(new THREE.Vector3());
+                    const size = box.getSize(new THREE.Vector3());
+                    const scale = 2.2 / Math.max(size.x, size.y, size.z);
+                    model.scale.setScalar(scale);
+                    model.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
+                    model.rotation.y = Math.PI;
+                    model.traverse(c => { if (c.isMesh) { c.castShadow = true; c.receiveShadow = true; } });
+                    scene.add(model);
+                },
+                undefined,
+                () => {
+                    const c2 = document.createElement("canvas"); c2.width = 512; c2.height = 512;
+                    const ctx = c2.getContext("2d");
+                    const g = ctx.createLinearGradient(0, 0, 512, 512);
+                    g.addColorStop(0, ed.color); g.addColorStop(1, ed.colorB);
+                    ctx.fillStyle = g; ctx.fillRect(0, 0, 512, 512);
+                    ctx.fillStyle = "white"; ctx.font = "bold 72px sans-serif"; ctx.textAlign = "center";
+                    ctx.fillText("TRAIL", 256, 190); ctx.fillText(ed.año, 256, 275);
+                    ctx.fillStyle = "#ccff00"; ctx.font = "bold 38px sans-serif"; ctx.fillText(ed.nombre, 256, 350);
+                    const mat = new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(c2), side: THREE.DoubleSide, roughness: 0.8 });
+                    model = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 2, 20, 20), mat);
+                    scene.add(model);
+                }
+            );
+            let isDragging = false, prevX = 0, prevY = 0, rotY = Math.PI, rotX = 0;
             canvas.addEventListener("mousedown", e => { isDragging = true; prevX = e.clientX; prevY = e.clientY; });
-            canvas.addEventListener("mousemove", e => {
-                if (!isDragging || !model) return;
-                rotY += (e.clientX - prevX) * 0.012;
-                rotX += (e.clientY - prevY) * 0.008;
-                prevX = e.clientX; prevY = e.clientY;
-            });
-            canvas.addEventListener("mouseup", () => { isDragging = false; });
-            canvas.addEventListener("mouseleave", () => { isDragging = false; });
-
+            canvas.addEventListener("mousemove", e => { if (!isDragging || !model) return; rotY += (e.clientX - prevX) * 0.012; rotX += (e.clientY - prevY) * 0.008; prevX = e.clientX; prevY = e.clientY; });
+            canvas.addEventListener("mouseup", () => isDragging = false);
+            canvas.addEventListener("mouseleave", () => isDragging = false);
             canvas.addEventListener("touchstart", e => { isDragging = true; prevX = e.touches[0].clientX; prevY = e.touches[0].clientY; }, { passive: true });
-            canvas.addEventListener("touchmove", e => {
-                if (!isDragging || !model) return;
-                rotY += (e.touches[0].clientX - prevX) * 0.012;
-                rotX += (e.touches[0].clientY - prevY) * 0.008;
-                prevX = e.touches[0].clientX; prevY = e.touches[0].clientY;
-                e.preventDefault();
-            }, { passive: false });
-            canvas.addEventListener("touchend", () => { isDragging = false; });
-
+            canvas.addEventListener("touchmove", e => { if (!isDragging || !model) return; rotY += (e.touches[0].clientX - prevX) * 0.012; rotX += (e.touches[0].clientY - prevY) * 0.008; prevX = e.touches[0].clientX; prevY = e.touches[0].clientY; e.preventDefault(); }, { passive: false });
+            canvas.addEventListener("touchend", () => isDragging = false);
             three = { renderer, rafId: null };
-
             function animate() {
                 three.rafId = requestAnimationFrame(animate);
-                if (model) {
-                    if (!isDragging) rotY += 0.005;
-                    model.rotation.y = rotY;
-                    model.rotation.x = Math.max(-0.5, Math.min(0.5, rotX));
-                }
+                if (model) { if (!isDragging) rotY += 0.005; model.rotation.y = rotY; model.rotation.x = Math.max(-0.5, Math.min(0.5, rotX)); }
                 renderer.render(scene, camera);
             }
             animate();
         }
 
+        // ── ADMIN ──
+        function seguridadAdmin() {
+            const clave = prompt("🔐 ACCESO RESTRINGIDO\nIngresa la llave maestra:");
+            if (clave === "trail2026") window.location.href = "{{ url_for('admin_login') }}";
+            else if (clave !== null) alert("❌ Acceso Denegado");
+        }
+
+        // ── INIT ──
         document.addEventListener("DOMContentLoaded", () => {
             ['nombre', 'cedula', 'email', 'telefono'].forEach(id => {
                 const el = document.getElementById(id);
@@ -2263,7 +2251,6 @@
             updateCounter(1);
             buildEdicionesGrid();
 
-
             const cnt = document.getElementById("mem-counter");
             if (cnt) cnt.innerText = `1 / ${memFotos.length}`;
             renderMemThumbs();
@@ -2276,20 +2263,12 @@
             }
 
             let autoMem = setInterval(() => moverMem(1), 3500);
-            const mainMem = document.getElementById("mem-main");
-            const thumbsMem = document.getElementById("mem-thumbs");
-            [mainMem, thumbsMem].forEach(el => {
+            [document.getElementById("mem-main"), document.getElementById("mem-thumbs")].forEach(el => {
                 if (!el) return;
                 el.addEventListener('mouseenter', () => clearInterval(autoMem));
                 el.addEventListener('mouseleave', () => { autoMem = setInterval(() => moverMem(1), 3500); });
             });
         });
-
-        function seguridadAdmin() {
-            const clave = prompt("🔐 ACCESO RESTRINGIDO\nIngresa la llave maestra:");
-            if (clave === "trail2026") window.location.href = "{{ url_for('admin_login') }}";
-            else if (clave !== null) alert("❌ Acceso Denegado");
-        }
 
         window.onload = function () {
             const ced = localStorage.getItem("pago_pendiente_cedula");
@@ -2301,8 +2280,8 @@
                 document.getElementById("custom-alert").onclick = function (e) { if (e.target === this) this.style.display = "none"; };
             }
         };
-    </script>
 
+    </script>
 </body>
 
 </html>
