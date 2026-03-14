@@ -83,7 +83,7 @@ def agregar_headers_seguridad(response):
     "script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com; "
     "style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com; "
     "font-src fonts.gstatic.com cdnjs.cloudflare.com; "
-    "img-src 'self' data: blob: images.unsplash.com upload.wikimedia.org i.vimeocdn.com; "
+    "img-src 'self' data: blob: images.unsplash.com upload.wikimedia.org i.vimeocdn.com vumbnail.com; "
     "media-src 'self'; "
     "frame-src 'self' https://player.vimeo.com; "
     "connect-src 'self' cdnjs.cloudflare.com blob: https://player.vimeo.com; "
