@@ -1,0 +1,17 @@
+# Secretos — NUNCA al repositorio
+.env
+
+# Datos sensibles
+data/
+certificates/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+
+# Editor
+.vscode/
+*.suo

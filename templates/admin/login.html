@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Acceso Restringido</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        .login-card {
+            max-width: 400px;
+            width: 100%;
+            padding: clamp(24px, 8vw, 40px);
+            text-align: center;
+        }
+
+        .login-icon {
+            font-size: clamp(2.2rem, 10vw, 3rem);
+            margin-bottom: 10px;
+        }
+
+        .login-title {
+            font-size: clamp(1.8rem, 8vw, 2.5rem) !important;
+            margin-bottom: 5px;
+        }
+
+        .login-sub {
+            color: #94a3b8;
+            margin-bottom: 24px;
+            font-size: clamp(0.8rem, 3vw, 0.9rem);
+        }
+
+        .login-input {
+            background: rgba(0, 0, 0, 0.4) !important;
+            text-align: center !important;
+            font-size: clamp(1rem, 4vw, 1.1rem) !important;
+            min-height: 52px !important;
+        }
+
+        .btn-entrar {
+            margin-top: 20px;
+            width: 100%;
+            min-height: 52px;
+            font-size: clamp(1.1rem, 4vw, 1.3rem) !important;
+        }
+
+        .link-volver {
+            display: block;
+            margin-top: 20px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: clamp(0.78rem, 3vw, 0.9rem);
+            transition: color 0.2s;
+        }
+
+        .link-volver:hover {
+            color: #ccff00;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-overlay"></div>
+
+    <div class="main-layout" style="justify-content: center; align-items: center; min-height: 100vh; padding: 20px;">
+
+        <div class="glass-container login-card">
+
+            <div class="login-icon">🔒</div>
+
+            <h1 class="big-title login-title">ACCESO STAFF</h1>
+            <p class="login-sub">Área exclusiva para organizadores.</p>
+
+            <form action="/admin" method="POST" class="neon-form">
+
+                <div class="input-group">
+                    <label style="text-align: left;">USUARIO</label>
+                    <input type="text" name="username" required autofocus class="login-input" autocomplete="username"
+                        inputmode="text">
+                </div>
+
+                <div class="input-group">
+                    <label style="text-align: left;">CONTRASEÑA</label>
+                    <input type="password" name="password" required class="login-input" autocomplete="current-password">
+                </div>
+
+                <button type="submit" class="cta-neon btn-entrar">
+                    ENTRAR AL PANEL
+                </button>
+
+            </form>
+
+            {% if error %}
+            <div style="margin-top: 16px; color: #ff4d4d; background: rgba(255,77,77,0.1); 
+                         border: 1px solid #ff4d4d; border-radius: 6px; padding: 10px 16px; font-size: 0.9rem;">
+                ⚠️ {{ error }}
+            </div>
+            {% endif %}
+            
+            <a href="/" class="link-volver">← Volver al sitio público</a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

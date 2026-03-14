@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Finalizar Pago</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        .payment-card {
+            max-width: 500px;
+            width: 100%;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .payment-header {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .payment-header .label {
+            color: #94a3b8;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        .payment-header .monto {
+            font-family: 'Teko';
+            font-size: clamp(3rem, 10vw, 4rem);
+            line-height: 1;
+            color: white;
+        }
+
+        .payment-header .orden {
+            color: #ccff00;
+            font-size: 1rem;
+            margin-top: 4px;
+        }
+
+        .payment-body {
+            padding: 24px 20px;
+        }
+
+        .bienvenida-msg {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .banco-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 18px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .banco-card h3 {
+            color: #ccff00;
+            font-size: 1rem;
+            margin: 0 0 14px 0;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 8px;
+            font-family: 'Teko';
+            letter-spacing: 1px;
+        }
+
+        .banco-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            font-size: 0.88rem;
+        }
+
+        .banco-grid .label-col {
+            color: #94a3b8;
+        }
+
+        .banco-grid .value-col {
+            text-align: right;
+            font-weight: bold;
+            color: white;
+        }
+
+        .banco-grid .value-col.mono {
+            font-family: monospace;
+            font-size: 1rem;
+            color: #ccff00;
+        }
+
+        .upload-section {
+            margin-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+
+        .upload-section h3 {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .file-label {
+            display: block;
+            padding: 18px;
+            border: 2px dashed #334155;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .file-label:hover,
+        .file-label.selected {
+            border-color: #ccff00;
+            color: #ccff00;
+            background: rgba(204, 255, 0, 0.05);
+        }
+
+        .file-name {
+            margin-top: 8px;
+            color: #ccff00;
+            font-size: 0.85rem;
+            text-align: center;
+            min-height: 20px;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            margin-top: 16px;
+            padding: 16px;
+            background: #ccff00;
+            color: black;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Teko';
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-submit:hover {
+            filter: brightness(1.1);
+            transform: scale(1.01);
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+        }
+
+        .nota-final {
+            font-size: 0.78rem;
+            color: #64748b;
+            text-align: center;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-overlay"></div>
+
+    <div class="main-layout" style="justify-content: center; align-items: center; padding: 20px;">
+
+        <div class="glass-container payment-card">
+
+            <div class="payment-header">
+                <p class="label">TOTAL A PAGAR</p>
+                <div class="monto">$35.00</div>
+                <div class="orden">Orden #{{ cedula }}</div>
+            </div>
+
+            <div class="payment-body">
+                <p class="bienvenida-msg">
+                    Hola <strong>{{ nombre }}</strong>, para confirmar tu cupo, realiza el pago:
+                </p>
+
+                <div class="banco-card">
+                    <h3>🏛️ TRANSFERENCIA / DEPÓSITO</h3>
+                    <div class="banco-grid">
+                        <span class="label-col">Banco:</span>
+                        <span class="value-col">Pichincha</span>
+
+                        <span class="label-col">Cuenta:</span>
+                        <span class="value-col">Ahorros</span>
+
+                        <span class="label-col">Número:</span>
+                        <span class="value-col mono">2204567890</span>
+
+                        <span class="label-col">Titular:</span>
+                        <span class="value-col">Trail Events EC</span>
+
+                        <span class="label-col">CI/RUC:</span>
+                        <span class="value-col">1312345678</span>
+                    </div>
+                </div>
+
+                <div class="upload-section">
+                    <h3>SUBIR COMPROBANTE DE PAGO</h3>
+                    <form action="/payment/{{ cedula }}" method="POST" enctype="multipart/form-data"
+                        onsubmit="borrarAlerta()">
+                        <label for="file-upload" class="file-label" id="file-label-btn">
+                            📎 Toca para seleccionar imagen o PDF
+                        </label>
+                        <input id="file-upload" type="file" name="comprobante" accept="image/*,.pdf"
+                            style="display:none;" onchange="
+                                document.getElementById('file-name').innerText = this.files[0].name;
+                                document.getElementById('file-label-btn').classList.add('selected');
+                            ">
+                        <div id="file-name" class="file-name"></div>
+                        <button type="submit" class="btn-submit">
+                            ENVIAR COMPROBANTE
+                        </button>
+                    </form>
+                </div>
+
+                <p class="nota-final">
+                    Una vez verificado tu pago, recibirás tu certificado oficial en tu correo.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        localStorage.setItem("pago_pendiente_cedula", "{{ cedula }}");
+        function borrarAlerta() {
+            localStorage.removeItem("pago_pendiente_cedula");
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!-- ==========================================
+     payment_success.html  (EN REVISIÓN)
+     ========================================== -->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Comprobante Recibido</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        .page-card {
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            padding: 36px 24px;
+        }
+
+        .page-icon {
+            font-size: clamp(60px, 18vw, 80px);
+            margin-bottom: 12px;
+        }
+
+        .page-title {
+            font-size: clamp(2rem, 8vw, 2.5rem) !important;
+        }
+
+        .page-text {
+            font-size: clamp(0.85rem, 3vw, 1rem);
+        }
+
+        .btn-volver {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 14px 28px;
+            border: 1px solid white;
+            color: white;
+            text-decoration: none;
+            font-family: 'Teko';
+            font-size: 1.2rem;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .btn-volver:hover {
+            background: white;
+            color: #0b1120;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-overlay"></div>
+    <div class="main-layout" style="justify-content: center; align-items: center; min-height: 100vh; padding: 20px;">
+        <div class="glass-container page-card">
+            <div class="page-icon">⏳</div>
+            <h1 class="big-title page-title">EN REVISIÓN</h1>
+            <p class="hero-text page-text">
+                Hemos recibido tu comprobante, <strong>{{ nombre }}</strong>.
+            </p>
+            <p style="color: #94a3b8; font-size: clamp(0.8rem, 2.5vw, 0.95rem); line-height: 1.6;">
+                Nuestro equipo verificará el pago. Una vez aprobado, recibirás tu certificado oficial automáticamente en
+                tu correo electrónico.
+            </p>
+            <a href="/" class="btn-volver">VOLVER AL INICIO</a>
+        </div>
+    </div>
+</body>
+
+</html>

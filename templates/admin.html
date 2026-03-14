@@ -1,0 +1,13 @@
+
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Panel Administración</h2>
+<a href="/export">Exportar CSV</a> | <a href="/logout">Salir</a>
+<table border="1">
+{% for row in data %}
+<tr>{% for cell in row %}<td>{{cell}}</td>{% endfor %}</tr>
+{% endfor %}
+</table>
+</body>
+</html>

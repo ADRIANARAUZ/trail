@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificado Oficial - {{ corredor.nombre }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0f172a;
+            min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .btn-bar {
+            position: fixed;
+            top: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 5000;
+        }
+
+        .btn-accion {
+            padding: 10px 18px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Teko';
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-pdf {
+            background: #ccff00;
+            color: black;
+            box-shadow: 0 4px 15px rgba(204, 255, 0, 0.4);
+        }
+
+        .btn-img {
+            background: #00d2ff;
+            color: black;
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.4);
+        }
+
+        .btn-accion:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-accion:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .certificado-wrapper {
+            width: 100vw;
+            height: calc(100vh - 60px);
+            margin-top: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .certificado-box {
+            width: 1123px;
+            height: 794px;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transform-origin: center center;
+            flex-shrink: 0;
+            background: #0f172a;
+        }
+
+        .cert-fondo {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            z-index: 0;
+        }
+
+        .glass-panel {
+            position: relative;
+            z-index: 1;
+            background: rgba(15, 23, 42, 0.3);
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(204, 255, 0, 0.5);
+            border-radius: 20px;
+            padding: 40px 60px 110px 60px;
+            text-align: center;
+            width: 75%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .bienvenida {
+            font-size: 20px;
+            color: #cbd5e1;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .titulo-carrera {
+            font-family: 'Teko', sans-serif;
+            font-size: 35px;
+            color: white;
+            margin: 0 0 20px 0;
+            line-height: 1;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .nombre {
+            font-family: 'Teko', sans-serif;
+            font-size: 85px;
+            color: #ccff00;
+            line-height: 0.9;
+            margin: 20px 0;
+            text-shadow: 0 0 20px rgba(204, 255, 0, 0.4);
+            letter-spacing: 2px;
+            white-space: nowrap;
+            width: 100%;
+        }
+
+        .detalles {
+            font-size: 20px;
+            color: white;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            letter-spacing: 1px;
+        }
+
+        .motivacion {
+            font-size: 18px;
+            color: #94a3b8;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        .recordatorio-kit {
+            margin-top: 25px;
+            padding: 10px 20px;
+            background: rgba(204, 255, 0, 0.15);
+            border: 1px solid rgba(204, 255, 0, 0.4);
+            border-radius: 8px;
+            color: #ccff00;
+            font-size: 16px;
+            display: inline-block;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .qr-box {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            text-align: center;
+            background: rgba(10, 18, 40, 0.6);
+            padding: 8px;
+            border-radius: 10px;
+            border: 1.5px solid #ccff00;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            width: 110px;
+            z-index: 2;
+        }
+
+        .qr-label {
+            color: #ccff00;
+            font-family: 'Teko';
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        /* Overlay de carga */
+        #loading-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(7, 13, 26, 0.92);
+            z-index: 9999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        #loading-overlay.active {
+            display: flex;
+        }
+
+        .spinner {
+            width: 56px;
+            height: 56px;
+            border: 4px solid rgba(204, 255, 0, 0.2);
+            border-top-color: #ccff00;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #loading-texto {
+            font-family: 'Teko';
+            font-size: 1.6rem;
+            color: #ccff00;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        #loading-sub {
+            font-size: 0.8rem;
+            color: #475569;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Clon oculto para captura */
+        #cert-captura {
+            position: fixed;
+            left: -9999px;
+            top: 0;
+            width: 1123px;
+            height: 794px;
+            z-index: -1;
+            pointer-events: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: #0f172a;
+            flex-shrink: 0;
+        }
+
+        #cert-captura .glass-panel {
+            padding: 40px 60px 80px 60px;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border: none;
+            box-shadow: none;
+        }
+
+        #cert-captura .qr-box {
+            bottom: 8px;
+            right: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <div id="loading-texto">Generando...</div>
+        <div id="loading-sub">Esto puede tomar unos segundos</div>
+    </div>
+
+    <div class="btn-bar">
+        <button class="btn-accion btn-img" id="btn-imagen" onclick="descargarImagen()">🖼️ DESCARGAR IMAGEN</button>
+        <button class="btn-accion btn-pdf" id="btn-pdf" onclick="descargarPDF()">⬇️ DESCARGAR PDF</button>
+    </div>
+
+    <div class="certificado-wrapper">
+        <div class="certificado-box" id="certificado-box">
+            <img class="cert-fondo" src="{{ fondo_b64 }}" alt="">
+            <div class="glass-panel">
+                <p class="bienvenida">BIENVENIDO A LA CARRERA</p>
+                <h2 class="titulo-carrera">TRAIL RUNNING DEL BOSQUE AL MAR</h2>
+                <h1 class="nombre" id="nombre-atleta">{{ corredor.nombre }}</h1>
+                <div class="detalles">
+                    CATEGORÍA: <span style="color:#00d2ff;font-weight:bold;font-size:26px;">{{ corredor.categoria
+                        }}</span>
+                    &nbsp;&nbsp;|&nbsp;&nbsp;
+                    TALLA: <span style="color:#00d2ff;font-weight:bold;font-size:26px;">{{ corredor.talla }}</span>
+                </div>
+                <p class="motivacion">"Que cada paso te acerque a la cima. ¡Tú puedes!"</p>
+                <div class="recordatorio-kit">
+                    🗓️ <strong>ENTREGA DE KITS:</strong> 20 DE SEPTIEMBRE
+                </div>
+                <div class="qr-box">
+                    <div style="background:white;padding:5px;border-radius:5px;display:inline-block;">
+                        <div id="qrcode-visible"></div>
+                    </div>
+                    <div class="qr-label">VALIDAR KIT</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cert-captura">
+        <img class="cert-fondo" src="{{ fondo_b64 }}" alt="">
+        <div class="glass-panel">
+            <p class="bienvenida">BIENVENIDO A LA CARRERA</p>
+            <h2 class="titulo-carrera">TRAIL RUNNING DEL BOSQUE AL MAR</h2>
+            <h1 class="nombre" id="nombre-captura">{{ corredor.nombre }}</h1>
+            <div class="detalles">
+                CATEGORÍA: <span style="color:#00d2ff;font-weight:bold;font-size:26px;">{{ corredor.categoria }}</span>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                TALLA: <span style="color:#00d2ff;font-weight:bold;font-size:26px;">{{ corredor.talla }}</span>
+            </div>
+            <p class="motivacion">"Que cada paso te acerque a la cima. ¡Tú puedes!"</p>
+            <div class="recordatorio-kit">
+                🗓️ <strong>ENTREGA DE KITS:</strong> 20 DE SEPTIEMBRE
+            </div>
+            <div class="qr-box">
+                <div style="background:white;padding:5px;border-radius:5px;display:inline-block;">
+                    <div id="qrcode-captura"></div>
+                </div>
+                <div class="qr-label">VALIDAR KIT</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const CERT_W = 1123;
+        const CERT_H = 794;
+
+        function ajustarScale() {
+            const wrapper = document.querySelector('.certificado-wrapper');
+            const escala = Math.min((wrapper.clientWidth - 20) / CERT_W, (wrapper.clientHeight - 20) / CERT_H, 1);
+            document.getElementById('certificado-box').style.transform = `scale(${escala})`;
+        }
+        window.addEventListener('resize', ajustarScale);
+
+        function ajustarNombre(id) {
+            const el = document.getElementById(id);
+            let size = 85;
+            while (el.scrollWidth > el.offsetWidth && size > 20) {
+                size--;
+                el.style.fontSize = size + 'px';
+            }
+        }
+
+        function generarQR(containerId) {
+            new QRCode(document.getElementById(containerId), {
+                text: "{{ url_validacion }}",
+                width: 80, height: 80,
+                colorDark: "#000000", colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            setTimeout(function () {
+                const canvas = document.querySelector('#' + containerId + ' canvas');
+                if (canvas) {
+                    const img = document.createElement('img');
+                    img.src = canvas.toDataURL('image/png');
+                    img.width = img.height = 80;
+                    document.getElementById(containerId).innerHTML = '';
+                    document.getElementById(containerId).appendChild(img);
+                }
+            }, 300);
+        }
+
+        window.onload = function () {
+            ajustarScale();
+            ajustarNombre('nombre-atleta');
+            ajustarNombre('nombre-captura');
+            generarQR('qrcode-visible');
+            generarQR('qrcode-captura');
+        };
+
+        function mostrarLoading(texto) {
+            document.getElementById('loading-texto').textContent = texto;
+            document.getElementById('loading-overlay').classList.add('active');
+        }
+
+        function ocultarLoading() {
+            document.getElementById('loading-overlay').classList.remove('active');
+        }
+
+        function desbloquearBotones() {
+            document.getElementById('btn-imagen').disabled = false;
+            document.getElementById('btn-pdf').disabled = false;
+        }
+
+        const captureOpts = {
+            scale: 2,
+            useCORS: true,
+            allowTaint: false,
+            logging: false,
+            width: CERT_W,
+            height: CERT_H,
+            scrollX: 0,
+            scrollY: 0,
+            windowWidth: CERT_W,
+            windowHeight: CERT_H,
+            backgroundColor: null,
+            imageTimeout: 0,
+        };
+
+        function descargarImagen() {
+            document.getElementById('btn-imagen').disabled = true;
+            document.getElementById('btn-pdf').disabled = true;
+            mostrarLoading('⏳ GENERANDO IMAGEN...');
+            setTimeout(function () {
+                html2canvas(document.getElementById('cert-captura'), captureOpts)
+                    .then(function (canvas) {
+                        const a = document.createElement('a');
+                        a.href = canvas.toDataURL('image/png');
+                        a.download = 'Certificado_Trail_{{ corredor.nombre }}.png';
+                        a.click();
+                        ocultarLoading();
+                        desbloquearBotones();
+                    });
+            }, 300);
+        }
+
+        function descargarPDF() {
+            document.getElementById('btn-imagen').disabled = true;
+            document.getElementById('btn-pdf').disabled = true;
+            mostrarLoading('⏳ GENERANDO PDF...');
+            setTimeout(function () {
+                // Capturamos con scale:2 para buena calidad
+                html2canvas(document.getElementById('cert-captura'), captureOpts)
+                    .then(function (canvas) {
+                        const { jsPDF } = window.jspdf;
+                        // PDF con dimensiones EXACTAS del certificado en pt (1px = 0.75pt)
+                        const pdfW = CERT_W * 0.75;
+                        const pdfH = CERT_H * 0.75;
+                        const pdf = new jsPDF({
+                            orientation: 'landscape',
+                            unit: 'pt',
+                            format: [pdfW, pdfH],
+                            compress: true
+                        });
+                        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                        pdf.addImage(imgData, 'JPEG', 0, 0, pdfW, pdfH);
+                        pdf.save('Certificado_Trail_{{ corredor.nombre }}.pdf');
+                        ocultarLoading();
+                        desbloquearBotones();
+                    });
+            }, 300);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Validador Pro - Trail 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.min.js"></script>
+    <style>
+        :root {
+            --neon-green: #ccff00;
+            --neon-blue: #00d2ff;
+            --neon-red: #ff4757;
+            --bg-dark: #070d1a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-dark);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .validator-container {
+            width: 100%;
+            max-width: 450px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 25px;
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .color-success {
+            color: var(--neon-green) !important;
+        }
+
+        .color-pendiente {
+            color: orange !important;
+        }
+
+        .color-error {
+            color: var(--neon-red) !important;
+        }
+
+        .logistics-counter {
+            background: rgba(0, 210, 255, 0.1);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .logistics-counter label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: var(--neon-blue);
+            letter-spacing: 1.5px;
+        }
+
+        .logistics-counter .count {
+            font-family: 'Teko';
+            font-size: 2.2rem;
+            line-height: 1;
+            color: white;
+        }
+
+        .header-status {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .icon-box {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-family: 'Teko';
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .runner-box {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+            width: 100%;
+        }
+
+        .data-group {
+            margin-bottom: 15px;
+        }
+
+        .data-label {
+            color: #64748b;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .data-value {
+            display: block;
+            font-family: 'Teko';
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .talla-highlight {
+            color: var(--neon-green);
+            font-size: 2.2rem;
+        }
+
+        .btn-action {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 65px;
+            border-radius: 14px;
+            font-family: 'Teko';
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 12px;
+        }
+
+        .btn-confirm {
+            background: var(--neon-green);
+            color: black;
+        }
+
+        .btn-confirm:active {
+            transform: scale(0.96);
+            filter: brightness(0.8);
+        }
+
+        .already-delivered {
+            padding: 20px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #94a3b8;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: 1px dashed #334155;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* ── OVERLAY SCANNER ── */
+        #scanner-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 9999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #scanner-overlay.active {
+            display: flex;
+        }
+
+        #scanner-title {
+            font-family: 'Teko';
+            font-size: 1.8rem;
+            color: var(--neon-green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+            text-align: center;
+        }
+
+        #scanner-sub {
+            color: #64748b;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        #qr-video-wrap {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 30px rgba(204, 255, 0, 0.3);
+        }
+
+        #qr-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .scan-frame {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .scan-line {
+            position: absolute;
+            left: 5%;
+            right: 5%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+            animation: scanMove 1.5s linear infinite;
+            box-shadow: 0 0 8px var(--neon-green);
+        }
+
+        @keyframes scanMove {
+            0% {
+                top: 5%;
+            }
+
+            100% {
+                top: 90%;
+            }
+        }
+
+        .corner {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border-color: var(--neon-green);
+            border-style: solid;
+        }
+
+        .corner.tl {
+            top: 10px;
+            left: 10px;
+            border-width: 3px 0 0 3px;
+        }
+
+        .corner.tr {
+            top: 10px;
+            right: 10px;
+            border-width: 3px 3px 0 0;
+        }
+
+        .corner.bl {
+            bottom: 10px;
+            left: 10px;
+            border-width: 0 0 3px 3px;
+        }
+
+        .corner.br {
+            bottom: 10px;
+            right: 10px;
+            border-width: 0 3px 3px 0;
+        }
+
+        #qr-detected-box {
+            position: absolute;
+            inset: 0;
+            border: 4px solid var(--neon-green);
+            border-radius: 8px;
+            display: none;
+            box-shadow: 0 0 25px var(--neon-green);
+            background: rgba(204, 255, 0, 0.1);
+        }
+
+        #scanner-status {
+            margin-top: 16px;
+            font-family: 'Teko';
+            font-size: 1.1rem;
+            color: #475569;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-align: center;
+            min-height: 28px;
+        }
+
+        .scanner-controls {
+            display: flex;
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .btn-scanner-ctrl {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-family: 'Teko';
+            font-size: 1.1rem;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: 0.2s;
+        }
+
+        .btn-scanner-ctrl:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-scanner-ctrl.active-torch {
+            background: rgba(204, 255, 0, 0.2);
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        #btn-cerrar-scanner {
+            margin-top: 14px;
+            background: transparent;
+            border: 1px solid #334155;
+            color: #64748b;
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-family: 'Teko';
+            font-size: 1.2rem;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+
+        #btn-cerrar-scanner:hover {
+            border-color: var(--neon-red);
+            color: var(--neon-red);
+        }
+
+        #zoom-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 12px;
+            width: 300px;
+        }
+
+        #zoom-wrap label {
+            color: #64748b;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        #zoom-range {
+            flex: 1;
+            accent-color: var(--neon-green);
+            cursor: pointer;
+        }
+
+        #qr-canvas {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="validator-container {{ estado }}">
+        <div class="logistics-counter">
+            <label>Progreso de Entrega</label>
+            <div class="count">{{ entregados }} / {{ total_pagados }}</div>
+        </div>
+
+        <div class="header-status">
+            <div class="icon-box">
+                {% if estado == 'success' %} ✅ {% elif estado == 'pendiente' %} ⏳ {% else %} ❌ {% endif %}
+            </div>
+            <h1
+                class="{% if estado == 'success' %}color-success{% elif estado == 'pendiente' %}color-pendiente{% else %}color-error{% endif %}">
+                {% if estado == 'success' %} ¡PAGO LISTO!
+                {% elif estado == 'pendiente' %} PENDIENTE
+                {% else %} ERROR {% endif %}
+            </h1>
+        </div>
+
+        {% if corredor %}
+        <div class="runner-box">
+            <div class="data-group">
+                <span class="data-label">Atleta</span>
+                <span class="data-value">{{ corredor.nombre }}</span>
+            </div>
+            <div class="data-group">
+                <span class="data-label">Categoría</span>
+                <span class="data-value" style="color: var(--neon-blue);">{{ corredor.categoria }}</span>
+            </div>
+            <div class="data-group">
+                <span class="data-label">Entregar Talla</span>
+                <span class="data-value talla-highlight">{{ corredor.talla }}</span>
+            </div>
+        </div>
+
+        {% if estado == 'success' %}
+        {% if corredor.entrega != 'SI' %}
+        <form id="form-entrega" action="{{ url_for('confirmar_entrega', cedula=corredor.cedula) }}" method="POST"
+            style="width:100%;">
+            <button type="button" class="btn-action btn-confirm" onclick="confirmarYEscanear()">
+                📦 CONFIRMAR ENTREGA
+            </button>
+        </form>
+        {% else %}
+        <div class="already-delivered">⚠️ KIT YA ENTREGADO</div>
+        <button class="btn-action" onclick="abrirScanner()"
+            style="background:rgba(0,210,255,0.1);border:2px solid var(--neon-blue);color:var(--neon-blue);margin-top:12px;">
+            📷 ESCANEAR SIGUIENTE
+        </button>
+        {% endif %}
+        {% endif %}
+
+        {% else %}
+        <p style="margin:20px 0;color:#94a3b8;text-align:center;">{{ mensaje }}</p>
+        <button class="btn-action" onclick="abrirScanner()"
+            style="background:rgba(0,210,255,0.1);border:2px solid var(--neon-blue);color:var(--neon-blue);margin-top:12px;">
+            📷 ESCANEAR OTRO QR
+        </button>
+        {% endif %}
+
+        <hr style="border:0;border-top:1px solid rgba(255,255,255,0.1);margin:25px 0;width:100%;">
+
+        <div style="width:100%;display:flex;flex-direction:column;align-items:center;gap:10px;">
+            <p style="color:#64748b;font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;margin:0;">
+                ¿SIGUIENTE ATLETA SIN CÓDIGO?
+            </p>
+            <a href="{{ url_for('buscar_manual') }}" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:250px;
+                color:var(--neon-blue);text-decoration:none;font-family:'Teko';font-size:1.4rem;
+                border:2px solid var(--neon-blue);padding:12px;border-radius:14px;
+                background:rgba(0,210,255,0.05);transition:0.3s;">
+                🔍 BUSCAR POR CÉDULA
+            </a>
+        </div>
+    </div>
+
+    <!-- OVERLAY SCANNER -->
+    <div id="scanner-overlay">
+        <div id="scanner-title">📷 ESCANEAR QR</div>
+        <div id="scanner-sub">Apunta al certificado del atleta</div>
+
+        <div id="qr-video-wrap">
+            <video id="qr-video" playsinline autoplay muted></video>
+            <div class="scan-frame">
+                <div class="scan-line"></div>
+                <div class="corner tl"></div>
+                <div class="corner tr"></div>
+                <div class="corner bl"></div>
+                <div class="corner br"></div>
+            </div>
+            <div id="qr-detected-box"></div>
+        </div>
+
+        <div id="zoom-wrap">
+            <label>🔍 Zoom</label>
+            <input type="range" id="zoom-range" min="1" max="4" step="0.1" value="1" oninput="aplicarZoom(this.value)">
+            <span id="zoom-val" style="color:#ccff00;font-family:'Teko';font-size:1rem;min-width:28px;">1x</span>
+        </div>
+
+        <div class="scanner-controls">
+            <button class="btn-scanner-ctrl" id="btn-linterna" onclick="toggleLinterna()">🔦 LINTERNA</button>
+            <button class="btn-scanner-ctrl" onclick="toggleCamara()">🔄 CÁMARA</button>
+        </div>
+
+        <canvas id="qr-canvas"></canvas>
+        <div id="scanner-status">Buscando código QR...</div>
+        <button id="btn-cerrar-scanner" onclick="cerrarScanner()">✕ CANCELAR</button>
+    </div>
+
+    <script>
+        let stream = null;
+        let scanInterval = null;
+        let torchOn = false;
+        let camaraFrente = false;
+        let videoTrack = null;
+
+        function confirmarYEscanear() {
+            abrirScanner();
+            setTimeout(() => document.getElementById('form-entrega').submit(), 300);
+        }
+
+        async function abrirScanner() {
+            document.getElementById('scanner-overlay').classList.add('active');
+            document.getElementById('scanner-status').textContent = 'Iniciando cámara...';
+            document.getElementById('qr-detected-box').style.display = 'none';
+            await iniciarCamara();
+        }
+
+        async function iniciarCamara() {
+            if (stream) detenerCamara();
+
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({
+                    video: {
+                        facingMode: camaraFrente ? 'user' : 'environment',
+                        width: { ideal: 1920 },
+                        height: { ideal: 1080 },
+                    }
+                });
+
+                const video = document.getElementById('qr-video');
+                video.srcObject = stream;
+                await video.play();
+
+                videoTrack = stream.getVideoTracks()[0];
+
+                // Autoenfoque continuo
+                try {
+                    await videoTrack.applyConstraints({
+                        advanced: [{ focusMode: 'continuous' }]
+                    });
+                } catch (_) { }
+
+                document.getElementById('zoom-range').value = 1;
+                document.getElementById('zoom-val').textContent = '1x';
+
+                video.addEventListener('loadedmetadata', () => {
+                    document.getElementById('scanner-status').textContent = 'Buscando código QR...';
+                    iniciarEscaneo();
+                }, { once: true });
+
+            } catch (err) {
+                document.getElementById('scanner-status').textContent = '⚠ Sin acceso a cámara';
+                console.error(err);
+            }
+        }
+
+        function iniciarEscaneo() {
+            if (scanInterval) clearInterval(scanInterval);
+
+            const video = document.getElementById('qr-video');
+            const canvas = document.getElementById('qr-canvas');
+            const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+            scanInterval = setInterval(() => {
+                if (video.readyState !== video.HAVE_ENOUGH_DATA) return;
+
+                // ── Frame COMPLETO sin recortar ──
+                // jsQR necesita ver el QR con sus márgenes blancos
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                // Intento 1: imagen normal
+                let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                let code = jsQR(imageData.data, imageData.width, imageData.height, {
+                    inversionAttempts: 'attemptBoth'
+                });
+
+                // Intento 2: con contraste aumentado
+                if (!code) {
+                    aumentarContraste(ctx, canvas.width, canvas.height);
+                    imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    code = jsQR(imageData.data, imageData.width, imageData.height, {
+                        inversionAttempts: 'attemptBoth'
+                    });
+                }
+
+                if (code) {
+                    document.getElementById('scanner-status').textContent = '✅ QR detectado — redirigiendo...';
+                    document.getElementById('qr-detected-box').style.display = 'block';
+                    detenerCamara();
+                    setTimeout(() => { window.location.href = code.data; }, 500);
+                }
+            }, 100);
+        }
+
+        function aumentarContraste(ctx, w, h) {
+            const imageData = ctx.getImageData(0, 0, w, h);
+            const data = imageData.data;
+            const factor = 2.0;
+            const intercept = 128 * (1 - factor);
+            for (let i = 0; i < data.length; i += 4) {
+                data[i] = Math.min(255, Math.max(0, factor * data[i] + intercept));
+                data[i + 1] = Math.min(255, Math.max(0, factor * data[i + 1] + intercept));
+                data[i + 2] = Math.min(255, Math.max(0, factor * data[i + 2] + intercept));
+            }
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        async function toggleLinterna() {
+            if (!videoTrack) return;
+            torchOn = !torchOn;
+            try {
+                await videoTrack.applyConstraints({ advanced: [{ torch: torchOn }] });
+                const btn = document.getElementById('btn-linterna');
+                btn.classList.toggle('active-torch', torchOn);
+                btn.textContent = torchOn ? '🔦 APAGAR' : '🔦 LINTERNA';
+            } catch (_) {
+                torchOn = false;
+                alert('Linterna no disponible en este dispositivo.');
+            }
+        }
+
+        async function toggleCamara() {
+            camaraFrente = !camaraFrente;
+            torchOn = false;
+            document.getElementById('btn-linterna').classList.remove('active-torch');
+            document.getElementById('btn-linterna').textContent = '🔦 LINTERNA';
+            if (scanInterval) { clearInterval(scanInterval); scanInterval = null; }
+            await iniciarCamara();
+        }
+
+        async function aplicarZoom(val) {
+            document.getElementById('zoom-val').textContent = parseFloat(val).toFixed(1) + 'x';
+            if (!videoTrack) return;
+            try {
+                await videoTrack.applyConstraints({ advanced: [{ zoom: parseFloat(val) }] });
+            } catch (_) { }
+        }
+
+        function cerrarScanner() {
+            detenerCamara();
+            document.getElementById('scanner-overlay').classList.remove('active');
+        }
+
+        function detenerCamara() {
+            if (scanInterval) { clearInterval(scanInterval); scanInterval = null; }
+            if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+            videoTrack = null;
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('scan') === '1') {
+            window.addEventListener('load', () => setTimeout(abrirScanner, 700));
+        }
+    </script>
+
+</body>
+
+</html>
