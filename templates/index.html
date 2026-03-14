@@ -852,7 +852,6 @@
             text-align: center;
         }
 
-        /* Modal Vimeo fullscreen */
         #vimeo-modal {
             display: none;
             position: fixed;
@@ -862,7 +861,7 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            padding: 20px;
+            padding: 8px;
         }
 
         #vimeo-modal.open {
@@ -870,13 +869,21 @@
         }
 
         #vimeo-modal-frame {
-            width: min(900px, 95vw);
-            height: min(506px, 53.4vw);
-            max-height: 80vh;
+            width: 98vw;
+            height: 55vw;
+            max-width: 900px;
+            max-height: 75vh;
+            min-height: 200px;
             border: none;
             border-radius: 8px;
         }
 
+        @media (min-width: 600px) {
+            #vimeo-modal-frame {
+                width: 90vw;
+                height: 50.6vw;
+            }
+        }
         #vimeo-modal-caption {
             color: #94a3b8;
             font-size: 0.85rem;
