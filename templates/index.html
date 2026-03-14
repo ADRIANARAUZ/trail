@@ -10,49 +10,12 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        .nav-btn i,
-        .cta-neon i,
-        .section-title i,
-        .big-title i,
-        .info-card h3 i,
-        .route-badge i,
-        .admin-lock-btn i {
-            margin-right: 5px;
-        }
-
-        .nav-btn i {
-            font-size: 0.85rem;
-        }
-
-        .cta-neon i {
-            font-size: 1rem;
-        }
-
-        .section-title i,
-        .big-title i {
-            font-size: 1.4rem;
-            vertical-align: middle;
-        }
-
-        .info-card h3 i {
-            font-size: 1rem;
-        }
-
-        .route-badge i {
-            font-size: 0.75rem;
-        }
-
-        .admin-lock-btn i {
-            margin: 0;
-            font-size: 1rem;
-        }
-
         *,
         *::before,
         *::after {
             box-sizing: border-box;
             margin: 0;
-            padding: 0;
+            padding: 0
         }
 
         html,
@@ -63,7 +26,7 @@
             font-family: 'Roboto', sans-serif;
             background-color: #0a0f1e;
             color: white;
-            -webkit-tap-highlight-color: transparent;
+            -webkit-tap-highlight-color: transparent
         }
 
         .bg-overlay {
@@ -71,14 +34,14 @@
             inset: 0;
             background: url('https://images.unsplash.com/photo-1516216628259-2225a984a9c5?q=80&w=2000&auto=format&fit=crop') no-repeat center/cover;
             z-index: -2;
-            filter: brightness(0.3);
+            filter: brightness(0.3)
         }
 
         .bg-overlay::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, rgba(10, 15, 30, 0.4) 0%, rgba(10, 15, 30, 0.7) 100%);
+            background: linear-gradient(180deg, rgba(10, 15, 30, 0.4) 0%, rgba(10, 15, 30, 0.7) 100%)
         }
 
         .main-layout {
@@ -86,14 +49,14 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding-bottom: 60px;
+            padding-bottom: 60px
         }
 
         .header-sport {
             width: 100%;
             text-align: center;
             padding: 18px 15px 14px;
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0.75) 0%, transparent 100%);
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.75) 0%, transparent 100%)
         }
 
         .logo {
@@ -102,7 +65,7 @@
             font-weight: 700;
             line-height: 1;
             letter-spacing: 2px;
-            text-shadow: 0 0 20px rgba(204, 255, 0, 0.6);
+            text-shadow: 0 0 20px rgba(204, 255, 0, 0.6)
         }
 
         .subtitle {
@@ -111,11 +74,11 @@
             color: #94a3b8;
             margin-bottom: 10px;
             font-weight: 300;
-            text-transform: uppercase;
+            text-transform: uppercase
         }
 
         .highlight {
-            color: #ccff00;
+            color: #ccff00
         }
 
         #countdown-container {
@@ -125,21 +88,21 @@
             padding: 8px 16px;
             background: rgba(0, 0, 0, 0.5);
             border-radius: 50px;
-            border: 1px solid rgba(204, 255, 0, 0.2);
+            border: 1px solid rgba(204, 255, 0, 0.2)
         }
 
         .time-box {
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-width: 32px;
+            min-width: 32px
         }
 
         .time-number {
             font-family: 'Teko';
             font-size: 1.5rem;
             color: white;
-            line-height: 1;
+            line-height: 1
         }
 
         .time-label {
@@ -147,7 +110,7 @@
             color: #ccff00;
             letter-spacing: 1px;
             margin-top: 1px;
-            text-transform: uppercase;
+            text-transform: uppercase
         }
 
         .separator {
@@ -155,12 +118,12 @@
             font-size: 1.4rem;
             color: #475569;
             animation: blink 1s infinite;
-            padding-bottom: 8px;
+            padding-bottom: 8px
         }
 
         @keyframes blink {
             50% {
-                opacity: 0.15;
+                opacity: 0.15
             }
         }
 
@@ -172,7 +135,7 @@
             background: rgba(8, 12, 28, 0.92);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4)
         }
 
         .pill-nav {
@@ -184,11 +147,11 @@
             scrollbar-width: none;
             gap: 4px;
             padding: 8px 12px;
-            width: 100%;
+            width: 100%
         }
 
         .pill-nav::-webkit-scrollbar {
-            display: none;
+            display: none
         }
 
         .nav-btn {
@@ -206,13 +169,18 @@
             white-space: nowrap;
             min-height: 44px;
             display: flex;
-            align-items: center;
+            align-items: center
+        }
+
+        .nav-btn i {
+            margin-right: 5px;
+            font-size: 0.85rem
         }
 
         .nav-btn:hover {
             color: #cbd5e1;
             border-color: rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.05)
         }
 
         .nav-btn.active {
@@ -220,17 +188,17 @@
             color: #000;
             font-weight: 700;
             border-color: #ccff00;
-            box-shadow: 0 0 14px rgba(204, 255, 0, 0.45);
+            box-shadow: 0 0 14px rgba(204, 255, 0, 0.45)
         }
 
         .register-btn {
             border-color: rgba(204, 255, 0, 0.4) !important;
-            color: #ccff00 !important;
+            color: #ccff00 !important
         }
 
         .register-btn.active {
             background: #ccff00 !important;
-            color: #000 !important;
+            color: #000 !important
         }
 
         .glass-container {
@@ -243,27 +211,27 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.07);
             padding: 22px 16px 28px;
             margin-bottom: 20px;
-            min-height: 350px;
+            min-height: 350px
         }
 
         .content-section {
             display: none;
-            animation: fadeUp 0.3s ease;
+            animation: fadeUp 0.3s ease
         }
 
         .content-section.active {
-            display: block;
+            display: block
         }
 
         @keyframes fadeUp {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(10px)
             }
 
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0)
             }
         }
 
@@ -272,26 +240,33 @@
             font-size: 3.4rem;
             line-height: 0.9;
             margin-bottom: 8px;
-            text-transform: uppercase;
+            text-transform: uppercase
+        }
+
+        .big-title i,
+        .section-title i {
+            font-size: 1.4rem;
+            vertical-align: middle;
+            margin-right: 5px
         }
 
         .hero-text {
             font-size: 0.95rem;
             color: #94a3b8;
-            margin-bottom: 18px;
+            margin-bottom: 18px
         }
 
         .stats-row {
             display: flex;
             justify-content: space-around;
             margin-bottom: 20px;
-            gap: 8px;
+            gap: 8px
         }
 
         .stat {
             text-align: center;
             font-size: 0.72rem;
-            color: #64748b;
+            color: #64748b
         }
 
         .stat span {
@@ -299,7 +274,7 @@
             font-family: 'Teko';
             font-size: 2.2rem;
             color: white;
-            line-height: 1;
+            line-height: 1
         }
 
         .cta-neon {
@@ -318,18 +293,23 @@
             clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
             transition: all 0.2s;
             text-align: center;
-            min-height: 52px;
+            min-height: 52px
+        }
+
+        .cta-neon i {
+            font-size: 1rem;
+            margin-right: 5px
         }
 
         .cta-neon:hover {
             transform: scale(1.02);
-            box-shadow: 0 0 28px rgba(204, 255, 0, 0.5);
+            box-shadow: 0 0 28px rgba(204, 255, 0, 0.5)
         }
 
         .cta-neon:disabled {
             opacity: 0.6;
             cursor: not-allowed;
-            transform: none;
+            transform: none
         }
 
         .cta-link {
@@ -337,20 +317,20 @@
             margin-top: 12px;
             color: #ccff00;
             font-size: 0.82rem;
-            text-align: center;
+            text-align: center
         }
 
         .section-title {
             font-family: 'Teko';
             font-size: 1.8rem;
             letter-spacing: 2px;
-            margin-bottom: 14px;
+            margin-bottom: 14px
         }
 
         #historia-dinamica {
             min-height: 56px;
             margin-bottom: 12px;
-            transition: opacity 0.3s;
+            transition: opacity 0.3s
         }
 
         #titulo-historia {
@@ -358,13 +338,13 @@
             font-size: 1rem;
             font-weight: 700;
             letter-spacing: 1px;
-            margin-bottom: 3px;
+            margin-bottom: 3px
         }
 
         #texto-historia {
             color: #94a3b8;
             font-size: 0.85rem;
-            line-height: 1.4;
+            line-height: 1.4
         }
 
         .carousel-container {
@@ -375,27 +355,27 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             background: #000;
             touch-action: pan-y;
-            user-select: none;
+            user-select: none
         }
 
         .slide,
         .memoria-slide {
             display: none;
-            animation: fadeEff 0.5s;
+            animation: fadeEff 0.5s
         }
 
         .slide.active-slide,
         .memoria-slide.active-mem {
-            display: block;
+            display: block
         }
 
         @keyframes fadeEff {
             from {
-                opacity: 0.4;
+                opacity: 0.4
             }
 
             to {
-                opacity: 1;
+                opacity: 1
             }
         }
 
@@ -404,17 +384,15 @@
             height: 210px;
             object-fit: cover;
             display: block;
-            cursor: zoom-in;
+            cursor: zoom-in
         }
 
-        /* Vimeo embed en carrusel */
         .vimeo-slide-wrap {
             position: relative;
             width: 100%;
             height: 210px;
             background: #000;
-            overflow: hidden;
-            cursor: pointer;
+            overflow: hidden
         }
 
         .vimeo-slide-wrap iframe {
@@ -425,7 +403,15 @@
             width: 177.78%;
             height: 100%;
             border: none;
-            pointer-events: none;
+            pointer-events: none
+        }
+
+        .vimeo-click-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            cursor: pointer;
+            background: transparent
         }
 
         .vimeo-play-btn {
@@ -441,13 +427,13 @@
             align-items: center;
             justify-content: center;
             pointer-events: none;
-            z-index: 2;
+            z-index: 6
         }
 
         .vimeo-play-btn span {
             color: #ccff00;
             font-size: 1.4rem;
-            margin-left: 4px;
+            margin-left: 4px
         }
 
         .car-btn {
@@ -467,30 +453,29 @@
             justify-content: center;
             z-index: 10;
             transition: all 0.2s;
-            user-select: none;
+            user-select: none
         }
 
         .car-btn:hover {
             background: #ccff00;
-            color: #000;
+            color: #000
         }
 
         .car-btn.left {
-            left: 8px;
+            left: 8px
         }
 
         .car-btn.right {
-            right: 8px;
+            right: 8px
         }
 
-        /* Ruta video vimeo */
         .vimeo-ruta-wrap {
             position: relative;
             width: 100%;
             padding-bottom: 56.25%;
             background: #000;
             border-radius: 8px;
-            overflow: hidden;
+            overflow: hidden
         }
 
         .vimeo-ruta-wrap iframe {
@@ -498,203 +483,7 @@
             inset: 0;
             width: 100%;
             height: 100%;
-            border: none;
-        }
-
-        .memory-img {
-            position: relative;
-            height: 210px;
-            overflow: hidden;
-        }
-
-        .memory-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-            cursor: zoom-in;
-        }
-
-        .memory-img img:hover {
-            transform: scale(1.05);
-        }
-
-        .year-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #ccff00;
-            color: #000;
-            font-weight: 700;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-family: 'Teko';
-            letter-spacing: 1px;
-        }
-
-        .memory-info {
-            padding: 14px 16px;
-            text-align: left;
-        }
-
-        .memory-info h4 {
-            color: white;
-            font-family: 'Teko';
-            font-size: 1.3rem;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-        }
-
-        .memory-info p {
-            color: #64748b;
-            font-size: 0.83rem;
-            line-height: 1.4;
-        }
-
-        .merch-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-            margin-top: 16px;
-        }
-
-        .merch-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: border-color 0.2s;
-        }
-
-        .merch-card:hover {
-            border-color: #ccff00;
-        }
-
-        .card-img {
-            position: relative;
-            height: 180px;
-            overflow: hidden;
-        }
-
-        .card-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            cursor: zoom-in;
-            transition: transform 0.4s;
-        }
-
-        .card-img img:hover {
-            transform: scale(1.06);
-        }
-
-        .price-tag {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: #ccff00;
-            color: #000;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-family: 'Teko';
-            font-size: 1rem;
-        }
-
-        .card-info {
-            padding: 12px;
-        }
-
-        .card-info h3 {
-            color: white;
-            font-family: 'Teko';
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            margin-bottom: 3px;
-        }
-
-        .card-info p {
-            color: #64748b;
-            font-size: 0.8rem;
-        }
-
-        .mini-btn {
-            width: 100%;
-            padding: 9px;
-            background: transparent;
-            border: 1px solid #ccff00;
-            color: #ccff00;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: 8px;
-            font-size: 0.8rem;
-            font-family: 'Teko';
-            letter-spacing: 1px;
-            min-height: 44px;
-        }
-
-        .mini-btn:hover {
-            background: #ccff00;
-            color: #000;
-        }
-
-        .info-grid {
-            display: grid;
-            gap: 16px;
-        }
-
-        .info-card {
-            border-radius: 10px;
-            padding: 16px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-        }
-
-        .info-card h3 {
-            color: white;
-            font-family: 'Teko';
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            padding-bottom: 6px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .info-card ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .info-card ul li {
-            color: #94a3b8;
-            font-size: 0.88rem;
-            padding: 4px 0;
-        }
-
-        .info-card ul li::before {
-            content: '▸ ';
-            color: #ccff00;
-        }
-
-        .accent-yellow {
-            border-top: 3px solid #ccff00;
-        }
-
-        .accent-blue {
-            border-top: 3px solid #00d2ff;
-        }
-
-        .accent-red {
-            border-top: 3px solid #ff0055;
-        }
-
-        #mem-main-img {
-            transition: opacity 0.25s ease, transform 0.35s ease;
-        }
-
-        #mem-thumbs::-webkit-scrollbar {
-            display: none;
+            border: none
         }
 
         .route-img-wrap {
@@ -702,7 +491,7 @@
             border-radius: 10px;
             overflow: hidden;
             position: relative;
-            margin: 14px 0;
+            margin: 14px 0
         }
 
         .route-badge {
@@ -716,7 +505,137 @@
             font-size: 0.75rem;
             font-weight: 700;
             font-family: 'Teko';
+            letter-spacing: 1px
+        }
+
+        .route-badge i {
+            font-size: 0.75rem;
+            margin-right: 3px
+        }
+
+        .merch-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 16px
+        }
+
+        .merch-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: border-color 0.2s
+        }
+
+        .merch-card:hover {
+            border-color: #ccff00
+        }
+
+        .card-img {
+            position: relative;
+            height: 180px;
+            overflow: hidden
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: zoom-in;
+            transition: transform 0.4s
+        }
+
+        .card-img img:hover {
+            transform: scale(1.06)
+        }
+
+        .price-tag {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #ccff00;
+            color: #000;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Teko';
+            font-size: 1rem
+        }
+
+        .card-info {
+            padding: 12px
+        }
+
+        .card-info h3 {
+            color: white;
+            font-family: 'Teko';
+            font-size: 1.2rem;
             letter-spacing: 1px;
+            margin-bottom: 3px
+        }
+
+        .card-info p {
+            color: #64748b;
+            font-size: 0.8rem
+        }
+
+        .info-grid {
+            display: grid;
+            gap: 16px
+        }
+
+        .info-card {
+            border-radius: 10px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07)
+        }
+
+        .info-card h3 {
+            color: white;
+            font-family: 'Teko';
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08)
+        }
+
+        .info-card h3 i {
+            font-size: 1rem;
+            margin-right: 5px
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding: 0
+        }
+
+        .info-card ul li {
+            color: #94a3b8;
+            font-size: 0.88rem;
+            padding: 4px 0
+        }
+
+        .info-card ul li::before {
+            content: '▸ ';
+            color: #ccff00
+        }
+
+        .accent-yellow {
+            border-top: 3px solid #ccff00
+        }
+
+        .accent-blue {
+            border-top: 3px solid #00d2ff
+        }
+
+        .accent-red {
+            border-top: 3px solid #ff0055
+        }
+
+        #mem-thumbs::-webkit-scrollbar {
+            display: none
         }
 
         .sponsors-section {
@@ -724,7 +643,7 @@
             max-width: 820px;
             padding: 28px 16px 20px;
             text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            border-top: 1px solid rgba(255, 255, 255, 0.07)
         }
 
         .section-subtitle {
@@ -732,7 +651,7 @@
             font-size: 0.7rem;
             margin-bottom: 20px;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 3px
         }
 
         .sponsors-grid {
@@ -740,7 +659,7 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-            gap: 28px;
+            gap: 28px
         }
 
         .sponsor-item {
@@ -748,18 +667,18 @@
             height: 50px;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: center
         }
 
         .sponsor-item img {
             max-width: 100%;
             max-height: 100%;
             filter: grayscale(100%) opacity(0.4);
-            transition: all 0.3s;
+            transition: all 0.3s
         }
 
         .sponsor-item:hover img {
-            filter: grayscale(0%) opacity(1);
+            filter: grayscale(0%) opacity(1)
         }
 
         .whatsapp-btn {
@@ -775,16 +694,16 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 16px rgba(37, 211, 102, 0.45);
-            transition: transform 0.2s;
+            transition: transform 0.2s
         }
 
         .whatsapp-btn:hover {
-            transform: scale(1.1);
+            transform: scale(1.1)
         }
 
         .whatsapp-btn img {
             width: 30px;
-            height: 30px;
+            height: 30px
         }
 
         .admin-lock-btn {
@@ -802,7 +721,12 @@
             text-decoration: none;
             border: 1px solid rgba(255, 255, 255, 0.08);
             z-index: 1000;
-            font-size: 0.9rem;
+            font-size: 0.9rem
+        }
+
+        .admin-lock-btn i {
+            margin: 0;
+            font-size: 1rem
         }
 
         .lightbox {
@@ -814,18 +738,18 @@
             padding: 20px;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
+            flex-direction: column
         }
 
         .lightbox.open {
-            display: flex;
+            display: flex
         }
 
         .lightbox-content {
             max-width: 95vw;
             max-height: 85vh;
             object-fit: contain;
-            border-radius: 6px;
+            border-radius: 6px
         }
 
         .close-zoom {
@@ -838,18 +762,18 @@
             line-height: 1;
             transition: color 0.2s;
             padding: 8px;
-            z-index: 10;
+            z-index: 10
         }
 
         .close-zoom:hover {
-            color: #ccff00;
+            color: #ccff00
         }
 
         #caption-zoom {
             color: #94a3b8;
             font-size: 0.85rem;
             margin-top: 10px;
-            text-align: center;
+            text-align: center
         }
 
         #vimeo-modal {
@@ -861,36 +785,31 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            padding: 8px;
+            padding: 4px
         }
 
         #vimeo-modal.open {
-            display: flex;
+            display: flex
         }
 
         #vimeo-modal-frame {
             width: 98vw;
             height: 55vw;
             max-width: 900px;
-            max-height: 75vh;
-            min-height: 200px;
+            max-height: 80vh;
+            min-height: 180px;
             border: none;
             border-radius: 8px;
+            display: block
         }
 
-        @media (min-width: 600px) {
-            #vimeo-modal-frame {
-                width: 90vw;
-                height: 50.6vw;
-            }
-        }
         #vimeo-modal-caption {
             color: #94a3b8;
             font-size: 0.85rem;
-            margin-top: 12px;
+            margin-top: 10px;
             font-family: 'Teko';
             letter-spacing: 1px;
-            text-align: center;
+            text-align: center
         }
 
         #vimeo-modal-close {
@@ -902,10 +821,11 @@
             cursor: pointer;
             padding: 8px;
             transition: color 0.2s;
+            z-index: 10
         }
 
         #vimeo-modal-close:hover {
-            color: #ccff00;
+            color: #ccff00
         }
 
         .custom-modal-overlay {
@@ -916,7 +836,7 @@
             z-index: 4000;
             display: none;
             align-items: center;
-            justify-content: center;
+            justify-content: center
         }
 
         .custom-modal-box {
@@ -929,18 +849,18 @@
             width: 90%;
             box-shadow: 0 10px 40px rgba(204, 255, 0, 0.2);
             position: relative;
-            animation: popIn 0.3s ease-out;
+            animation: popIn 0.3s ease-out
         }
 
         @keyframes popIn {
             from {
                 transform: scale(0.85);
-                opacity: 0;
+                opacity: 0
             }
 
             to {
                 transform: scale(1);
-                opacity: 1;
+                opacity: 1
             }
         }
 
@@ -953,18 +873,18 @@
             cursor: pointer;
             line-height: 1;
             transition: color 0.2s;
-            padding: 6px;
+            padding: 6px
         }
 
         .close-modal-x:hover {
-            color: #ccff00;
+            color: #ccff00
         }
 
         .ediciones-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 14px;
-            margin-top: 16px;
+            margin-top: 16px
         }
 
         .edicion-card {
@@ -974,13 +894,13 @@
             overflow: hidden;
             cursor: pointer;
             transition: border-color 0.25s, transform 0.2s;
-            position: relative;
+            position: relative
         }
 
         .edicion-card:hover {
             border-color: #ccff00;
             transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(204, 255, 0, 0.15);
+            box-shadow: 0 8px 24px rgba(204, 255, 0, 0.15)
         }
 
         .edicion-thumb {
@@ -988,11 +908,11 @@
             height: 160px;
             object-fit: cover;
             display: block;
-            transition: transform 0.4s;
+            transition: transform 0.4s
         }
 
         .edicion-card:hover .edicion-thumb {
-            transform: scale(1.05);
+            transform: scale(1.05)
         }
 
         .edicion-badge {
@@ -1006,11 +926,11 @@
             font-weight: 700;
             padding: 2px 10px;
             border-radius: 20px;
-            letter-spacing: 1px;
+            letter-spacing: 1px
         }
 
         .edicion-info {
-            padding: 10px 12px 12px;
+            padding: 10px 12px 12px
         }
 
         .edicion-info h3 {
@@ -1018,12 +938,12 @@
             font-size: 1.1rem;
             letter-spacing: 1px;
             color: white;
-            margin-bottom: 2px;
+            margin-bottom: 2px
         }
 
         .edicion-info p {
             font-size: 0.75rem;
-            color: #64748b;
+            color: #64748b
         }
 
         .edicion-3d-hint {
@@ -1034,7 +954,7 @@
             color: #ccff00;
             font-size: 0.7rem;
             font-family: 'Teko';
-            letter-spacing: 1px;
+            letter-spacing: 1px
         }
 
         #modal3d-overlay {
@@ -1046,30 +966,30 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            padding: 16px;
+            padding: 16px
         }
 
         #modal3d-overlay.open {
-            display: flex;
+            display: flex
         }
 
         #modal3d-header {
             text-align: center;
             margin-bottom: 12px;
-            padding: 0 16px;
+            padding: 0 16px
         }
 
         #modal3d-title {
             font-family: 'Teko';
             font-size: 1.6rem;
             color: #ccff00;
-            letter-spacing: 2px;
+            letter-spacing: 2px
         }
 
         #modal3d-sub {
             font-size: 0.75rem;
             color: #64748b;
-            margin-top: 2px;
+            margin-top: 2px
         }
 
         #modal3d-body {
@@ -1079,13 +999,13 @@
             justify-content: center;
             flex-wrap: wrap;
             width: 100%;
-            max-width: 900px;
+            max-width: 900px
         }
 
         #modal3d-canvas-wrap {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: center
         }
 
         #canvas3d {
@@ -1094,11 +1014,11 @@
             border-radius: 12px;
             border: 1px solid rgba(204, 255, 0, 0.2);
             touch-action: none;
-            cursor: grab;
+            cursor: grab
         }
 
         #canvas3d:active {
-            cursor: grabbing;
+            cursor: grabbing
         }
 
         #modal3d-hint {
@@ -1106,14 +1026,14 @@
             font-size: 0.72rem;
             color: #475569;
             letter-spacing: 1px;
-            font-family: 'Teko';
+            font-family: 'Teko'
         }
 
         #modal3d-foto-wrap {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 8px
         }
 
         #modal3d-foto {
@@ -1122,18 +1042,18 @@
             object-fit: contain;
             border-radius: 10px;
             border: 1px solid rgba(204, 255, 0, 0.2);
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.03)
         }
 
         #modal3d-foto-label {
             font-family: 'Teko';
             font-size: 0.85rem;
             color: #ccff00;
-            letter-spacing: 2px;
+            letter-spacing: 2px
         }
 
         #modal3d-foto-wrap.sin-foto {
-            display: none;
+            display: none
         }
 
         #modal3d-close {
@@ -1146,11 +1066,11 @@
             line-height: 1;
             padding: 8px;
             z-index: 10;
-            transition: color 0.2s;
+            transition: color 0.2s
         }
 
         #modal3d-close:hover {
-            color: #ccff00;
+            color: #ccff00
         }
 
         .form-header {
@@ -1158,19 +1078,19 @@
             margin: -22px -16px 20px;
             padding: 16px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-            text-align: center;
+            text-align: center
         }
 
         .form-header h2 {
             font-family: 'Teko';
             font-size: 1.4rem;
-            letter-spacing: 2px;
+            letter-spacing: 2px
         }
 
         .form-header p {
             font-size: 0.72rem;
             color: #64748b;
-            margin-top: 3px;
+            margin-top: 3px
         }
 
         .neon-form input,
@@ -1186,22 +1106,22 @@
             transition: border-color 0.2s;
             -webkit-appearance: none;
             appearance: none;
-            min-height: 48px;
+            min-height: 48px
         }
 
         .neon-form input:focus,
         .neon-form select:focus {
             outline: none;
             border-color: #ccff00;
-            box-shadow: 0 0 0 3px rgba(204, 255, 0, 0.12);
+            box-shadow: 0 0 0 3px rgba(204, 255, 0, 0.12)
         }
 
         .neon-form select option {
-            background: #0f172a;
+            background: #0f172a
         }
 
         .input-group {
-            margin-bottom: 14px;
+            margin-bottom: 14px
         }
 
         .input-group label {
@@ -1210,36 +1130,29 @@
             color: #ccff00;
             margin-bottom: 5px;
             letter-spacing: 1px;
-            font-weight: 700;
+            font-weight: 700
         }
 
         .row-split {
             display: flex;
-            gap: 10px;
+            gap: 10px
         }
 
         .row-split .input-group {
             flex: 1;
-            min-width: 0;
-        }
-
-        @media (max-width: 480px) {
-            .row-split {
-                flex-direction: column;
-                gap: 0;
-            }
+            min-width: 0
         }
 
         .error-msg {
             color: #ff4d6d;
             font-size: 0.72rem;
             margin-top: 4px;
-            display: none;
+            display: none
         }
 
         .input-group.has-error input,
         .input-group.has-error select {
-            border-color: #ff4d6d !important;
+            border-color: #ff4d6d !important
         }
 
         .btn-spinner {
@@ -1251,147 +1164,155 @@
             border-radius: 50%;
             animation: spin 0.7s linear infinite;
             vertical-align: middle;
-            margin-right: 6px;
+            margin-right: 6px
         }
 
         @keyframes spin {
             to {
-                transform: rotate(360deg);
+                transform: rotate(360deg)
             }
         }
 
-        @media (min-width: 640px) {
+        @media(max-width:480px) {
+            .row-split {
+                flex-direction: column;
+                gap: 0
+            }
+        }
+
+        @media(min-width:600px) {
+            #vimeo-modal-frame {
+                width: 92vw;
+                height: 51.75vw
+            }
+        }
+
+        @media(min-width:640px) {
             .logo {
-                font-size: 3rem;
+                font-size: 3rem
             }
 
             .subtitle {
-                font-size: 0.8rem;
+                font-size: 0.8rem
             }
 
             .time-number {
-                font-size: 2rem;
+                font-size: 2rem
             }
 
             .time-label {
-                font-size: 0.6rem;
+                font-size: 0.6rem
             }
 
             .separator {
-                font-size: 1.8rem;
+                font-size: 1.8rem
             }
 
             #countdown-container {
                 gap: 12px;
-                padding: 10px 20px;
+                padding: 10px 20px
             }
 
             .header-sport {
-                padding: 24px 20px 18px;
+                padding: 24px 20px 18px
             }
         }
 
-        @media (min-width: 768px) {
+        @media(min-width:768px) {
             .glass-container {
                 border-radius: 0 0 16px 16px;
-                padding: 28px 30px 34px;
+                padding: 28px 30px 34px
             }
 
             .form-header {
-                margin: -28px -30px 22px;
+                margin: -28px -30px 22px
             }
 
             .big-title {
-                font-size: 4.2rem;
+                font-size: 4.2rem
             }
 
             .hero-text {
-                font-size: 1.1rem;
+                font-size: 1.1rem
             }
 
             .stat span {
-                font-size: 2.8rem;
+                font-size: 2.8rem
             }
 
             .stat {
-                font-size: 0.85rem;
+                font-size: 0.85rem
             }
 
             .slide img {
-                height: 320px;
+                height: 320px
             }
 
             .vimeo-slide-wrap {
-                height: 320px;
-            }
-
-            .memory-img {
-                height: 240px;
+                height: 320px
             }
 
             .card-img {
-                height: 220px;
+                height: 220px
             }
 
             .info-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(3, 1fr)
             }
 
             .sponsors-grid {
-                gap: 40px;
+                gap: 40px
             }
 
             .sponsor-item {
                 width: 110px;
-                height: 65px;
+                height: 65px
             }
 
             .merch-grid {
                 grid-template-columns: repeat(2, minmax(0, 280px));
                 justify-content: center;
-                gap: 20px;
+                gap: 20px
             }
 
             .nav-btn {
                 padding: 8px 18px;
-                font-size: 1rem;
+                font-size: 1rem
             }
 
             .pill-nav {
                 justify-content: center;
                 padding: 10px 20px;
-                gap: 6px;
+                gap: 6px
             }
 
             .row-split {
-                flex-direction: row;
+                flex-direction: row
             }
 
             .ediciones-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(3, 1fr)
             }
 
             .edicion-thumb {
-                height: 180px;
+                height: 180px
             }
         }
 
-        @media (min-width: 820px) {
+        @media(min-width:820px) {
             .glass-container {
-                border-radius: 0 0 20px 20px;
+                border-radius: 0 0 20px 20px
             }
 
             .logo {
-                font-size: 3.5rem;
+                font-size: 3.5rem
             }
         }
     </style>
 </head>
 
 <body>
-
     <div class="bg-overlay"></div>
-
     <div class="main-layout">
 
         <header class="header-sport">
@@ -1435,7 +1356,6 @@
 
         <div class="glass-container">
 
-            <!-- INICIO -->
             <div id="inicio" class="content-section active" style="text-align:center;">
                 <h1 class="big-title">ROMPE TUS<br>LÍMITES</h1>
                 <p class="hero-text">21 de Septiembre · 10k en total de pura resistencia y adrenalina</p>
@@ -1449,24 +1369,20 @@
                 <a href="/check" class="cta-link">¿Ya te registraste? Sube tu comprobante aquí →</a>
             </div>
 
-            <!-- RUTA -->
             <div id="ruta" class="content-section" style="text-align:center;">
                 <h2 class="section-title"><i class="fa-solid fa-location-dot"></i> DESAFÍO COSTERO</h2>
                 <div class="route-img-wrap">
-                    <!-- ruta.mp4 → Vimeo 1173500589 -->
                     <div class="vimeo-ruta-wrap">
                         <iframe id="ruta-iframe"
                             src="https://player.vimeo.com/video/1173500589?autoplay=0&loop=1&muted=1&controls=1&title=0&byline=0&portrait=0"
-                            allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
-                        </iframe>
+                            allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     <div class="route-badge"><i class="fa-solid fa-mountain"></i> ALTITUD: 60m</div>
                 </div>
-                <p style="color:#94a3b8; font-size:0.88rem; line-height:1.6;">Ruta mixta · 40% Sendero Técnico · 30%
-                    Playa · 30% Lastre</p>
+                <p style="color:#94a3b8;font-size:0.88rem;line-height:1.6;">Ruta mixta · 40% Sendero Técnico · 30% Playa
+                    · 30% Lastre</p>
             </div>
 
-            <!-- HISTORIA / GALERÍA -->
             <div id="galeria" class="content-section">
                 <h2 class="section-title" style="text-align:center;"><i class="fa-solid fa-film"></i> EL LEGADO
                     2021–2025</h2>
@@ -1474,83 +1390,74 @@
                     <p id="titulo-historia"></p>
                     <p id="texto-historia"></p>
                 </div>
-                <div style="text-align:center; margin-bottom:8px;">
+                <div style="text-align:center;margin-bottom:8px;">
                     <span id="slide-counter"
-                        style="font-family:'Teko'; font-size:0.95rem; color:#475569; letter-spacing:2px;"></span>
+                        style="font-family:'Teko';font-size:0.95rem;color:#475569;letter-spacing:2px;"></span>
                 </div>
                 <div class="carousel-container" id="carrusel-historia">
-
-                    <!-- SLIDE 1: 2021 imagen -->
                     <div class="slide active-slide" data-titulo="2021 — EL NACIMIENTO"
                         data-texto="Todo empezó con 30 valientes y un sueño: correr del bosque al mar. Sin arcos, sin sponsors, solo tierra, adrenalina y ganas de conquistar la costa.">
                         <img loading="lazy" src="/static/img/nacimiento.jpeg" alt="2021 - El Nacimiento"
                             onclick="openModal(this)">
                     </div>
-
-                    <!-- SLIDE 2: 2022 imagen -->
                     <div class="slide" data-titulo="2022 — LA EXPANSIÓN"
                         data-texto="El boca a boca hizo su magia. Más de 80 corredores de tres provincias distintas se unieron al reto. Se sumó el cruce del mar.">
                         <img loading="lazy" src="/static/img/expansion.jpg" alt="2022 - La Expansión"
                             onclick="openModal(this)">
                     </div>
-
-                    <!-- SLIDE 3: 2023 video → Vimeo 1173501358 -->
-                    <div class="slide slide-video-wrap" data-titulo="2023 — CLIMA HOSPIDO"
-                        data-texto="Nadie esperaba un clima frio, con lluvisna, pero eso no fue impedimiento para que los atletas completaran su meta."
-                        onclick="abrirVimeo('1173501358', '2023 — Clima Hospido')">
+                    <div class="slide" data-titulo="2023 — CLIMA HOSPIDO"
+                        data-texto="Nadie esperaba un clima frio, con lluvisna, pero eso no fue impedimiento para que los atletas completaran su meta.">
                         <div class="vimeo-slide-wrap">
                             <iframe
                                 src="https://player.vimeo.com/video/1173501358?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1"
                                 allow="autoplay" loading="lazy"></iframe>
+                            <div class="vimeo-click-overlay" onclick="abrirVimeo('1173501358','2023 — Clima Hospido')">
+                            </div>
                             <div class="vimeo-play-btn"><span>▶</span></div>
                         </div>
                     </div>
-
-                    <!-- SLIDE 4: 2024 cuarta_edicion → Vimeo 1173500509 -->
-                    <div class="slide slide-video-wrap" data-titulo="2024 — EL RECORD"
-                        data-texto="Mas de 300 atletas participando en esta cuarta edicion, con sudor, esfuerzo y disciplina llegan a la meta."
-                        onclick="abrirVimeo('1173500509', '2024 — El Record')">
+                    <div class="slide" data-titulo="2024 — EL RECORD"
+                        data-texto="Mas de 300 atletas participando en esta cuarta edicion, con sudor, esfuerzo y disciplina llegan a la meta.">
                         <div class="vimeo-slide-wrap">
                             <iframe
                                 src="https://player.vimeo.com/video/1173500509?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1"
                                 allow="autoplay" loading="lazy"></iframe>
+                            <div class="vimeo-click-overlay" onclick="abrirVimeo('1173500509','2024 — El Record')">
+                            </div>
                             <div class="vimeo-play-btn"><span>▶</span></div>
                         </div>
                     </div>
-
-                    <!-- SLIDE 5: 2025 → Vimeo 1173500410 (2025_2) -->
-                    <div class="slide slide-video-wrap" data-titulo="2025 — EL PRESENTE"
-                        data-texto="Se estrenó el sendero técnico más exigente, con seguridad de la Policia Nacional, 3 km de curvas cerradas con vista al mar. Más de 250 finishers sellaron la edición más grande de esta historia y seguiremos logrando mas..."
-                        onclick="abrirVimeo('1173500410', '2025 — El Presente')">
+                    <div class="slide" data-titulo="2025 — EL PRESENTE"
+                        data-texto="Se estrenó el sendero técnico más exigente, con seguridad de la Policia Nacional, 3 km de curvas cerradas con vista al mar. Más de 250 finishers sellaron la edición más grande.">
                         <div class="vimeo-slide-wrap">
                             <iframe
                                 src="https://player.vimeo.com/video/1173500389?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1"
                                 allow="autoplay" loading="lazy"></iframe>
+                            <div class="vimeo-click-overlay" onclick="abrirVimeo('1173500410','2025 — El Presente')">
+                            </div>
                             <div class="vimeo-play-btn"><span>▶</span></div>
                         </div>
                     </div>
-
                     <button class="car-btn left" onclick="moveSlide(-1)" aria-label="Anterior">&#10094;</button>
                     <button class="car-btn right" onclick="moveSlide(1)" aria-label="Siguiente">&#10095;</button>
                 </div>
-                <div style="display:flex; justify-content:center; gap:8px; margin-top:12px;" id="slide-dots"></div>
+                <div style="display:flex;justify-content:center;gap:8px;margin-top:12px;" id="slide-dots"></div>
             </div>
 
-            <!-- MEMORIAS -->
             <div id="memorias" class="content-section">
-                <div style="text-align:center; margin-bottom:16px;">
-                    <h2 class="big-title" style="font-size:2.4rem; margin-bottom:4px;"><i
-                            class="fa-solid fa-camera"></i> MEMORIAS</h2>
+                <div style="text-align:center;margin-bottom:16px;">
+                    <h2 class="big-title" style="font-size:2.4rem;margin-bottom:4px;"><i class="fa-solid fa-camera"></i>
+                        MEMORIAS</h2>
                     <p class="hero-text" style="margin-bottom:0;">Momentos que quedan en la piel · Toca para ampliar</p>
                 </div>
                 <div id="mem-main"
-                    style="position:relative; border-radius:10px; overflow:hidden; height:260px; background:#000; cursor:zoom-in;"
+                    style="position:relative;border-radius:10px;overflow:hidden;height:260px;background:#000;cursor:zoom-in;"
                     onclick="openMemModal()">
                     <img id="mem-main-img"
                         src="https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?auto=format&fit=crop&w=800&q=80"
-                        style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;">
+                        style="width:100%;height:100%;object-fit:cover;">
                     <div
-                        style="position:absolute;bottom:0;left:0;right:0;padding:16px 14px 12px;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 100%);">
+                        style="position:absolute;bottom:0;left:0;right:0;padding:16px 14px 12px;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 100%);z-index:2;">
                         <div id="mem-year-badge"
                             style="display:inline-block;background:#ccff00;color:#000;font-family:'Teko';font-size:0.85rem;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px;margin-bottom:4px;">
                             2021</div>
@@ -1561,17 +1468,13 @@
                             Los primeros 30 valientes que abrieron el camino.</div>
                     </div>
                     <button onclick="event.stopPropagation();moverMem(-1)"
-                        style="position:absolute;top:50%;left:8px;transform:translateY(-50%);background:rgba(0,0,0,0.6);color:white;border:none;width:44px;height:44px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;"
-                        onmouseover="this.style.background='#ccff00';this.style.color='#000'"
-                        onmouseout="this.style.background='rgba(0,0,0,0.6)';this.style.color='white'"
+                        style="position:absolute;top:50%;left:8px;transform:translateY(-50%);background:rgba(0,0,0,0.6);color:white;border:none;width:44px;height:44px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;"
                         aria-label="Anterior">&#10094;</button>
                     <button onclick="event.stopPropagation();moverMem(1)"
-                        style="position:absolute;top:50%;right:8px;transform:translateY(-50%);background:rgba(0,0,0,0.6);color:white;border:none;width:44px;height:44px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;"
-                        onmouseover="this.style.background='#ccff00';this.style.color='#000'"
-                        onmouseout="this.style.background='rgba(0,0,0,0.6)';this.style.color='white'"
+                        style="position:absolute;top:50%;right:8px;transform:translateY(-50%);background:rgba(0,0,0,0.6);color:white;border:none;width:44px;height:44px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;"
                         aria-label="Siguiente">&#10095;</button>
                     <div id="mem-counter"
-                        style="position:absolute;top:10px;right:12px;background:rgba(0,0,0,0.55);color:#ccff00;font-family:'Teko';font-size:0.85rem;padding:2px 8px;border-radius:20px;letter-spacing:1px;">
+                        style="position:absolute;top:10px;right:12px;background:rgba(0,0,0,0.55);color:#ccff00;font-family:'Teko';font-size:0.85rem;padding:2px 8px;border-radius:20px;letter-spacing:1px;z-index:10;">
                     </div>
                 </div>
                 <div id="mem-thumbs"
@@ -1579,17 +1482,14 @@
                 </div>
             </div>
 
-            <!-- KITS -->
             <div id="kits" class="content-section" style="text-align:center;">
-                <h2 class="big-title" style="font-size:2.6rem; margin-bottom:6px;"><i class="fa-solid fa-shirt"></i>
+                <h2 class="big-title" style="font-size:2.6rem;margin-bottom:6px;"><i class="fa-solid fa-shirt"></i>
                     CAMISA OFICIAL</h2>
                 <p class="hero-text">Super cómoda Antitranspirante · Toca para ampliar</p>
                 <div class="merch-grid">
                     <div class="merch-card">
-                        <div class="card-img">
-                            <img loading="lazy" src="/static/img/Camisa sin mangas.jpeg" alt="Camiseta Sin Mangas"
-                                onclick="openModal(this)">
-                            <span class="price-tag">INCL.</span>
+                        <div class="card-img"><img loading="lazy" src="/static/img/Camisa sin mangas.jpeg"
+                                alt="Camiseta Sin Mangas" onclick="openModal(this)"><span class="price-tag">INCL.</span>
                         </div>
                         <div class="card-info">
                             <h3>SIN MANGAS</h3>
@@ -1597,10 +1497,8 @@
                         </div>
                     </div>
                     <div class="merch-card">
-                        <div class="card-img">
-                            <img loading="lazy" src="/static/img/Con mangas.jpeg" alt="Camiseta Con Mangas"
-                                onclick="openModal(this)">
-                            <span class="price-tag">INCL.</span>
+                        <div class="card-img"><img loading="lazy" src="/static/img/Con mangas.jpeg"
+                                alt="Camiseta Con Mangas" onclick="openModal(this)"><span class="price-tag">INCL.</span>
                         </div>
                         <div class="card-info">
                             <h3>CON MANGAS</h3>
@@ -1610,10 +1508,9 @@
                 </div>
             </div>
 
-            <!-- EDICIONES -->
             <div id="ediciones" class="content-section">
-                <div style="text-align:center; margin-bottom:18px;">
-                    <h2 class="big-title" style="font-size:2.4rem; margin-bottom:4px;"><i
+                <div style="text-align:center;margin-bottom:18px;">
+                    <h2 class="big-title" style="font-size:2.4rem;margin-bottom:4px;"><i
                             class="fa-solid fa-clock-rotate-left"></i> CAMISAS POR EDICIÓN</h2>
                     <p class="hero-text" style="margin-bottom:0;">Toca una camisa para verla en 3D · Arrastra para girar
                     </p>
@@ -1621,7 +1518,6 @@
                 <div class="ediciones-grid" id="ediciones-grid"></div>
             </div>
 
-            <!-- INFO -->
             <div id="conceptos" class="content-section">
                 <h2 class="section-title"><i class="fa-solid fa-circle-info"></i> GUÍA OFICIAL</h2>
                 <div class="info-grid">
@@ -1648,8 +1544,7 @@
                         <h3><i class="fa-solid fa-trophy"></i> CATEGORÍAS</h3>
                         <h4>7K — General</h4>
                         <h4>10K — 6 Categorías</h4>
-                        <p style="color:#475569; font-size:0.75rem; margin-top:8px;">Aplica para Masculino y Femenino
-                        </p>
+                        <p style="color:#475569;font-size:0.75rem;margin-top:8px;">Aplica para Masculino y Femenino</p>
                         <ul>
                             <li>Juvenil — Hasta 19 años</li>
                             <li>Senior — 20 a 29 años</li>
@@ -1662,7 +1557,6 @@
                 </div>
             </div>
 
-            <!-- REGISTRO -->
             <div id="registro" class="content-section">
                 <div class="form-header">
                     <h2>TRAIL RUNNING <span class="highlight">2026</span></h2>
@@ -1736,7 +1630,7 @@
                 </form>
             </div>
 
-        </div><!-- /glass-container -->
+        </div>
 
         <section class="sponsors-section">
             <p class="section-subtitle">NUESTROS ALIADOS</p>
@@ -1756,7 +1650,7 @@
             </div>
         </section>
 
-    </div><!-- /main-layout -->
+    </div>
 
     <a href="https://wa.me/593985053113?text=Hola,%20quiero%20info%20sobre%20el%20Trail%20Running%202026"
         class="whatsapp-btn" target="_blank" aria-label="WhatsApp">
@@ -1764,21 +1658,18 @@
     </a>
     <a href="javascript:void(0)" onclick="seguridadAdmin()" class="admin-lock-btn"><i class="fa-solid fa-lock"></i></a>
 
-    <!-- Lightbox imagen -->
     <div id="myModal" class="lightbox" onclick="if(event.target===this)closeModal()">
         <span class="close-zoom" onclick="closeModal()">&times;</span>
         <img class="lightbox-content" id="img01">
         <div id="caption-zoom"></div>
     </div>
 
-    <!-- Modal Vimeo fullscreen -->
     <div id="vimeo-modal" onclick="if(event.target===this)cerrarVimeo()">
         <span id="vimeo-modal-close" onclick="cerrarVimeo()">&times;</span>
         <iframe id="vimeo-modal-frame" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
         <div id="vimeo-modal-caption"></div>
     </div>
 
-    <!-- Modal 3D -->
     <div id="modal3d-overlay" onclick="if(event.target===this)cerrar3D()">
         <span id="modal3d-close" onclick="cerrar3D()">&times;</span>
         <div id="modal3d-header">
@@ -1798,7 +1689,6 @@
         </div>
     </div>
 
-    <!-- Alert pago pendiente -->
     <div id="custom-alert" class="custom-modal-overlay">
         <div class="custom-modal-box">
             <span class="close-modal-x" id="close-x-alert">&times;</span>
@@ -1817,133 +1707,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="/static/js/GLTFLoader.js"></script>
     <script>
-
-        // ── VIMEO IDs ──
-        const VIMEO = {
-            ruta: '1173500589',
-            promo2025: '1173500572',
-            nestor_bravo: '1173500556',
-            cuarta_edicion: '1173500509',
-            cuarta_1: '1173500466',
-            bajada: '1173500437',
-            v2025_2: '1173500410',
-            v2025: '1173500389',
-            v2024_1: '1173500352',
-            v2021: '1173501316',
-            v2023: '1173501358',
-            tercera_edicion: '1173500606',
-        };
-
-        function vimeoEmbed(id, opts) {
-            const o = Object.assign({ autoplay: 1, loop: 1, muted: 1, controls: 0, background: 1 }, opts);
-            const p = new URLSearchParams(Object.assign(o, { title: 0, byline: 0, portrait: 0 }));
-            return `https://player.vimeo.com/video/${id}?${p}`;
-        }
-
-        // ── MODAL VIMEO ──
-        function abrirVimeo(id, caption) {
-            const frame = document.getElementById('vimeo-modal-frame');
-            frame.src = `https://player.vimeo.com/video/${id}?autoplay=1&title=0&byline=0&portrait=0`;
-            document.getElementById('vimeo-modal-caption').innerText = caption || '';
-            document.getElementById('vimeo-modal').classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-        function cerrarVimeo() {
-            document.getElementById('vimeo-modal').classList.remove('open');
-            document.getElementById('vimeo-modal-frame').src = '';
-            document.body.style.overflow = '';
-        }
-
-        // ── COUNTDOWN ──
-        (function initClock() {
-            const fecha = new Date("September 21, 2026 06:00:00").getTime();
-            setInterval(() => {
-                const d = fecha - Date.now();
-                if (d < 0) return;
-                document.getElementById("days").innerText = Math.floor(d / 86400000);
-                document.getElementById("hours").innerText = Math.floor((d % 86400000) / 3600000);
-                document.getElementById("minutes").innerText = Math.floor((d % 3600000) / 60000);
-                document.getElementById("seconds").innerText = Math.floor((d % 60000) / 1000);
-            }, 1000);
-        })();
-
-        // ── TABS ──
-        function switchTab(id) {
-            document.querySelectorAll('.content-section').forEach(el => { el.classList.remove('active'); el.style.display = 'none'; });
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            const t = document.getElementById(id);
-            if (t) { t.style.display = 'block'; setTimeout(() => t.classList.add('active'), 10); }
-            const b = document.getElementById('btn-' + id);
-            if (b) { b.classList.add('active'); b.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); }
-            // Ruta: play/pause iframe via postMessage
-            const rutaFrame = document.getElementById('ruta-iframe');
-            if (rutaFrame) {
-                if (id === 'ruta') rutaFrame.contentWindow.postMessage('{"method":"play"}', '*');
-                else rutaFrame.contentWindow.postMessage('{"method":"pause"}', '*');
-            }
-        }
-
-        // ── CARRUSEL HISTORIA ──
+        const VIMEO = { ruta: '1173500589', promo2025: '1173500572', nestor_bravo: '1173500556', cuarta_edicion: '1173500509', cuarta_1: '1173500466', bajada: '1173500437', v2025_2: '1173500410', v2025: '1173500389', v2024_1: '1173500352', v2021: '1173501316', v2023: '1173501358', tercera_edicion: '1173500606' };
+        function vimeoEmbed(id, opts) { const o = Object.assign({ autoplay: 1, loop: 1, muted: 1, controls: 0, background: 1 }, opts); const p = new URLSearchParams(Object.assign(o, { title: 0, byline: 0, portrait: 0 })); return `https://player.vimeo.com/video/${id}?${p}`; }
+        function abrirVimeo(id, caption) { document.getElementById('vimeo-modal-frame').src = `https://player.vimeo.com/video/${id}?autoplay=1&title=0&byline=0&portrait=0`; document.getElementById('vimeo-modal-caption').innerText = caption || ''; document.getElementById('vimeo-modal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+        function cerrarVimeo() { document.getElementById('vimeo-modal').classList.remove('open'); document.getElementById('vimeo-modal-frame').src = ''; document.body.style.overflow = ''; }
+        (function () { const f = new Date("September 21, 2026 06:00:00").getTime(); setInterval(() => { const d = f - Date.now(); if (d < 0) return; document.getElementById("days").innerText = Math.floor(d / 86400000); document.getElementById("hours").innerText = Math.floor((d % 86400000) / 3600000); document.getElementById("minutes").innerText = Math.floor((d % 3600000) / 60000); document.getElementById("seconds").innerText = Math.floor((d % 60000) / 1000); }, 1000); })();
+        function switchTab(id) { document.querySelectorAll('.content-section').forEach(el => { el.classList.remove('active'); el.style.display = 'none'; }); document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active')); const t = document.getElementById(id); if (t) { t.style.display = 'block'; setTimeout(() => t.classList.add('active'), 10); } const b = document.getElementById('btn-' + id); if (b) { b.classList.add('active'); b.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); } const rf = document.getElementById('ruta-iframe'); if (rf) { if (id === 'ruta') rf.contentWindow.postMessage('{"method":"play"}', '*'); else rf.contentWindow.postMessage('{"method":"pause"}', '*'); } }
         let slideIndex = 1;
-
-        function buildSlideDots() {
-            const slides = document.getElementsByClassName("slide");
-            const container = document.getElementById("slide-dots");
-            if (!container) return;
-            container.innerHTML = '';
-            Array.from(slides).forEach((_, i) => {
-                const dot = document.createElement("span");
-                dot.style.cssText = `display:inline-block;width:8px;height:8px;border-radius:50%;background:${i === 0 ? '#ccff00' : '#334155'};cursor:pointer;transition:background 0.2s;`;
-                dot.onclick = () => showSlide(i + 1);
-                container.appendChild(dot);
-            });
-        }
-
-        function updateDots(i) {
-            document.querySelectorAll("#slide-dots span").forEach((d, idx) => { d.style.background = idx === (i - 1) ? '#ccff00' : '#334155'; });
-        }
-
-        function updateCounter(i) {
-            const slides = document.getElementsByClassName("slide");
-            const counter = document.getElementById("slide-counter");
-            if (counter) counter.innerText = `${i} / ${slides.length}`;
-        }
-
+        function buildSlideDots() { const slides = document.getElementsByClassName("slide"); const container = document.getElementById("slide-dots"); if (!container) return; container.innerHTML = ''; Array.from(slides).forEach((_, i) => { const dot = document.createElement("span"); dot.style.cssText = `display:inline-block;width:8px;height:8px;border-radius:50%;background:${i === 0 ? '#ccff00' : '#334155'};cursor:pointer;transition:background 0.2s;`; dot.onclick = () => showSlide(i + 1); container.appendChild(dot); }); }
+        function updateDots(i) { document.querySelectorAll("#slide-dots span").forEach((d, idx) => { d.style.background = idx === (i - 1) ? '#ccff00' : '#334155'; }); }
+        function updateCounter(i) { const c = document.getElementById("slide-counter"); if (c) c.innerText = `${i} / ${document.getElementsByClassName("slide").length}`; }
         function moveSlide(n) { showSlide(slideIndex += n); }
-
-        function showSlide(n) {
-            const slides = document.getElementsByClassName("slide");
-            if (n > slides.length) slideIndex = 1;
-            if (n < 1) slideIndex = slides.length;
-            for (let s of slides) s.classList.remove("active-slide");
-            slides[slideIndex - 1].classList.add("active-slide");
-            updateHistoryText(slideIndex);
-            updateDots(slideIndex);
-            updateCounter(slideIndex);
-        }
-
-        function updateHistoryText(i) {
-            const slides = document.getElementsByClassName("slide");
-            if (!slides.length) return;
-            const s = slides[i - 1];
-            const wrap = document.getElementById("historia-dinamica");
-            wrap.style.opacity = 0;
-            setTimeout(() => {
-                document.getElementById("titulo-historia").innerText = s.dataset.titulo || '';
-                document.getElementById("texto-historia").innerText = s.dataset.texto || '';
-                wrap.style.opacity = 1;
-            }, 180);
-        }
-
-        (function initSwipeHistoria() {
-            let startX = 0;
-            const el = document.getElementById('carrusel-historia');
-            if (!el) return;
-            el.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-            el.addEventListener('touchend', e => { const diff = startX - e.changedTouches[0].clientX; if (Math.abs(diff) > 40) moveSlide(diff > 0 ? 1 : -1); }, { passive: true });
-        })();
-
-        // ── MEMORIAS ──
+        function showSlide(n) { const slides = document.getElementsByClassName("slide"); if (n > slides.length) slideIndex = 1; if (n < 1) slideIndex = slides.length; for (let s of slides) s.classList.remove("active-slide"); slides[slideIndex - 1].classList.add("active-slide"); updateHistoryText(slideIndex); updateDots(slideIndex); updateCounter(slideIndex); }
+        function updateHistoryText(i) { const slides = document.getElementsByClassName("slide"); if (!slides.length) return; const s = slides[i - 1]; const wrap = document.getElementById("historia-dinamica"); wrap.style.opacity = 0; setTimeout(() => { document.getElementById("titulo-historia").innerText = s.dataset.titulo || ''; document.getElementById("texto-historia").innerText = s.dataset.texto || ''; wrap.style.opacity = 1; }, 180); }
+        (function () { let x = 0; const el = document.getElementById('carrusel-historia'); if (!el) return; el.addEventListener('touchstart', e => { x = e.touches[0].clientX; }, { passive: true }); el.addEventListener('touchend', e => { const d = x - e.changedTouches[0].clientX; if (Math.abs(d) > 40) moveSlide(d > 0 ? 1 : -1); }, { passive: true }); })();
         const memFotos = [
             { año: "2021", titulo: "PRIMERA EDICION.", desc: "Los primeros 30 valientes que abrieron el camino.", src: "/static/img/salida_2021.jpeg" },
             { año: "2021", titulo: "LA VERDADERA COMPETENCIA", desc: "Sin arcos ni sponsors, solo tierra y adrenalina.", vimeoId: VIMEO.v2021, tipo: "video" },
@@ -1958,336 +1735,30 @@
             { año: "2025", titulo: "BAILOTERAPIA", desc: "Nada mejor que una Bailoterapia para ejercitar el cuerpo antes del reto.", vimeoId: VIMEO.v2025, tipo: "video" },
             { año: "2025", titulo: "LOMA LAS CABRAS", desc: "La recompensa al final del esfuerzo es la perseverancia.", vimeoId: VIMEO.bajada, tipo: "video" },
         ];
-
         let memActual = 0;
-
-        function renderMemThumbs() {
-            const cont = document.getElementById("mem-thumbs");
-            if (!cont) return;
-            cont.innerHTML = '';
-            memFotos.forEach((f, i) => {
-                const div = document.createElement("div");
-                div.style.cssText = `flex-shrink:0;width:72px;height:52px;border-radius:6px;overflow:hidden;cursor:pointer;border:2px solid ${i === memActual ? '#ccff00' : 'transparent'};transition:border-color 0.2s;position:relative;background:#000;`;
-                if (f.tipo === 'video') {
-                    div.innerHTML = `<iframe src="${vimeoEmbed(f.vimeoId)}" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:180%;height:100%;border:none;pointer-events:none;" loading="lazy"></iframe><div style="position:absolute;bottom:2px;left:3px;background:rgba(0,0,0,0.7);color:#ccff00;font-family:'Teko';font-size:0.6rem;padding:1px 4px;border-radius:3px;">${f.año}</div>`;
-                } else {
-                    div.innerHTML = `<img src="${f.src}" loading="lazy" style="width:100%;height:100%;object-fit:cover;"><div style="position:absolute;bottom:2px;left:3px;background:rgba(0,0,0,0.7);color:#ccff00;font-family:'Teko';font-size:0.6rem;padding:1px 4px;border-radius:3px;">${f.año}</div>`;
-                }
-                div.onclick = () => irAMem(i);
-                cont.appendChild(div);
-            });
-            const thumbs = cont.children;
-            if (thumbs[memActual]) thumbs[memActual].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        }
-
-        function actualizarMemPrincipal() {
-            const f = memFotos[memActual];
-            const contenedor = document.getElementById("mem-main");
-            const mediaAnterior = document.getElementById("mem-main-img");
-            if (mediaAnterior) mediaAnterior.remove();
-
-            let media;
-            if (f.tipo === "video") {
-                // Mostrar thumbnail de Vimeo con iframe de fondo
-                media = document.createElement("div");
-                media.id = "mem-main-img";
-                media.style.cssText = "position:absolute;inset:0;background:#000;";
-                media.innerHTML = `<iframe src="${vimeoEmbed(f.vimeoId, { autoplay: 1, loop: 1, muted: 1, controls: 0, background: 1 })}" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:177.78%;height:100%;border:none;pointer-events:none;" allow="autoplay" loading="lazy"></iframe>`;
-            } else {
-                media = document.createElement("img");
-                media.loading = "lazy";
-                media.style.cssText = "width:100%;height:100%;object-fit:cover;";
-                media.src = f.src;
-                media.id = "mem-main-img";
-            }
-            contenedor.insertBefore(media, contenedor.firstChild);
-
-            document.getElementById("mem-main-title").innerText = f.titulo;
-            document.getElementById("mem-main-desc").innerText = f.desc;
-            document.getElementById("mem-year-badge").innerText = f.año;
-            document.getElementById("mem-counter").innerText = `${memActual + 1} / ${memFotos.length}`;
-            renderMemThumbs();
-        }
-
+        function renderMemThumbs() { const cont = document.getElementById("mem-thumbs"); if (!cont) return; cont.innerHTML = ''; memFotos.forEach((f, i) => { const div = document.createElement("div"); div.style.cssText = `flex-shrink:0;width:72px;height:52px;border-radius:6px;overflow:hidden;cursor:pointer;border:2px solid ${i === memActual ? '#ccff00' : 'transparent'};transition:border-color 0.2s;position:relative;background:#000;`; if (f.tipo === 'video') { div.innerHTML = `<iframe src="${vimeoEmbed(f.vimeoId)}" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:180%;height:100%;border:none;pointer-events:none;" loading="lazy"></iframe><div style="position:absolute;inset:0;z-index:2;"></div><div style="position:absolute;bottom:2px;left:3px;background:rgba(0,0,0,0.7);color:#ccff00;font-family:'Teko';font-size:0.6rem;padding:1px 4px;border-radius:3px;z-index:3;">${f.año}</div>`; } else { div.innerHTML = `<img src="${f.src}" loading="lazy" style="width:100%;height:100%;object-fit:cover;"><div style="position:absolute;bottom:2px;left:3px;background:rgba(0,0,0,0.7);color:#ccff00;font-family:'Teko';font-size:0.6rem;padding:1px 4px;border-radius:3px;">${f.año}</div>`; } div.onclick = () => irAMem(i); cont.appendChild(div); }); const thumbs = cont.children; if (thumbs[memActual]) thumbs[memActual].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); }
+        function actualizarMemPrincipal() { const f = memFotos[memActual]; const contenedor = document.getElementById("mem-main"); const prev = document.getElementById("mem-main-img"); if (prev) prev.remove(); let media; if (f.tipo === "video") { media = document.createElement("div"); media.id = "mem-main-img"; media.style.cssText = "position:absolute;inset:0;background:#000;z-index:0;"; media.innerHTML = `<iframe src="${vimeoEmbed(f.vimeoId, { autoplay: 1, loop: 1, muted: 1, controls: 0, background: 1 })}" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:177.78%;height:100%;border:none;pointer-events:none;" allow="autoplay" loading="lazy"></iframe>`; } else { media = document.createElement("img"); media.loading = "lazy"; media.style.cssText = "width:100%;height:100%;object-fit:cover;"; media.src = f.src; media.id = "mem-main-img"; } contenedor.insertBefore(media, contenedor.firstChild); document.getElementById("mem-main-title").innerText = f.titulo; document.getElementById("mem-main-desc").innerText = f.desc; document.getElementById("mem-year-badge").innerText = f.año; document.getElementById("mem-counter").innerText = `${memActual + 1} / ${memFotos.length}`; renderMemThumbs(); }
         function moverMem(n) { memActual = (memActual + n + memFotos.length) % memFotos.length; actualizarMemPrincipal(); }
         function irAMem(i) { memActual = i; actualizarMemPrincipal(); }
-
-        (function initSwipeMemorias() {
-            let startX = 0;
-            const el = document.getElementById('mem-main');
-            if (!el) return;
-            el.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-            el.addEventListener('touchend', e => { const diff = startX - e.changedTouches[0].clientX; if (Math.abs(diff) > 40) moverMem(diff > 0 ? 1 : -1); }, { passive: true });
-        })();
-
-        function openMemModal() {
-            const f = memFotos[memActual];
-            if (f.tipo === "video") {
-                abrirVimeo(f.vimeoId, `${f.año} — ${f.titulo}`);
-            } else {
-                openModal({ src: f.src, alt: `${f.año} — ${f.titulo}` });
-            }
-        }
-
-        // ── LIGHTBOX IMAGEN ──
-        function openModal(el) {
-            const modal = document.getElementById("myModal");
-            document.getElementById("img01").src = el.src;
-            document.getElementById("img01").style.display = "block";
-            document.getElementById("caption-zoom").innerHTML = el.alt;
-            modal.classList.add("open");
-        }
-
-        function closeModal() {
-            document.getElementById("myModal").classList.remove("open");
-        }
-
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') { closeModal(); cerrarVimeo(); cerrar3D(); }
-        });
-
-        (function initSwipeLightbox() {
-            let startY = 0;
-            const lb = document.getElementById('myModal');
-            lb.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
-            lb.addEventListener('touchend', e => { if (e.changedTouches[0].clientY - startY > 60) closeModal(); }, { passive: true });
-        })();
-
-        // ── FORMULARIO ──
-        function actualizarSubcategorias() {
-            const dist = document.getElementById("distancia").value;
-            const genero = document.getElementById("genero").value;
-            const sub = document.getElementById("subcategoria");
-            if (!dist) return;
-            if (dist === "7K") {
-                sub.innerHTML = '<option value="7K GENERAL" selected>7K GENERAL</option>';
-                sub.disabled = false;
-                sub.style.pointerEvents = "none"; sub.style.opacity = "0.6";
-                document.getElementById("ig-genero").style.display = "none";
-                return;
-            }
-            document.getElementById("ig-genero").style.display = "block";
-            if (!genero) return;
-            const prefijo = genero === "M" ? "VARONIL" : "FEMENIL";
-            const cats = ['JUVENIL (HASTA 19 AÑOS)', 'SENIOR (20-29 AÑOS)', 'MASTER A (30-39 AÑOS)', 'MASTER B (40-49 AÑOS)', 'MASTER C (50-59 AÑOS)', 'INVENCIBLE (60+ AÑOS)'];
-            sub.innerHTML = '<option value="" disabled selected>Selecciona tu categoría</option>';
-            sub.disabled = false; sub.style.pointerEvents = ""; sub.style.opacity = "";
-            cats.forEach(cat => {
-                const opt = document.createElement("option");
-                opt.value = `10K ${prefijo} - ${cat}`;
-                opt.innerHTML = `10K ${prefijo} - ${cat}`;
-                sub.appendChild(opt);
-            });
-        }
-
-        const validaciones = {
-            nombre: v => /^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+$/.test(v.trim()) && v.trim().length > 1,
-            cedula: v => /^\d{10}$/.test(v),
-            email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
-            telefono: v => /^\d{10}$/.test(v),
-        };
-
-        function marcarCampo(id, valido) {
-            const ig = document.getElementById('ig-' + id);
-            const err = document.getElementById('error-' + id);
-            if (!ig) return;
-            ig.classList.toggle('has-error', !valido);
-            if (err) err.style.display = valido ? 'none' : 'block';
-        }
-
-        // ── EDICIONES 3D ──
-        const edicionesData = [
-            { año: "2021", nombre: "1ª EDICIÓN", desc: "La que empezó todo · 30 valientes", color: "#e74c3c", colorB: "#c0392b", img: "/static/img/camisa_2021.jpeg" },
-            { año: "2022", nombre: "2ª EDICIÓN", desc: "El Lavadero hace su debut · 80 corredores", color: "#8e44ad", colorB: "#6c3483", img: "/static/img/camisa_2022.jpeg" },
-            { año: "2023", nombre: "3ª EDICIÓN", desc: "La Tormenta legendaria · 120 atletas", color: "#2980b9", colorB: "#1a5276", img: "/static/img/camisa_2023.jpeg" },
-            { año: "2024", nombre: "4ª EDICIÓN", desc: "El año del récord · Juan M. 3h 15m", color: "#d35400", colorB: "#a04000", img: "/static/img/camisa_2024.jpeg" },
-            { año: "2025", nombre: "5ª EDICIÓN", desc: "La Víbora · 200 finishers", color: "#27ae60", colorB: "#1e8449", img: "/static/img/Camisa sin mangas.jpeg" },
-        ];
-
-        function generarThumbCanvas(ed) {
-            const c = document.createElement("canvas"); c.width = 300; c.height = 200;
-            const ctx = c.getContext("2d");
-            const grad = ctx.createLinearGradient(0, 0, 300, 200);
-            grad.addColorStop(0, ed.color); grad.addColorStop(1, ed.colorB);
-            ctx.fillStyle = grad; ctx.fillRect(0, 0, 300, 200);
-            ctx.fillStyle = "rgba(0,0,0,0.25)"; ctx.fillRect(0, 0, 300, 200);
-            ctx.fillStyle = "white"; ctx.font = "bold 48px 'Teko',sans-serif"; ctx.textAlign = "center";
-            ctx.fillText("TRAIL " + ed.año, 150, 90); ctx.font = "22px 'Roboto',sans-serif";
-            ctx.fillStyle = "rgba(255,255,255,0.7)"; ctx.fillText(ed.nombre, 150, 125);
-            ctx.fillStyle = "#ccff00"; ctx.font = "bold 28px 'Teko',sans-serif"; ctx.fillText("VER EN 3D ↗", 150, 170);
-            return c.toDataURL();
-        }
-
-        function buildEdicionesGrid() {
-            const grid = document.getElementById("ediciones-grid");
-            if (!grid) return;
-            edicionesData.forEach((ed, i) => {
-                const card = document.createElement("div");
-                card.className = "edicion-card";
-                card.onclick = () => abrir3D(i);
-                const thumbSrc = ed.img || generarThumbCanvas(ed);
-                card.innerHTML = `
-            <div style="overflow:hidden;height:160px;position:relative;">
-                <img class="edicion-thumb" src="${thumbSrc}" alt="${ed.nombre}" loading="lazy">
-                <div class="edicion-badge">${ed.año}</div>
-            </div>
-            <div class="edicion-info">
-                <h3>${ed.nombre}</h3><p>${ed.desc}</p>
-                <div class="edicion-3d-hint">⬡ VER EN 3D</div>
-            </div>`;
-                grid.appendChild(card);
-            });
-        }
-
+        (function () { let x = 0; const el = document.getElementById('mem-main'); if (!el) return; el.addEventListener('touchstart', e => { x = e.touches[0].clientX; }, { passive: true }); el.addEventListener('touchend', e => { const d = x - e.changedTouches[0].clientX; if (Math.abs(d) > 40) moverMem(d > 0 ? 1 : -1); }, { passive: true }); })();
+        function openMemModal() { const f = memFotos[memActual]; if (f.tipo === "video") { abrirVimeo(f.vimeoId, `${f.año} — ${f.titulo}`); } else { openModal({ src: f.src, alt: `${f.año} — ${f.titulo}` }); } }
+        function openModal(el) { document.getElementById("img01").src = el.src; document.getElementById("img01").style.display = "block"; document.getElementById("caption-zoom").innerHTML = el.alt; document.getElementById("myModal").classList.add("open"); }
+        function closeModal() { document.getElementById("myModal").classList.remove("open"); }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); cerrarVimeo(); cerrar3D(); } });
+        (function () { let y = 0; const lb = document.getElementById('myModal'); lb.addEventListener('touchstart', e => { y = e.touches[0].clientY; }, { passive: true }); lb.addEventListener('touchend', e => { if (e.changedTouches[0].clientY - y > 60) closeModal(); }, { passive: true }); })();
+        function actualizarSubcategorias() { const dist = document.getElementById("distancia").value; const genero = document.getElementById("genero").value; const sub = document.getElementById("subcategoria"); if (!dist) return; if (dist === "7K") { sub.innerHTML = '<option value="7K GENERAL" selected>7K GENERAL</option>'; sub.disabled = false; sub.style.pointerEvents = "none"; sub.style.opacity = "0.6"; document.getElementById("ig-genero").style.display = "none"; return; } document.getElementById("ig-genero").style.display = "block"; if (!genero) return; const prefijo = genero === "M" ? "VARONIL" : "FEMENIL"; const cats = ['JUVENIL (HASTA 19 AÑOS)', 'SENIOR (20-29 AÑOS)', 'MASTER A (30-39 AÑOS)', 'MASTER B (40-49 AÑOS)', 'MASTER C (50-59 AÑOS)', 'INVENCIBLE (60+ AÑOS)']; sub.innerHTML = '<option value="" disabled selected>Selecciona tu categoría</option>'; sub.disabled = false; sub.style.pointerEvents = ""; sub.style.opacity = ""; cats.forEach(cat => { const opt = document.createElement("option"); opt.value = `10K ${prefijo} - ${cat}`; opt.innerHTML = `10K ${prefijo} - ${cat}`; sub.appendChild(opt); }); }
+        const validaciones = { nombre: v => /^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+$/.test(v.trim()) && v.trim().length > 1, cedula: v => /^\d{10}$/.test(v), email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), telefono: v => /^\d{10}$/.test(v) };
+        function marcarCampo(id, valido) { const ig = document.getElementById('ig-' + id); const err = document.getElementById('error-' + id); if (!ig) return; ig.classList.toggle('has-error', !valido); if (err) err.style.display = valido ? 'none' : 'block'; }
+        const edicionesData = [{ año: "2021", nombre: "1ª EDICIÓN", desc: "La que empezó todo · 30 valientes", color: "#e74c3c", colorB: "#c0392b", img: "/static/img/camisa_2021.jpeg" }, { año: "2022", nombre: "2ª EDICIÓN", desc: "El Lavadero hace su debut · 80 corredores", color: "#8e44ad", colorB: "#6c3483", img: "/static/img/camisa_2022.jpeg" }, { año: "2023", nombre: "3ª EDICIÓN", desc: "La Tormenta legendaria · 120 atletas", color: "#2980b9", colorB: "#1a5276", img: "/static/img/camisa_2023.jpeg" }, { año: "2024", nombre: "4ª EDICIÓN", desc: "El año del récord · Juan M. 3h 15m", color: "#d35400", colorB: "#a04000", img: "/static/img/camisa_2024.jpeg" }, { año: "2025", nombre: "5ª EDICIÓN", desc: "La Víbora · 200 finishers", color: "#27ae60", colorB: "#1e8449", img: "/static/img/Camisa sin mangas.jpeg" }];
+        function generarThumbCanvas(ed) { const c = document.createElement("canvas"); c.width = 300; c.height = 200; const ctx = c.getContext("2d"); const g = ctx.createLinearGradient(0, 0, 300, 200); g.addColorStop(0, ed.color); g.addColorStop(1, ed.colorB); ctx.fillStyle = g; ctx.fillRect(0, 0, 300, 200); ctx.fillStyle = "rgba(0,0,0,0.25)"; ctx.fillRect(0, 0, 300, 200); ctx.fillStyle = "white"; ctx.font = "bold 48px 'Teko',sans-serif"; ctx.textAlign = "center"; ctx.fillText("TRAIL " + ed.año, 150, 90); ctx.font = "22px 'Roboto',sans-serif"; ctx.fillStyle = "rgba(255,255,255,0.7)"; ctx.fillText(ed.nombre, 150, 125); ctx.fillStyle = "#ccff00"; ctx.font = "bold 28px 'Teko',sans-serif"; ctx.fillText("VER EN 3D ↗", 150, 170); return c.toDataURL(); }
+        function buildEdicionesGrid() { const grid = document.getElementById("ediciones-grid"); if (!grid) return; edicionesData.forEach((ed, i) => { const card = document.createElement("div"); card.className = "edicion-card"; card.onclick = () => abrir3D(i); const thumbSrc = ed.img || generarThumbCanvas(ed); card.innerHTML = `<div style="overflow:hidden;height:160px;position:relative;"><img class="edicion-thumb" src="${thumbSrc}" alt="${ed.nombre}" loading="lazy"><div class="edicion-badge">${ed.año}</div></div><div class="edicion-info"><h3>${ed.nombre}</h3><p>${ed.desc}</p><div class="edicion-3d-hint">⬡ VER EN 3D</div></div>`; grid.appendChild(card); }); }
         let three = null;
-
-        function abrir3D(idx) {
-            const ed = edicionesData[idx];
-            document.getElementById("modal3d-title").innerText = ed.año + " — " + ed.nombre;
-            document.getElementById("modal3d-sub").innerText = ed.desc;
-            const fotoWrap = document.getElementById("modal3d-foto-wrap");
-            const fotoImg = document.getElementById("modal3d-foto");
-            if (ed.img) { fotoImg.src = ed.img; fotoWrap.classList.remove("sin-foto"); }
-            else { fotoImg.src = ""; fotoWrap.classList.add("sin-foto"); }
-            document.getElementById("modal3d-overlay").classList.add("open");
-            document.body.style.overflow = "hidden";
-            iniciar3D(ed);
-        }
-
-        function cerrar3D() {
-            document.getElementById("modal3d-overlay").classList.remove("open");
-            document.body.style.overflow = "";
-            if (three) { cancelAnimationFrame(three.rafId); three.renderer.dispose(); three = null; }
-        }
-
-        function iniciar3D(ed) {
-            if (three) { cancelAnimationFrame(three.rafId); three.renderer.dispose(); three = null; }
-            const canvas = document.getElementById("canvas3d");
-            const W = canvas.clientWidth || 480, H = canvas.clientHeight || 480;
-            const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-            renderer.setSize(W, H); renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            renderer.setClearColor(0x000000, 0); renderer.outputEncoding = THREE.sRGBEncoding;
-            renderer.shadowMap.enabled = true;
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 100);
-            camera.position.set(0, 0.5, 3.5);
-            scene.add(new THREE.AmbientLight(0xffffff, 0.7));
-            const dLight = new THREE.DirectionalLight(0xffffff, 1.0); dLight.position.set(3, 5, 5); dLight.castShadow = true; scene.add(dLight);
-            scene.add(Object.assign(new THREE.DirectionalLight(0xccff00, 0.25), { position: new THREE.Vector3(-3, -2, 3) }));
-            scene.add(Object.assign(new THREE.DirectionalLight(0xffffff, 0.4), { position: new THREE.Vector3(0, -3, 2) }));
-            let model = null;
-            const gltfLoader = new THREE.GLTFLoader();
-            gltfLoader.load('/static/3d/t-shirt.glb',
-                gltf => {
-                    model = gltf.scene;
-                    const box = new THREE.Box3().setFromObject(model);
-                    const center = box.getCenter(new THREE.Vector3());
-                    const size = box.getSize(new THREE.Vector3());
-                    const scale = 2.2 / Math.max(size.x, size.y, size.z);
-                    model.scale.setScalar(scale);
-                    model.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
-                    model.rotation.y = Math.PI;
-                    model.traverse(c => { if (c.isMesh) { c.castShadow = true; c.receiveShadow = true; } });
-                    scene.add(model);
-                },
-                undefined,
-                () => {
-                    const c2 = document.createElement("canvas"); c2.width = 512; c2.height = 512;
-                    const ctx = c2.getContext("2d");
-                    const g = ctx.createLinearGradient(0, 0, 512, 512);
-                    g.addColorStop(0, ed.color); g.addColorStop(1, ed.colorB);
-                    ctx.fillStyle = g; ctx.fillRect(0, 0, 512, 512);
-                    ctx.fillStyle = "white"; ctx.font = "bold 72px sans-serif"; ctx.textAlign = "center";
-                    ctx.fillText("TRAIL", 256, 190); ctx.fillText(ed.año, 256, 275);
-                    ctx.fillStyle = "#ccff00"; ctx.font = "bold 38px sans-serif"; ctx.fillText(ed.nombre, 256, 350);
-                    const mat = new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(c2), side: THREE.DoubleSide, roughness: 0.8 });
-                    model = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 2, 20, 20), mat);
-                    scene.add(model);
-                }
-            );
-            let isDragging = false, prevX = 0, prevY = 0, rotY = Math.PI, rotX = 0;
-            canvas.addEventListener("mousedown", e => { isDragging = true; prevX = e.clientX; prevY = e.clientY; });
-            canvas.addEventListener("mousemove", e => { if (!isDragging || !model) return; rotY += (e.clientX - prevX) * 0.012; rotX += (e.clientY - prevY) * 0.008; prevX = e.clientX; prevY = e.clientY; });
-            canvas.addEventListener("mouseup", () => isDragging = false);
-            canvas.addEventListener("mouseleave", () => isDragging = false);
-            canvas.addEventListener("touchstart", e => { isDragging = true; prevX = e.touches[0].clientX; prevY = e.touches[0].clientY; }, { passive: true });
-            canvas.addEventListener("touchmove", e => { if (!isDragging || !model) return; rotY += (e.touches[0].clientX - prevX) * 0.012; rotX += (e.touches[0].clientY - prevY) * 0.008; prevX = e.touches[0].clientX; prevY = e.touches[0].clientY; e.preventDefault(); }, { passive: false });
-            canvas.addEventListener("touchend", () => isDragging = false);
-            three = { renderer, rafId: null };
-            function animate() {
-                three.rafId = requestAnimationFrame(animate);
-                if (model) { if (!isDragging) rotY += 0.005; model.rotation.y = rotY; model.rotation.x = Math.max(-0.5, Math.min(0.5, rotX)); }
-                renderer.render(scene, camera);
-            }
-            animate();
-        }
-
-        // ── ADMIN ──
-        function seguridadAdmin() {
-            const clave = prompt("🔐 ACCESO RESTRINGIDO\nIngresa la llave maestra:");
-            if (clave === "trail2026") window.location.href = "{{ url_for('admin_login') }}";
-            else if (clave !== null) alert("❌ Acceso Denegado");
-        }
-
-        // ── INIT ──
-        document.addEventListener("DOMContentLoaded", () => {
-            ['nombre', 'cedula', 'email', 'telefono'].forEach(id => {
-                const el = document.getElementById(id);
-                if (!el) return;
-                el.addEventListener('input', function () { if (validaciones[id]) marcarCampo(id, validaciones[id](this.value)); });
-                el.addEventListener('blur', function () { if (validaciones[id]) marcarCampo(id, validaciones[id](this.value)); });
-            });
-
-            const form = document.getElementById('form-inscripcion');
-            const btn = document.getElementById('btn-submit');
-            if (form && btn) {
-                form.addEventListener('submit', function (e) {
-                    let ok = true;
-                    ['nombre', 'cedula', 'email', 'telefono'].forEach(id => {
-                        const el = document.getElementById(id);
-                        if (el && validaciones[id]) { const v = validaciones[id](el.value); marcarCampo(id, v); if (!v) ok = false; }
-                    });
-                    if (!ok) { e.preventDefault(); return; }
-                    btn.disabled = true;
-                    btn.innerHTML = '<span class="btn-spinner"></span> PROCESANDO...';
-                });
-            }
-
-            buildSlideDots();
-            updateHistoryText(1);
-            updateCounter(1);
-            buildEdicionesGrid();
-
-            const cnt = document.getElementById("mem-counter");
-            if (cnt) cnt.innerText = `1 / ${memFotos.length}`;
-            renderMemThumbs();
-
-            let autoHistoria = setInterval(() => moveSlide(1), 4000);
-            const carruselHistoria = document.getElementById('carrusel-historia');
-            if (carruselHistoria) {
-                carruselHistoria.addEventListener('mouseenter', () => clearInterval(autoHistoria));
-                carruselHistoria.addEventListener('mouseleave', () => { autoHistoria = setInterval(() => moveSlide(1), 4000); });
-            }
-
-            let autoMem = setInterval(() => moverMem(1), 3500);
-            [document.getElementById("mem-main"), document.getElementById("mem-thumbs")].forEach(el => {
-                if (!el) return;
-                el.addEventListener('mouseenter', () => clearInterval(autoMem));
-                el.addEventListener('mouseleave', () => { autoMem = setInterval(() => moverMem(1), 3500); });
-            });
-        });
-
-        window.onload = function () {
-            const ced = localStorage.getItem("pago_pendiente_cedula");
-            if (ced) {
-                document.getElementById("alert-cedula").innerText = ced;
-                document.getElementById("custom-alert").style.display = "flex";
-                document.getElementById("btn-pay-alert").onclick = () => window.location.href = "/payment/" + ced;
-                document.getElementById("close-x-alert").onclick = () => document.getElementById("custom-alert").style.display = "none";
-                document.getElementById("custom-alert").onclick = function (e) { if (e.target === this) this.style.display = "none"; };
-            }
-        };
-
+        function abrir3D(idx) { const ed = edicionesData[idx]; document.getElementById("modal3d-title").innerText = ed.año + " — " + ed.nombre; document.getElementById("modal3d-sub").innerText = ed.desc; const fw = document.getElementById("modal3d-foto-wrap"); const fi = document.getElementById("modal3d-foto"); if (ed.img) { fi.src = ed.img; fw.classList.remove("sin-foto"); } else { fi.src = ""; fw.classList.add("sin-foto"); } document.getElementById("modal3d-overlay").classList.add("open"); document.body.style.overflow = "hidden"; iniciar3D(ed); }
+        function cerrar3D() { document.getElementById("modal3d-overlay").classList.remove("open"); document.body.style.overflow = ""; if (three) { cancelAnimationFrame(three.rafId); three.renderer.dispose(); three = null; } }
+        function iniciar3D(ed) { if (three) { cancelAnimationFrame(three.rafId); three.renderer.dispose(); three = null; } const canvas = document.getElementById("canvas3d"); const W = canvas.clientWidth || 480, H = canvas.clientHeight || 480; const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true }); renderer.setSize(W, H); renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); renderer.setClearColor(0x000000, 0); renderer.outputEncoding = THREE.sRGBEncoding; renderer.shadowMap.enabled = true; const scene = new THREE.Scene(); const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 100); camera.position.set(0, 0.5, 3.5); scene.add(new THREE.AmbientLight(0xffffff, 0.7)); const dL = new THREE.DirectionalLight(0xffffff, 1.0); dL.position.set(3, 5, 5); dL.castShadow = true; scene.add(dL); scene.add(Object.assign(new THREE.DirectionalLight(0xccff00, 0.25), { position: new THREE.Vector3(-3, -2, 3) })); scene.add(Object.assign(new THREE.DirectionalLight(0xffffff, 0.4), { position: new THREE.Vector3(0, -3, 2) })); let model = null; const gl = new THREE.GLTFLoader(); gl.load('/static/3d/t-shirt.glb', gltf => { model = gltf.scene; const box = new THREE.Box3().setFromObject(model); const center = box.getCenter(new THREE.Vector3()); const size = box.getSize(new THREE.Vector3()); const scale = 2.2 / Math.max(size.x, size.y, size.z); model.scale.setScalar(scale); model.position.set(-center.x * scale, -center.y * scale, -center.z * scale); model.rotation.y = Math.PI; model.traverse(c => { if (c.isMesh) { c.castShadow = true; c.receiveShadow = true; } }); scene.add(model); }, undefined, () => { const c2 = document.createElement("canvas"); c2.width = 512; c2.height = 512; const ctx = c2.getContext("2d"); const g = ctx.createLinearGradient(0, 0, 512, 512); g.addColorStop(0, ed.color); g.addColorStop(1, ed.colorB); ctx.fillStyle = g; ctx.fillRect(0, 0, 512, 512); ctx.fillStyle = "white"; ctx.font = "bold 72px sans-serif"; ctx.textAlign = "center"; ctx.fillText("TRAIL", 256, 190); ctx.fillText(ed.año, 256, 275); ctx.fillStyle = "#ccff00"; ctx.font = "bold 38px sans-serif"; ctx.fillText(ed.nombre, 256, 350); const mat = new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(c2), side: THREE.DoubleSide, roughness: 0.8 }); model = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 2, 20, 20), mat); scene.add(model); }); let isDragging = false, prevX = 0, prevY = 0, rotY = Math.PI, rotX = 0; canvas.addEventListener("mousedown", e => { isDragging = true; prevX = e.clientX; prevY = e.clientY; }); canvas.addEventListener("mousemove", e => { if (!isDragging || !model) return; rotY += (e.clientX - prevX) * 0.012; rotX += (e.clientY - prevY) * 0.008; prevX = e.clientX; prevY = e.clientY; }); canvas.addEventListener("mouseup", () => isDragging = false); canvas.addEventListener("mouseleave", () => isDragging = false); canvas.addEventListener("touchstart", e => { isDragging = true; prevX = e.touches[0].clientX; prevY = e.touches[0].clientY; }, { passive: true }); canvas.addEventListener("touchmove", e => { if (!isDragging || !model) return; rotY += (e.touches[0].clientX - prevX) * 0.012; rotX += (e.touches[0].clientY - prevY) * 0.008; prevX = e.touches[0].clientX; prevY = e.touches[0].clientY; e.preventDefault(); }, { passive: false }); canvas.addEventListener("touchend", () => isDragging = false); three = { renderer, rafId: null }; function animate() { three.rafId = requestAnimationFrame(animate); if (model) { if (!isDragging) rotY += 0.005; model.rotation.y = rotY; model.rotation.x = Math.max(-0.5, Math.min(0.5, rotX)); } renderer.render(scene, camera); } animate(); }
+        function seguridadAdmin() { const clave = prompt("🔐 ACCESO RESTRINGIDO\nIngresa la llave maestra:"); if (clave === "trail2026") window.location.href = "{{ url_for('admin_login') }}"; else if (clave !== null) alert("❌ Acceso Denegado"); }
+        document.addEventListener("DOMContentLoaded", () => { ['nombre', 'cedula', 'email', 'telefono'].forEach(id => { const el = document.getElementById(id); if (!el) return; el.addEventListener('input', function () { if (validaciones[id]) marcarCampo(id, validaciones[id](this.value)); }); el.addEventListener('blur', function () { if (validaciones[id]) marcarCampo(id, validaciones[id](this.value)); }); }); const form = document.getElementById('form-inscripcion'); const btn = document.getElementById('btn-submit'); if (form && btn) { form.addEventListener('submit', function (e) { let ok = true;['nombre', 'cedula', 'email', 'telefono'].forEach(id => { const el = document.getElementById(id); if (el && validaciones[id]) { const v = validaciones[id](el.value); marcarCampo(id, v); if (!v) ok = false; } }); if (!ok) { e.preventDefault(); return; } btn.disabled = true; btn.innerHTML = '<span class="btn-spinner"></span> PROCESANDO...'; }); } buildSlideDots(); updateHistoryText(1); updateCounter(1); buildEdicionesGrid(); const cnt = document.getElementById("mem-counter"); if (cnt) cnt.innerText = `1 / ${memFotos.length}`; renderMemThumbs(); let autoH = setInterval(() => moveSlide(1), 4000); const ch = document.getElementById('carrusel-historia'); if (ch) { ch.addEventListener('mouseenter', () => clearInterval(autoH)); ch.addEventListener('mouseleave', () => { autoH = setInterval(() => moveSlide(1), 4000); }); } let autoM = setInterval(() => moverMem(1), 3500);[document.getElementById("mem-main"), document.getElementById("mem-thumbs")].forEach(el => { if (!el) return; el.addEventListener('mouseenter', () => clearInterval(autoM)); el.addEventListener('mouseleave', () => { autoM = setInterval(() => moverMem(1), 3500); }); }); });
+        window.onload = function () { const ced = localStorage.getItem("pago_pendiente_cedula"); if (ced) { document.getElementById("alert-cedula").innerText = ced; document.getElementById("custom-alert").style.display = "flex"; document.getElementById("btn-pay-alert").onclick = () => window.location.href = "/payment/" + ced; document.getElementById("close-x-alert").onclick = () => document.getElementById("custom-alert").style.display = "none"; document.getElementById("custom-alert").onclick = function (e) { if (e.target === this) this.style.display = "none"; }; } };
     </script>
 </body>
 
