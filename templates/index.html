@@ -358,14 +358,12 @@
             user-select: none
         }
 
-        .slide,
-        .memoria-slide {
+        .slide {
             display: none;
             animation: fadeEff 0.5s
         }
 
-        .slide.active-slide,
-        .memoria-slide.active-mem {
+        .slide.active-slide {
             display: block
         }
 
@@ -387,53 +385,63 @@
             cursor: zoom-in
         }
 
-        .vimeo-slide-wrap {
+        .slide-video-thumb {
             position: relative;
             width: 100%;
             height: 210px;
-            background: #000;
+            background: #111;
+            cursor: pointer;
             overflow: hidden
         }
 
-        .vimeo-slide-wrap iframe {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 177.78%;
+        .slide-video-thumb img {
+            width: 100%;
             height: 100%;
-            border: none;
-            pointer-events: none
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.75);
+            transition: filter 0.2s
         }
 
-        .vimeo-click-overlay {
-            position: absolute;
-            inset: 0;
-            z-index: 5;
-            cursor: pointer;
-            background: transparent
+        .slide-video-thumb:hover img,
+        .slide-video-thumb:active img {
+            filter: brightness(1)
         }
 
-        .vimeo-play-btn {
+        .play-circle {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.55);
+            width: 64px;
+            height: 64px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 3px solid #ccff00;
             border-radius: 50%;
-            width: 52px;
-            height: 52px;
             display: flex;
             align-items: center;
             justify-content: center;
-            pointer-events: none;
-            z-index: 6
+            pointer-events: none
         }
 
-        .vimeo-play-btn span {
+        .play-circle span {
             color: #ccff00;
-            font-size: 1.4rem;
-            margin-left: 4px
+            font-size: 1.8rem;
+            margin-left: 6px
+        }
+
+        .video-label {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #ccff00;
+            font-family: 'Teko';
+            font-size: 0.85rem;
+            padding: 3px 10px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            pointer-events: none
         }
 
         .car-btn {
@@ -469,7 +477,7 @@
             right: 8px
         }
 
-        .vimeo-ruta-wrap {
+        .gdrive-ruta-wrap {
             position: relative;
             width: 100%;
             padding-bottom: 56.25%;
@@ -478,7 +486,7 @@
             overflow: hidden
         }
 
-        .vimeo-ruta-wrap iframe {
+        .gdrive-ruta-wrap iframe {
             position: absolute;
             inset: 0;
             width: 100%;
@@ -776,7 +784,7 @@
             text-align: center
         }
 
-        #vimeo-modal {
+        #video-modal {
             display: none;
             position: fixed;
             inset: 0;
@@ -788,43 +796,52 @@
             padding: 4px
         }
 
-        #vimeo-modal.open {
+        #video-modal.open {
             display: flex
         }
 
-        #vimeo-modal-frame {
+        #video-modal-frame {
             width: 98vw;
             height: 55vw;
-            max-width: 900px;
-            max-height: 80vh;
-            min-height: 180px;
+            max-width: 960px;
+            max-height: 82vh;
+            min-height: 200px;
             border: none;
             border-radius: 8px;
-            display: block
+            display: block;
+            background: #000
         }
 
-        #vimeo-modal-caption {
+        #video-modal-caption {
             color: #94a3b8;
-            font-size: 0.85rem;
-            margin-top: 10px;
+            font-size: 0.9rem;
+            margin-top: 12px;
             font-family: 'Teko';
             letter-spacing: 1px;
             text-align: center
         }
 
-        #vimeo-modal-close {
+        #video-modal-close {
             position: absolute;
-            top: 16px;
-            right: 20px;
+            top: 12px;
+            right: 16px;
             color: white;
-            font-size: 2.4rem;
+            font-size: 2.8rem;
             cursor: pointer;
             padding: 8px;
             transition: color 0.2s;
-            z-index: 10
+            z-index: 10;
+            line-height: 1;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center
         }
 
-        #vimeo-modal-close:hover {
+        #video-modal-close:hover {
             color: #ccff00
         }
 
@@ -1181,7 +1198,7 @@
         }
 
         @media(min-width:600px) {
-            #vimeo-modal-frame {
+            #video-modal-frame {
                 width: 92vw;
                 height: 51.75vw
             }
@@ -1244,12 +1261,9 @@
                 font-size: 0.85rem
             }
 
-            .slide img {
-                height: 320px
-            }
-
-            .vimeo-slide-wrap {
-                height: 320px
+            .slide img,
+            .slide-video-thumb {
+                height: 320px !important
             }
 
             .card-img {
@@ -1372,10 +1386,9 @@
             <div id="ruta" class="content-section" style="text-align:center;">
                 <h2 class="section-title"><i class="fa-solid fa-location-dot"></i> DESAFÍO COSTERO</h2>
                 <div class="route-img-wrap">
-                    <div class="vimeo-ruta-wrap">
-                        <iframe id="ruta-iframe"
-                            src="https://player.vimeo.com/video/1173500589?autoplay=0&loop=1&muted=1&controls=1&title=0&byline=0&portrait=0"
-                            allow="autoplay; fullscreen; picture-in-picture" allow></iframe>
+                    <div class="gdrive-ruta-wrap">
+                        <iframe src="https://drive.google.com/file/d/1_vEGYUKYSQxQN_OAsjRtYv9sMIzEa7AQ/preview"
+                            allow="autoplay"></iframe>
                     </div>
                     <div class="route-badge"><i class="fa-solid fa-mountain"></i> ALTITUD: 60m</div>
                 </div>
@@ -1397,45 +1410,40 @@
                 <div class="carousel-container" id="carrusel-historia">
                     <div class="slide active-slide" data-titulo="2021 — EL NACIMIENTO"
                         data-texto="Todo empezó con 30 valientes y un sueño: correr del bosque al mar. Sin arcos, sin sponsors, solo tierra, adrenalina y ganas de conquistar la costa.">
-                        <img loading="lazy" src="/static/img/nacimiento.jpeg" alt="2021 - El Nacimiento"
-                            onclick="openModal(this)">
+                        <img loading="lazy" src="/static/img/nacimiento.jpeg" alt="2021" onclick="openModal(this)">
                     </div>
                     <div class="slide" data-titulo="2022 — LA EXPANSIÓN"
                         data-texto="El boca a boca hizo su magia. Más de 80 corredores de tres provincias distintas se unieron al reto. Se sumó el cruce del mar.">
-                        <img loading="lazy" src="/static/img/expansion.jpg" alt="2022 - La Expansión"
-                            onclick="openModal(this)">
+                        <img loading="lazy" src="/static/img/expansion.jpg" alt="2022" onclick="openModal(this)">
                     </div>
                     <div class="slide" data-titulo="2023 — CLIMA HOSPIDO"
                         data-texto="Nadie esperaba un clima frio, con lluvisna, pero eso no fue impedimiento para que los atletas completaran su meta.">
-                        <div class="vimeo-slide-wrap">
-                            <iframe
-                                src="https://player.vimeo.com/video/1173501358?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1"
-                                allow="autoplay" loading="lazy"></iframe>
-                            <div class="vimeo-click-overlay" onclick="abrirVimeo('1173501358','2023 — Clima Hospido')">
-                            </div>
-                            <div class="vimeo-play-btn"><span>▶</span></div>
+                        <div class="slide-video-thumb"
+                            onclick="abrirVideo('1BdBtH0qtFq31b0zCb774s5QqrFHiNKRR','2023 — Clima Hospido')">
+                            <img src="https://images.unsplash.com/photo-1461897104016-0b3b00cc81ee?w=800&q=80"
+                                alt="2023">
+                            <div class="play-circle"><span>▶</span></div>
+                            <div class="video-label">▶ 2023</div>
                         </div>
                     </div>
                     <div class="slide" data-titulo="2024 — EL RECORD"
                         data-texto="Mas de 300 atletas participando en esta cuarta edicion, con sudor, esfuerzo y disciplina llegan a la meta.">
-                        <div class="vimeo-slide-wrap">
-                            <iframe
-                                src="https://player.vimeo.com/video/1173500509?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1"
-                                allow="autoplay" loading="lazy"></iframe>
-                            <div class="vimeo-click-overlay" onclick="abrirVimeo('1173500509','2024 — El Record')">
-                            </div>
-                            <div class="vimeo-play-btn"><span>▶</span></div>
+                        <div class="slide-video-thumb"
+                            onclick="abrirVideo('1RGHhoyKO23FrE3Odr4cxL3wGqMkccQY3','2024 — El Record')">
+                            <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80"
+                                alt="2024">
+                            <div class="play-circle"><span>▶</span></div>
+                            <div class="video-label">▶ 2024</div>
                         </div>
                     </div>
                     <div class="slide" data-titulo="2025 — EL PRESENTE"
-                        data-texto="Se estrenó el sendero técnico más exigente, con seguridad de la Policia Nacional, 3 km de curvas cerradas con vista al mar. Más de 250 finishers sellaron la edición más grande.">
-                        <div class="vimeo-slide-wrap">
-                            <iframe
-                                src="https://player.vimeo.com/video/1173500389?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1"
-                                allow="autoplay" loading="lazy"></iframe>
-                            <div class="vimeo-click-overlay" onclick="abrirVimeo('1173500410','2025 — El Presente')">
-                            </div>
-                            <div class="vimeo-play-btn"><span>▶</span></div>
+                        data-texto="Se estrenó el sendero técnico más exigente, con seguridad de la Policia Nacional, 3 km de curvas cerradas con vista al mar. Más de 250 finishers.">
+                        <div class="slide-video-thumb"
+                            onclick="abrirVideo('15nVPY_sA_Q66uj-fysimS4bNGXDMJA-J','2025 — El Presente')">
+                            <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=800&q=80"
+                                alt="2025">
+                            <div class="play-circle"><span>▶</span></div>
+                            <div class="video-label">▶ 2025</div>
                         </div>
                     </div>
                     <button class="car-btn left" onclick="moveSlide(-1)" aria-label="Anterior">&#10094;</button>
@@ -1451,11 +1459,14 @@
                     <p class="hero-text" style="margin-bottom:0;">Momentos que quedan en la piel · Toca para ampliar</p>
                 </div>
                 <div id="mem-main"
-                    style="position:relative;border-radius:10px;overflow:hidden;height:260px;background:#000;cursor:zoom-in;"
+                    style="position:relative;border-radius:10px;overflow:hidden;height:260px;background:#000;cursor:pointer;"
                     onclick="openMemModal()">
                     <img id="mem-main-img"
                         src="https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?auto=format&fit=crop&w=800&q=80"
                         style="width:100%;height:100%;object-fit:cover;">
+                    <div id="mem-play-icon"
+                        style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,0.7);border:3px solid #ccff00;border-radius:50%;align-items:center;justify-content:center;pointer-events:none;z-index:5;">
+                        <span style="color:#ccff00;font-size:1.8rem;margin-left:6px;">▶</span></div>
                     <div
                         style="position:absolute;bottom:0;left:0;right:0;padding:16px 14px 12px;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 100%);z-index:2;">
                         <div id="mem-year-badge"
@@ -1489,17 +1500,15 @@
                 <div class="merch-grid">
                     <div class="merch-card">
                         <div class="card-img"><img loading="lazy" src="/static/img/Camisa sin mangas.jpeg"
-                                alt="Camiseta Sin Mangas" onclick="openModal(this)"><span class="price-tag">INCL.</span>
-                        </div>
+                                alt="Sin Mangas" onclick="openModal(this)"><span class="price-tag">INCL.</span></div>
                         <div class="card-info">
                             <h3>SIN MANGAS</h3>
                             <p>Diseño ligero y ventilación dorsal.</p>
                         </div>
                     </div>
                     <div class="merch-card">
-                        <div class="card-img"><img loading="lazy" src="/static/img/Con mangas.jpeg"
-                                alt="Camiseta Con Mangas" onclick="openModal(this)"><span class="price-tag">INCL.</span>
-                        </div>
+                        <div class="card-img"><img loading="lazy" src="/static/img/Con mangas.jpeg" alt="Con Mangas"
+                                onclick="openModal(this)"><span class="price-tag">INCL.</span></div>
                         <div class="card-info">
                             <h3>CON MANGAS</h3>
                             <p>Tejido de compresión suave.</p>
@@ -1649,7 +1658,6 @@
                         alt="Tesla"></div>
             </div>
         </section>
-
     </div>
 
     <a href="https://wa.me/593985053113?text=Hola,%20quiero%20info%20sobre%20el%20Trail%20Running%202026"
@@ -1664,10 +1672,10 @@
         <div id="caption-zoom"></div>
     </div>
 
-    <div id="vimeo-modal" onclick="if(event.target===this)cerrarVimeo()">
-        <span id="vimeo-modal-close" onclick="cerrarVimeo()">&times;</span>
-        <iframe id="vimeo-modal-frame" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-        <div id="vimeo-modal-caption"></div>
+    <div id="video-modal" onclick="if(event.target===this)cerrarVideo()">
+        <span id="video-modal-close" onclick="cerrarVideo()">&times;</span>
+        <iframe id="video-modal-frame" src="" allow="autoplay"></iframe>
+        <div id="video-modal-caption"></div>
     </div>
 
     <div id="modal3d-overlay" onclick="if(event.target===this)cerrar3D()">
@@ -1707,57 +1715,238 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="/static/js/GLTFLoader.js"></script>
     <script>
-        const VIMEO = { ruta: '1173500589', promo2025: '1173500572', nestor_bravo: '1173500556', cuarta_edicion: '1173500509', cuarta_1: '1173500466', bajada: '1173500437', v2025_2: '1173500410', v2025: '1173500389', v2024_1: '1173500352', v2021: '1173501316', v2023: '1173501358', tercera_edicion: '1173500606' };
-        function vimeoEmbed(id, opts) { const o = Object.assign({ autoplay: 1, loop: 1, muted: 1, controls: 0, background: 1 }, opts); const p = new URLSearchParams(Object.assign(o, { title: 0, byline: 0, portrait: 0 })); return `https://player.vimeo.com/video/${id}?${p}`; }
-        function abrirVimeo(id, caption) { document.getElementById('vimeo-modal-frame').src = `https://player.vimeo.com/video/${id}?autoplay=1&title=0&byline=0&portrait=0`; document.getElementById('vimeo-modal-caption').innerText = caption || ''; document.getElementById('vimeo-modal').classList.add('open'); document.body.style.overflow = 'hidden'; }
-        function cerrarVimeo() { document.getElementById('vimeo-modal').classList.remove('open'); document.getElementById('vimeo-modal-frame').src = ''; document.body.style.overflow = ''; }
-        (function () { const f = new Date("September 21, 2026 06:00:00").getTime(); setInterval(() => { const d = f - Date.now(); if (d < 0) return; document.getElementById("days").innerText = Math.floor(d / 86400000); document.getElementById("hours").innerText = Math.floor((d % 86400000) / 3600000); document.getElementById("minutes").innerText = Math.floor((d % 3600000) / 60000); document.getElementById("seconds").innerText = Math.floor((d % 60000) / 1000); }, 1000); })();
-        function switchTab(id) { document.querySelectorAll('.content-section').forEach(el => { el.classList.remove('active'); el.style.display = 'none'; }); document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active')); const t = document.getElementById(id); if (t) { t.style.display = 'block'; setTimeout(() => t.classList.add('active'), 10); } const b = document.getElementById('btn-' + id); if (b) { b.classList.add('active'); b.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); } const rf = document.getElementById('ruta-iframe'); if (rf) { if (id === 'ruta') rf.contentWindow.postMessage('{"method":"play"}', '*'); else rf.contentWindow.postMessage('{"method":"pause"}', '*'); } }
+        const GD = {
+            ruta: '1_vEGYUKYSQxQN_OAsjRtYv9sMIzEa7AQ',
+            v2023: '1BdBtH0qtFq31b0zCb774s5QqrFHiNKRR',
+            cuarta_edicion: '1RGHhoyKO23FrE3Odr4cxL3wGqMkccQY3',
+            v2025: '1bVUHrJM2OYMaCbcXddnREo9d9cNlJwZ_',
+            v2025_2: '15nVPY_sA_Q66uj-fysimS4bNGXDMJA-J',
+            v2021: '1VYQ9DK08VNwTLxXZDWMCvDTDgyXdI_nK',
+            cuarta_1: '1X3yQsHFD49nRrzhBYfZvaKY-Il6vo-Mo',
+            v2024_1: '1rWNiRMIKQHI_PKjuTn_CGk8DYNE1eFy-',
+            nestor_bravo: '112yVbGSCte6DvnaBbLeY94X0n63VhRnV',
+            promo2025: '1NTeBQd2uQIX5vdSD38bXz3zN_cxD77Gc',
+            bajada: '1rZUrqsCmkWzW25HPgQa7hy53kOtkB1oT',
+            finalista: '1tBIQ2KsqBbLryru5Gq4Dv7nd5n62hx6o',
+            tercera: '13BPH9KHnWrfrOQae2S--IfWsy0ouBonp'
+        };
+
+        function gdUrl(id) { return 'https://drive.google.com/file/d/' + id + '/preview'; }
+
+        function abrirVideo(id, caption) {
+            document.getElementById('video-modal-frame').src = gdUrl(id);
+            document.getElementById('video-modal-caption').innerText = caption || '';
+            document.getElementById('video-modal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function cerrarVideo() {
+            document.getElementById('video-modal').classList.remove('open');
+            document.getElementById('video-modal-frame').src = '';
+            document.body.style.overflow = '';
+        }
+
+        (function () {
+            const f = new Date("September 21, 2026 06:00:00").getTime();
+            setInterval(() => {
+                const d = f - Date.now(); if (d < 0) return;
+                document.getElementById("days").innerText = Math.floor(d / 86400000);
+                document.getElementById("hours").innerText = Math.floor((d % 86400000) / 3600000);
+                document.getElementById("minutes").innerText = Math.floor((d % 3600000) / 60000);
+                document.getElementById("seconds").innerText = Math.floor((d % 60000) / 1000);
+            }, 1000);
+        })();
+
+        function switchTab(id) {
+            document.querySelectorAll('.content-section').forEach(el => { el.classList.remove('active'); el.style.display = 'none'; });
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            const t = document.getElementById(id);
+            if (t) { t.style.display = 'block'; setTimeout(() => t.classList.add('active'), 10); }
+            const b = document.getElementById('btn-' + id);
+            if (b) { b.classList.add('active'); b.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); }
+        }
+
         let slideIndex = 1;
-        function buildSlideDots() { const slides = document.getElementsByClassName("slide"); const container = document.getElementById("slide-dots"); if (!container) return; container.innerHTML = ''; Array.from(slides).forEach((_, i) => { const dot = document.createElement("span"); dot.style.cssText = `display:inline-block;width:8px;height:8px;border-radius:50%;background:${i === 0 ? '#ccff00' : '#334155'};cursor:pointer;transition:background 0.2s;`; dot.onclick = () => showSlide(i + 1); container.appendChild(dot); }); }
+        function buildSlideDots() {
+            const slides = document.getElementsByClassName("slide");
+            const container = document.getElementById("slide-dots");
+            if (!container) return;
+            container.innerHTML = '';
+            Array.from(slides).forEach((_, i) => {
+                const dot = document.createElement("span");
+                dot.style.cssText = 'display:inline-block;width:8px;height:8px;border-radius:50%;background:' + (i === 0 ? '#ccff00' : '#334155') + ';cursor:pointer;transition:background 0.2s;';
+                dot.onclick = () => showSlide(i + 1);
+                container.appendChild(dot);
+            });
+        }
         function updateDots(i) { document.querySelectorAll("#slide-dots span").forEach((d, idx) => { d.style.background = idx === (i - 1) ? '#ccff00' : '#334155'; }); }
-        function updateCounter(i) { const c = document.getElementById("slide-counter"); if (c) c.innerText = `${i} / ${document.getElementsByClassName("slide").length}`; }
+        function updateCounter(i) { const c = document.getElementById("slide-counter"); if (c) c.innerText = i + ' / ' + document.getElementsByClassName("slide").length; }
         function moveSlide(n) { showSlide(slideIndex += n); }
-        function showSlide(n) { const slides = document.getElementsByClassName("slide"); if (n > slides.length) slideIndex = 1; if (n < 1) slideIndex = slides.length; for (let s of slides) s.classList.remove("active-slide"); slides[slideIndex - 1].classList.add("active-slide"); updateHistoryText(slideIndex); updateDots(slideIndex); updateCounter(slideIndex); }
-        function updateHistoryText(i) { const slides = document.getElementsByClassName("slide"); if (!slides.length) return; const s = slides[i - 1]; const wrap = document.getElementById("historia-dinamica"); wrap.style.opacity = 0; setTimeout(() => { document.getElementById("titulo-historia").innerText = s.dataset.titulo || ''; document.getElementById("texto-historia").innerText = s.dataset.texto || ''; wrap.style.opacity = 1; }, 180); }
-        (function () { let x = 0; const el = document.getElementById('carrusel-historia'); if (!el) return; el.addEventListener('touchstart', e => { x = e.touches[0].clientX; }, { passive: true }); el.addEventListener('touchend', e => { const d = x - e.changedTouches[0].clientX; if (Math.abs(d) > 40) moveSlide(d > 0 ? 1 : -1); }, { passive: true }); })();
+        function showSlide(n) {
+            const slides = document.getElementsByClassName("slide");
+            if (n > slides.length) slideIndex = 1; if (n < 1) slideIndex = slides.length;
+            for (let s of slides) s.classList.remove("active-slide");
+            slides[slideIndex - 1].classList.add("active-slide");
+            updateHistoryText(slideIndex); updateDots(slideIndex); updateCounter(slideIndex);
+        }
+        function updateHistoryText(i) {
+            const slides = document.getElementsByClassName("slide"); if (!slides.length) return;
+            const s = slides[i - 1]; const wrap = document.getElementById("historia-dinamica");
+            wrap.style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById("titulo-historia").innerText = s.dataset.titulo || '';
+                document.getElementById("texto-historia").innerText = s.dataset.texto || '';
+                wrap.style.opacity = 1;
+            }, 180);
+        }
+        (function () {
+            let x = 0; const el = document.getElementById('carrusel-historia'); if (!el) return;
+            el.addEventListener('touchstart', e => { x = e.touches[0].clientX; }, { passive: true });
+            el.addEventListener('touchend', e => { const d = x - e.changedTouches[0].clientX; if (Math.abs(d) > 40) moveSlide(d > 0 ? 1 : -1); }, { passive: true });
+        })();
+
         const memFotos = [
             { año: "2021", titulo: "PRIMERA EDICION.", desc: "Los primeros 30 valientes que abrieron el camino.", src: "/static/img/salida_2021.jpeg" },
-            { año: "2021", titulo: "LA VERDADERA COMPETENCIA", desc: "Sin arcos ni sponsors, solo tierra y adrenalina.", vimeoId: VIMEO.v2021, tipo: "video" },
+            { año: "2021", titulo: "LA VERDADERA COMPETENCIA", desc: "Sin arcos ni sponsors, solo tierra y adrenalina.", gdId: GD.v2021, tipo: "video" },
             { año: "2022", titulo: "SEGUNDA EDICION.", desc: "Se sumó 'El Lavadero' — el punto donde todo se complica.", src: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=800&q=80" },
             { año: "2022", titulo: "PODIO 2022", desc: "Primer podio oficial con premiación en la playa.", src: "https://images.unsplash.com/photo-1571008887538-b36bb32f4571?auto=format&fit=crop&w=800&q=80" },
             { año: "2023", titulo: "TERCERA EDICION", desc: "Salida de los participantes. Hacia el horizonte de la Victoria.", src: "/static/img/tercera.jpeg" },
             { año: "2023", titulo: "CALENTAMIENTO", desc: "Un buen calentamiento para esta larga aventura.", src: "/static/img/calentamiento.jpeg" },
-            { año: "2024", titulo: "CUARTA EDICION.", desc: "Todo subiendo la loma las cabras, para lograr sus objetivo.", vimeoId: VIMEO.cuarta_1, tipo: "video" },
-            { año: "2024", titulo: "TIERRA, ASFALTO, MAR.", desc: "Que no te detenga ningun terreno, eres mucho mas que una piedra.", vimeoId: VIMEO.v2024_1, tipo: "video" },
-            { año: "2024", titulo: "PRIMER ATLETA 10K.", desc: "Nestor, primer atleta en cruzar la linea de meta.", vimeoId: VIMEO.nestor_bravo, tipo: "video" },
-            { año: "2025", titulo: "QUINTA EDICION.", desc: "2025, seguiremos fortaleciendo esta historia. GRACIAS.", vimeoId: VIMEO.promo2025, tipo: "video" },
-            { año: "2025", titulo: "BAILOTERAPIA", desc: "Nada mejor que una Bailoterapia para ejercitar el cuerpo antes del reto.", vimeoId: VIMEO.v2025, tipo: "video" },
-            { año: "2025", titulo: "LOMA LAS CABRAS", desc: "La recompensa al final del esfuerzo es la perseverancia.", vimeoId: VIMEO.bajada, tipo: "video" },
+            { año: "2024", titulo: "CUARTA EDICION.", desc: "Todo subiendo la loma las cabras.", gdId: GD.cuarta_1, tipo: "video" },
+            { año: "2024", titulo: "TIERRA, ASFALTO, MAR.", desc: "Que no te detenga ningun terreno.", gdId: GD.v2024_1, tipo: "video" },
+            { año: "2024", titulo: "PRIMER ATLETA 10K.", desc: "Nestor, primer atleta en cruzar la linea de meta.", gdId: GD.nestor_bravo, tipo: "video" },
+            { año: "2025", titulo: "QUINTA EDICION.", desc: "2025, seguiremos fortaleciendo esta historia. GRACIAS.", gdId: GD.promo2025, tipo: "video" },
+            { año: "2025", titulo: "BAILOTERAPIA", desc: "Nada mejor que una Bailoterapia para ejercitar el cuerpo antes del reto.", gdId: GD.v2025, tipo: "video" },
+            { año: "2025", titulo: "LOMA LAS CABRAS", desc: "La recompensa al final del esfuerzo es la perseverancia.", gdId: GD.bajada, tipo: "video" },
+            { año: "2025", titulo: "FINALISTAS", desc: "Cruzando la meta con todo el corazón.", gdId: GD.finalista, tipo: "video" },
         ];
         let memActual = 0;
-        function renderMemThumbs() { const cont = document.getElementById("mem-thumbs"); if (!cont) return; cont.innerHTML = ''; memFotos.forEach((f, i) => { const div = document.createElement("div"); div.style.cssText = `flex-shrink:0;width:72px;height:52px;border-radius:6px;overflow:hidden;cursor:pointer;border:2px solid ${i === memActual ? '#ccff00' : 'transparent'};transition:border-color 0.2s;position:relative;background:#000;`; if (f.tipo === 'video') { div.innerHTML = `<iframe src="${vimeoEmbed(f.vimeoId)}" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:180%;height:100%;border:none;pointer-events:none;" loading="lazy"></iframe><div style="position:absolute;inset:0;z-index:2;"></div><div style="position:absolute;bottom:2px;left:3px;background:rgba(0,0,0,0.7);color:#ccff00;font-family:'Teko';font-size:0.6rem;padding:1px 4px;border-radius:3px;z-index:3;">${f.año}</div>`; } else { div.innerHTML = `<img src="${f.src}" loading="lazy" style="width:100%;height:100%;object-fit:cover;"><div style="position:absolute;bottom:2px;left:3px;background:rgba(0,0,0,0.7);color:#ccff00;font-family:'Teko';font-size:0.6rem;padding:1px 4px;border-radius:3px;">${f.año}</div>`; } div.onclick = () => irAMem(i); cont.appendChild(div); }); const thumbs = cont.children; if (thumbs[memActual]) thumbs[memActual].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); }
-        function actualizarMemPrincipal() { const f = memFotos[memActual]; const contenedor = document.getElementById("mem-main"); const prev = document.getElementById("mem-main-img"); if (prev) prev.remove(); let media; if (f.tipo === "video") { media = document.createElement("div"); media.id = "mem-main-img"; media.style.cssText = "position:absolute;inset:0;background:#000;z-index:0;"; media.innerHTML = `<iframe src="${vimeoEmbed(f.vimeoId, { autoplay: 1, loop: 1, muted: 1, controls: 0, background: 1 })}" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:177.78%;height:100%;border:none;pointer-events:none;" allow="autoplay" loading="lazy"></iframe>`; } else { media = document.createElement("img"); media.loading = "lazy"; media.style.cssText = "width:100%;height:100%;object-fit:cover;"; media.src = f.src; media.id = "mem-main-img"; } contenedor.insertBefore(media, contenedor.firstChild); document.getElementById("mem-main-title").innerText = f.titulo; document.getElementById("mem-main-desc").innerText = f.desc; document.getElementById("mem-year-badge").innerText = f.año; document.getElementById("mem-counter").innerText = `${memActual + 1} / ${memFotos.length}`; renderMemThumbs(); }
+
+        function renderMemThumbs() {
+            const cont = document.getElementById("mem-thumbs"); if (!cont) return;
+            cont.innerHTML = '';
+            memFotos.forEach((f, i) => {
+                const div = document.createElement("div");
+                div.style.cssText = 'flex-shrink:0;width:72px;height:52px;border-radius:6px;overflow:hidden;cursor:pointer;border:2px solid ' + (i === memActual ? '#ccff00' : 'transparent') + ';transition:border-color 0.2s;position:relative;background:#111;';
+                const imgSrc = f.tipo === 'video' ? 'https://images.unsplash.com/photo-1461897104016-0b3b00cc81ee?w=150&q=50' : f.src;
+                div.innerHTML = '<img src="' + imgSrc + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;">' + (f.tipo === 'video' ? '<div style="position:absolute;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;"><span style="color:#ccff00;font-size:1.1rem;">▶</span></div>' : '') + '<div style="position:absolute;bottom:2px;left:3px;background:rgba(0,0,0,0.75);color:#ccff00;font-family:Teko;font-size:0.6rem;padding:1px 4px;border-radius:3px;">' + f.año + '</div>';
+                div.onclick = () => irAMem(i);
+                cont.appendChild(div);
+            });
+            const thumbs = cont.children;
+            if (thumbs[memActual]) thumbs[memActual].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+
+        function actualizarMemPrincipal() {
+            const f = memFotos[memActual];
+            const contenedor = document.getElementById("mem-main");
+            const prev = document.getElementById("mem-main-img"); if (prev) prev.remove();
+            const playIcon = document.getElementById("mem-play-icon");
+            let media;
+            if (f.tipo === "video") {
+                media = document.createElement("img");
+                media.src = 'https://images.unsplash.com/photo-1461897104016-0b3b00cc81ee?auto=format&fit=crop&w=800&q=80';
+                media.loading = "lazy";
+                media.style.cssText = "width:100%;height:100%;object-fit:cover;filter:brightness(0.6);";
+                media.id = "mem-main-img";
+                if (playIcon) playIcon.style.display = 'flex';
+            } else {
+                media = document.createElement("img");
+                media.loading = "lazy";
+                media.style.cssText = "width:100%;height:100%;object-fit:cover;";
+                media.src = f.src;
+                media.id = "mem-main-img";
+                if (playIcon) playIcon.style.display = 'none';
+            }
+            contenedor.insertBefore(media, contenedor.firstChild);
+            document.getElementById("mem-main-title").innerText = f.titulo;
+            document.getElementById("mem-main-desc").innerText = f.desc;
+            document.getElementById("mem-year-badge").innerText = f.año;
+            document.getElementById("mem-counter").innerText = (memActual + 1) + ' / ' + memFotos.length;
+            renderMemThumbs();
+        }
+
         function moverMem(n) { memActual = (memActual + n + memFotos.length) % memFotos.length; actualizarMemPrincipal(); }
         function irAMem(i) { memActual = i; actualizarMemPrincipal(); }
-        (function () { let x = 0; const el = document.getElementById('mem-main'); if (!el) return; el.addEventListener('touchstart', e => { x = e.touches[0].clientX; }, { passive: true }); el.addEventListener('touchend', e => { const d = x - e.changedTouches[0].clientX; if (Math.abs(d) > 40) moverMem(d > 0 ? 1 : -1); }, { passive: true }); })();
-        function openMemModal() { const f = memFotos[memActual]; if (f.tipo === "video") { abrirVimeo(f.vimeoId, `${f.año} — ${f.titulo}`); } else { openModal({ src: f.src, alt: `${f.año} — ${f.titulo}` }); } }
-        function openModal(el) { document.getElementById("img01").src = el.src; document.getElementById("img01").style.display = "block"; document.getElementById("caption-zoom").innerHTML = el.alt; document.getElementById("myModal").classList.add("open"); }
+
+        (function () {
+            let x = 0; const el = document.getElementById('mem-main'); if (!el) return;
+            el.addEventListener('touchstart', e => { x = e.touches[0].clientX; }, { passive: true });
+            el.addEventListener('touchend', e => { const d = x - e.changedTouches[0].clientX; if (Math.abs(d) > 40) moverMem(d > 0 ? 1 : -1); }, { passive: true });
+        })();
+
+        function openMemModal() {
+            const f = memFotos[memActual];
+            if (f.tipo === "video") { abrirVideo(f.gdId, f.año + ' — ' + f.titulo); }
+            else { openModal({ src: f.src, alt: f.año + ' — ' + f.titulo }); }
+        }
+
+        function openModal(el) {
+            document.getElementById("img01").src = el.src;
+            document.getElementById("img01").style.display = "block";
+            document.getElementById("caption-zoom").innerHTML = el.alt;
+            document.getElementById("myModal").classList.add("open");
+        }
         function closeModal() { document.getElementById("myModal").classList.remove("open"); }
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); cerrarVimeo(); cerrar3D(); } });
-        (function () { let y = 0; const lb = document.getElementById('myModal'); lb.addEventListener('touchstart', e => { y = e.touches[0].clientY; }, { passive: true }); lb.addEventListener('touchend', e => { if (e.changedTouches[0].clientY - y > 60) closeModal(); }, { passive: true }); })();
-        function actualizarSubcategorias() { const dist = document.getElementById("distancia").value; const genero = document.getElementById("genero").value; const sub = document.getElementById("subcategoria"); if (!dist) return; if (dist === "7K") { sub.innerHTML = '<option value="7K GENERAL" selected>7K GENERAL</option>'; sub.disabled = false; sub.style.pointerEvents = "none"; sub.style.opacity = "0.6"; document.getElementById("ig-genero").style.display = "none"; return; } document.getElementById("ig-genero").style.display = "block"; if (!genero) return; const prefijo = genero === "M" ? "VARONIL" : "FEMENIL"; const cats = ['JUVENIL (HASTA 19 AÑOS)', 'SENIOR (20-29 AÑOS)', 'MASTER A (30-39 AÑOS)', 'MASTER B (40-49 AÑOS)', 'MASTER C (50-59 AÑOS)', 'INVENCIBLE (60+ AÑOS)']; sub.innerHTML = '<option value="" disabled selected>Selecciona tu categoría</option>'; sub.disabled = false; sub.style.pointerEvents = ""; sub.style.opacity = ""; cats.forEach(cat => { const opt = document.createElement("option"); opt.value = `10K ${prefijo} - ${cat}`; opt.innerHTML = `10K ${prefijo} - ${cat}`; sub.appendChild(opt); }); }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); cerrarVideo(); cerrar3D(); } });
+        (function () {
+            let y = 0; const lb = document.getElementById('myModal');
+            lb.addEventListener('touchstart', e => { y = e.touches[0].clientY; }, { passive: true });
+            lb.addEventListener('touchend', e => { if (e.changedTouches[0].clientY - y > 60) closeModal(); }, { passive: true });
+        })();
+
+        function actualizarSubcategorias() {
+            const dist = document.getElementById("distancia").value;
+            const genero = document.getElementById("genero").value;
+            const sub = document.getElementById("subcategoria");
+            if (!dist) return;
+            if (dist === "7K") {
+                sub.innerHTML = '<option value="7K GENERAL" selected>7K GENERAL</option>';
+                sub.disabled = false; sub.style.pointerEvents = "none"; sub.style.opacity = "0.6";
+                document.getElementById("ig-genero").style.display = "none"; return;
+            }
+            document.getElementById("ig-genero").style.display = "block";
+            if (!genero) return;
+            const prefijo = genero === "M" ? "VARONIL" : "FEMENIL";
+            const cats = ['JUVENIL (HASTA 19 AÑOS)', 'SENIOR (20-29 AÑOS)', 'MASTER A (30-39 AÑOS)', 'MASTER B (40-49 AÑOS)', 'MASTER C (50-59 AÑOS)', 'INVENCIBLE (60+ AÑOS)'];
+            sub.innerHTML = '<option value="" disabled selected>Selecciona tu categoría</option>';
+            sub.disabled = false; sub.style.pointerEvents = ""; sub.style.opacity = "";
+            cats.forEach(cat => { const opt = document.createElement("option"); opt.value = '10K ' + prefijo + ' - ' + cat; opt.innerHTML = '10K ' + prefijo + ' - ' + cat; sub.appendChild(opt); });
+        }
+
         const validaciones = { nombre: v => /^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+$/.test(v.trim()) && v.trim().length > 1, cedula: v => /^\d{10}$/.test(v), email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), telefono: v => /^\d{10}$/.test(v) };
         function marcarCampo(id, valido) { const ig = document.getElementById('ig-' + id); const err = document.getElementById('error-' + id); if (!ig) return; ig.classList.toggle('has-error', !valido); if (err) err.style.display = valido ? 'none' : 'block'; }
-        const edicionesData = [{ año: "2021", nombre: "1ª EDICIÓN", desc: "La que empezó todo · 30 valientes", color: "#e74c3c", colorB: "#c0392b", img: "/static/img/camisa_2021.jpeg" }, { año: "2022", nombre: "2ª EDICIÓN", desc: "El Lavadero hace su debut · 80 corredores", color: "#8e44ad", colorB: "#6c3483", img: "/static/img/camisa_2022.jpeg" }, { año: "2023", nombre: "3ª EDICIÓN", desc: "La Tormenta legendaria · 120 atletas", color: "#2980b9", colorB: "#1a5276", img: "/static/img/camisa_2023.jpeg" }, { año: "2024", nombre: "4ª EDICIÓN", desc: "El año del récord · Juan M. 3h 15m", color: "#d35400", colorB: "#a04000", img: "/static/img/camisa_2024.jpeg" }, { año: "2025", nombre: "5ª EDICIÓN", desc: "La Víbora · 200 finishers", color: "#27ae60", colorB: "#1e8449", img: "/static/img/Camisa sin mangas.jpeg" }];
-        function generarThumbCanvas(ed) { const c = document.createElement("canvas"); c.width = 300; c.height = 200; const ctx = c.getContext("2d"); const g = ctx.createLinearGradient(0, 0, 300, 200); g.addColorStop(0, ed.color); g.addColorStop(1, ed.colorB); ctx.fillStyle = g; ctx.fillRect(0, 0, 300, 200); ctx.fillStyle = "rgba(0,0,0,0.25)"; ctx.fillRect(0, 0, 300, 200); ctx.fillStyle = "white"; ctx.font = "bold 48px 'Teko',sans-serif"; ctx.textAlign = "center"; ctx.fillText("TRAIL " + ed.año, 150, 90); ctx.font = "22px 'Roboto',sans-serif"; ctx.fillStyle = "rgba(255,255,255,0.7)"; ctx.fillText(ed.nombre, 150, 125); ctx.fillStyle = "#ccff00"; ctx.font = "bold 28px 'Teko',sans-serif"; ctx.fillText("VER EN 3D ↗", 150, 170); return c.toDataURL(); }
-        function buildEdicionesGrid() { const grid = document.getElementById("ediciones-grid"); if (!grid) return; edicionesData.forEach((ed, i) => { const card = document.createElement("div"); card.className = "edicion-card"; card.onclick = () => abrir3D(i); const thumbSrc = ed.img || generarThumbCanvas(ed); card.innerHTML = `<div style="overflow:hidden;height:160px;position:relative;"><img class="edicion-thumb" src="${thumbSrc}" alt="${ed.nombre}" loading="lazy"><div class="edicion-badge">${ed.año}</div></div><div class="edicion-info"><h3>${ed.nombre}</h3><p>${ed.desc}</p><div class="edicion-3d-hint">⬡ VER EN 3D</div></div>`; grid.appendChild(card); }); }
+
+        const edicionesData = [
+            { año: "2021", nombre: "1ª EDICIÓN", desc: "La que empezó todo · 30 valientes", color: "#e74c3c", colorB: "#c0392b", img: "/static/img/camisa_2021.jpeg" },
+            { año: "2022", nombre: "2ª EDICIÓN", desc: "El Lavadero hace su debut · 80 corredores", color: "#8e44ad", colorB: "#6c3483", img: "/static/img/camisa_2022.jpeg" },
+            { año: "2023", nombre: "3ª EDICIÓN", desc: "La Tormenta legendaria · 120 atletas", color: "#2980b9", colorB: "#1a5276", img: "/static/img/camisa_2023.jpeg" },
+            { año: "2024", nombre: "4ª EDICIÓN", desc: "El año del récord · Juan M. 3h 15m", color: "#d35400", colorB: "#a04000", img: "/static/img/camisa_2024.jpeg" },
+            { año: "2025", nombre: "5ª EDICIÓN", desc: "La Víbora · 200 finishers", color: "#27ae60", colorB: "#1e8449", img: "/static/img/Camisa sin mangas.jpeg" },
+        ];
+        function generarThumbCanvas(ed) { const c = document.createElement("canvas"); c.width = 300; c.height = 200; const ctx = c.getContext("2d"); const g = ctx.createLinearGradient(0, 0, 300, 200); g.addColorStop(0, ed.color); g.addColorStop(1, ed.colorB); ctx.fillStyle = g; ctx.fillRect(0, 0, 300, 200); ctx.fillStyle = "rgba(0,0,0,0.25)"; ctx.fillRect(0, 0, 300, 200); ctx.fillStyle = "white"; ctx.font = "bold 48px Teko,sans-serif"; ctx.textAlign = "center"; ctx.fillText("TRAIL " + ed.año, 150, 90); ctx.font = "22px Roboto,sans-serif"; ctx.fillStyle = "rgba(255,255,255,0.7)"; ctx.fillText(ed.nombre, 150, 125); ctx.fillStyle = "#ccff00"; ctx.font = "bold 28px Teko,sans-serif"; ctx.fillText("VER EN 3D ↗", 150, 170); return c.toDataURL(); }
+        function buildEdicionesGrid() { const grid = document.getElementById("ediciones-grid"); if (!grid) return; edicionesData.forEach((ed, i) => { const card = document.createElement("div"); card.className = "edicion-card"; card.onclick = () => abrir3D(i); const thumbSrc = ed.img || generarThumbCanvas(ed); card.innerHTML = '<div style="overflow:hidden;height:160px;position:relative;"><img class="edicion-thumb" src="' + thumbSrc + '" alt="' + ed.nombre + '" loading="lazy"><div class="edicion-badge">' + ed.año + '</div></div><div class="edicion-info"><h3>' + ed.nombre + '</h3><p>' + ed.desc + '</p><div class="edicion-3d-hint">⬡ VER EN 3D</div></div>'; grid.appendChild(card); }); }
+
         let three = null;
         function abrir3D(idx) { const ed = edicionesData[idx]; document.getElementById("modal3d-title").innerText = ed.año + " — " + ed.nombre; document.getElementById("modal3d-sub").innerText = ed.desc; const fw = document.getElementById("modal3d-foto-wrap"); const fi = document.getElementById("modal3d-foto"); if (ed.img) { fi.src = ed.img; fw.classList.remove("sin-foto"); } else { fi.src = ""; fw.classList.add("sin-foto"); } document.getElementById("modal3d-overlay").classList.add("open"); document.body.style.overflow = "hidden"; iniciar3D(ed); }
         function cerrar3D() { document.getElementById("modal3d-overlay").classList.remove("open"); document.body.style.overflow = ""; if (three) { cancelAnimationFrame(three.rafId); three.renderer.dispose(); three = null; } }
         function iniciar3D(ed) { if (three) { cancelAnimationFrame(three.rafId); three.renderer.dispose(); three = null; } const canvas = document.getElementById("canvas3d"); const W = canvas.clientWidth || 480, H = canvas.clientHeight || 480; const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true }); renderer.setSize(W, H); renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); renderer.setClearColor(0x000000, 0); renderer.outputEncoding = THREE.sRGBEncoding; renderer.shadowMap.enabled = true; const scene = new THREE.Scene(); const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 100); camera.position.set(0, 0.5, 3.5); scene.add(new THREE.AmbientLight(0xffffff, 0.7)); const dL = new THREE.DirectionalLight(0xffffff, 1.0); dL.position.set(3, 5, 5); dL.castShadow = true; scene.add(dL); scene.add(Object.assign(new THREE.DirectionalLight(0xccff00, 0.25), { position: new THREE.Vector3(-3, -2, 3) })); scene.add(Object.assign(new THREE.DirectionalLight(0xffffff, 0.4), { position: new THREE.Vector3(0, -3, 2) })); let model = null; const gl = new THREE.GLTFLoader(); gl.load('/static/3d/t-shirt.glb', gltf => { model = gltf.scene; const box = new THREE.Box3().setFromObject(model); const center = box.getCenter(new THREE.Vector3()); const size = box.getSize(new THREE.Vector3()); const scale = 2.2 / Math.max(size.x, size.y, size.z); model.scale.setScalar(scale); model.position.set(-center.x * scale, -center.y * scale, -center.z * scale); model.rotation.y = Math.PI; model.traverse(c => { if (c.isMesh) { c.castShadow = true; c.receiveShadow = true; } }); scene.add(model); }, undefined, () => { const c2 = document.createElement("canvas"); c2.width = 512; c2.height = 512; const ctx = c2.getContext("2d"); const g = ctx.createLinearGradient(0, 0, 512, 512); g.addColorStop(0, ed.color); g.addColorStop(1, ed.colorB); ctx.fillStyle = g; ctx.fillRect(0, 0, 512, 512); ctx.fillStyle = "white"; ctx.font = "bold 72px sans-serif"; ctx.textAlign = "center"; ctx.fillText("TRAIL", 256, 190); ctx.fillText(ed.año, 256, 275); ctx.fillStyle = "#ccff00"; ctx.font = "bold 38px sans-serif"; ctx.fillText(ed.nombre, 256, 350); const mat = new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(c2), side: THREE.DoubleSide, roughness: 0.8 }); model = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 2, 20, 20), mat); scene.add(model); }); let isDragging = false, prevX = 0, prevY = 0, rotY = Math.PI, rotX = 0; canvas.addEventListener("mousedown", e => { isDragging = true; prevX = e.clientX; prevY = e.clientY; }); canvas.addEventListener("mousemove", e => { if (!isDragging || !model) return; rotY += (e.clientX - prevX) * 0.012; rotX += (e.clientY - prevY) * 0.008; prevX = e.clientX; prevY = e.clientY; }); canvas.addEventListener("mouseup", () => isDragging = false); canvas.addEventListener("mouseleave", () => isDragging = false); canvas.addEventListener("touchstart", e => { isDragging = true; prevX = e.touches[0].clientX; prevY = e.touches[0].clientY; }, { passive: true }); canvas.addEventListener("touchmove", e => { if (!isDragging || !model) return; rotY += (e.touches[0].clientX - prevX) * 0.012; rotX += (e.touches[0].clientY - prevY) * 0.008; prevX = e.touches[0].clientX; prevY = e.touches[0].clientY; e.preventDefault(); }, { passive: false }); canvas.addEventListener("touchend", () => isDragging = false); three = { renderer, rafId: null }; function animate() { three.rafId = requestAnimationFrame(animate); if (model) { if (!isDragging) rotY += 0.005; model.rotation.y = rotY; model.rotation.x = Math.max(-0.5, Math.min(0.5, rotX)); } renderer.render(scene, camera); } animate(); }
+
         function seguridadAdmin() { const clave = prompt("🔐 ACCESO RESTRINGIDO\nIngresa la llave maestra:"); if (clave === "trail2026") window.location.href = "{{ url_for('admin_login') }}"; else if (clave !== null) alert("❌ Acceso Denegado"); }
-        document.addEventListener("DOMContentLoaded", () => { ['nombre', 'cedula', 'email', 'telefono'].forEach(id => { const el = document.getElementById(id); if (!el) return; el.addEventListener('input', function () { if (validaciones[id]) marcarCampo(id, validaciones[id](this.value)); }); el.addEventListener('blur', function () { if (validaciones[id]) marcarCampo(id, validaciones[id](this.value)); }); }); const form = document.getElementById('form-inscripcion'); const btn = document.getElementById('btn-submit'); if (form && btn) { form.addEventListener('submit', function (e) { let ok = true;['nombre', 'cedula', 'email', 'telefono'].forEach(id => { const el = document.getElementById(id); if (el && validaciones[id]) { const v = validaciones[id](el.value); marcarCampo(id, v); if (!v) ok = false; } }); if (!ok) { e.preventDefault(); return; } btn.disabled = true; btn.innerHTML = '<span class="btn-spinner"></span> PROCESANDO...'; }); } buildSlideDots(); updateHistoryText(1); updateCounter(1); buildEdicionesGrid(); const cnt = document.getElementById("mem-counter"); if (cnt) cnt.innerText = `1 / ${memFotos.length}`; renderMemThumbs(); let autoH = setInterval(() => moveSlide(1), 4000); const ch = document.getElementById('carrusel-historia'); if (ch) { ch.addEventListener('mouseenter', () => clearInterval(autoH)); ch.addEventListener('mouseleave', () => { autoH = setInterval(() => moveSlide(1), 4000); }); } let autoM = setInterval(() => moverMem(1), 3500);[document.getElementById("mem-main"), document.getElementById("mem-thumbs")].forEach(el => { if (!el) return; el.addEventListener('mouseenter', () => clearInterval(autoM)); el.addEventListener('mouseleave', () => { autoM = setInterval(() => moverMem(1), 3500); }); }); });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            ['nombre', 'cedula', 'email', 'telefono'].forEach(id => { const el = document.getElementById(id); if (!el) return; el.addEventListener('input', function () { if (validaciones[id]) marcarCampo(id, validaciones[id](this.value)); }); el.addEventListener('blur', function () { if (validaciones[id]) marcarCampo(id, validaciones[id](this.value)); }); });
+            const form = document.getElementById('form-inscripcion'); const btn = document.getElementById('btn-submit');
+            if (form && btn) { form.addEventListener('submit', function (e) { let ok = true;['nombre', 'cedula', 'email', 'telefono'].forEach(id => { const el = document.getElementById(id); if (el && validaciones[id]) { const v = validaciones[id](el.value); marcarCampo(id, v); if (!v) ok = false; } }); if (!ok) { e.preventDefault(); return; } btn.disabled = true; btn.innerHTML = '<span class="btn-spinner"></span> PROCESANDO...'; }); }
+            buildSlideDots(); updateHistoryText(1); updateCounter(1); buildEdicionesGrid();
+            const cnt = document.getElementById("mem-counter"); if (cnt) cnt.innerText = '1 / ' + memFotos.length;
+            renderMemThumbs();
+            let autoH = setInterval(() => moveSlide(1), 4000);
+            const ch = document.getElementById('carrusel-historia');
+            if (ch) { ch.addEventListener('mouseenter', () => clearInterval(autoH)); ch.addEventListener('mouseleave', () => { autoH = setInterval(() => moveSlide(1), 4000); }); }
+            let autoM = setInterval(() => moverMem(1), 3500);
+            [document.getElementById("mem-main"), document.getElementById("mem-thumbs")].forEach(el => { if (!el) return; el.addEventListener('mouseenter', () => clearInterval(autoM)); el.addEventListener('mouseleave', () => { autoM = setInterval(() => moverMem(1), 3500); }); });
+        });
+
         window.onload = function () { const ced = localStorage.getItem("pago_pendiente_cedula"); if (ced) { document.getElementById("alert-cedula").innerText = ced; document.getElementById("custom-alert").style.display = "flex"; document.getElementById("btn-pay-alert").onclick = () => window.location.href = "/payment/" + ced; document.getElementById("close-x-alert").onclick = () => document.getElementById("custom-alert").style.display = "none"; document.getElementById("custom-alert").onclick = function (e) { if (e.target === this) this.style.display = "none"; }; } };
     </script>
 </body>
