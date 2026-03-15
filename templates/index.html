@@ -1390,7 +1390,8 @@
                 <h2 class="section-title"><i class="fa-solid fa-location-dot"></i> DESAFÍO COSTERO</h2>
                 <div class="route-img-wrap">
                     <div class="yt-ruta-wrap">
-                        <iframe src="https://www.youtube.com/embed/I9vby7J5OAQ?rel=0&modestbranding=1"
+                        <iframe
+                            src="https://www.youtube.com/embed/I9vby7J5OAQ?rel=0&modestbranding=1&controls=0&showinfo=0&iv_load_policy=3&disablekb=1"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
                     </div>
@@ -1715,40 +1716,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="/static/js/GLTFLoader.js"></script>
     <script>
-        const YT = {
-            v2021: 'J6kqeLUdKgI',
-            v2023: 'QH8_5PiU-aQ',
-            v2024_1: 'yHsov1-xOMQ',
-            v2025: 'TCfR-9bBU0g',
-            v2025_2: 'OMveZ2-a-UA',
-            finalista: 'D9SnvmAYEw8',
-            bajada: 'nBb-UM7jQbk',
-            cuarta_1: 'P4HQQCENyAo',
-            cuarta_edicion: 'xZQzZXkTFMo',
-            promo2025: 'AZwnAngvkHE',
-            ruta: 'I9vby7J5OAQ',
-            tercera: 'ZOBB8cjooM0'
-        };
-
+        const YT_PARAMS = '?autoplay=1&rel=0&modestbranding=1&controls=0&showinfo=0&iv_load_policy=3&disablekb=1';
+        const YT = { v2021: 'J6kqeLUdKgI', v2023: 'QH8_5PiU-aQ', v2024_1: 'yHsov1-xOMQ', v2025: 'TCfR-9bBU0g', v2025_2: 'OMveZ2-a-UA', finalista: 'D9SnvmAYEw8', bajada: 'nBb-UM7jQbk', cuarta_1: 'P4HQQCENyAo', cuarta_edicion: 'xZQzZXkTFMo', promo2025: 'AZwnAngvkHE', ruta: 'I9vby7J5OAQ', tercera: 'ZOBB8cjooM0' };
         function ytThumb(id) { return 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg'; }
-        function ytEmbed(id, isShort) {
-            if (isShort) return 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
-            return 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
-        }
 
         function abrirVideo(id, caption, isShort) {
             const frame = document.getElementById('video-modal-frame');
-            frame.src = ytEmbed(id, isShort);
+            frame.src = 'https://www.youtube.com/embed/' + id + YT_PARAMS;
             if (isShort) {
                 frame.style.width = 'min(400px,95vw)';
                 frame.style.height = 'min(711px,85vh)';
                 frame.style.maxWidth = '400px';
                 frame.style.maxHeight = '85vh';
+                frame.style.minHeight = '300px';
             } else {
                 frame.style.width = '98vw';
                 frame.style.height = '55vw';
                 frame.style.maxWidth = '960px';
                 frame.style.maxHeight = '82vh';
+                frame.style.minHeight = '200px';
             }
             document.getElementById('video-modal-caption').innerText = caption || '';
             document.getElementById('video-modal').classList.add('open');
@@ -1857,11 +1843,10 @@
             const prev = document.getElementById("mem-main-img"); if (prev) prev.remove();
             const playIcon = document.getElementById("mem-play-icon");
             const media = document.createElement("img");
-            media.loading = "lazy";
-            media.id = "mem-main-img";
+            media.loading = "lazy"; media.id = "mem-main-img";
             if (f.tipo === "video") {
                 media.src = ytThumb(f.ytId);
-                media.style.cssText = "width:100%;height:100%;object-fit:cover;filter:brightness(0.7);";
+                media.style.cssText = "width:100%;height:100%;object-fit:cover;filter:brightness(0.75);";
                 if (playIcon) playIcon.style.display = 'flex';
             } else {
                 media.src = f.src;
