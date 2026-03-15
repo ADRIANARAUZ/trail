@@ -85,7 +85,7 @@ def agregar_headers_seguridad(response):
     "font-src fonts.gstatic.com cdnjs.cloudflare.com; "
     "img-src 'self' data: blob: images.unsplash.com upload.wikimedia.org i.vimeocdn.com vumbnail.com; "
     "media-src 'self'; "
-    "frame-src 'self' https://drive.google.com; "
+    "frame-src 'self' https://www.youtube.com https://drive.google.com; "
     "connect-src 'self' cdnjs.cloudflare.com blob: https://drive.google.com; "
     "worker-src blob:;"
     )

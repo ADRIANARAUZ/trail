@@ -399,13 +399,11 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            filter: brightness(0.75);
-            transition: filter 0.2s
+            transition: transform 0.3s
         }
 
-        .slide-video-thumb:hover img,
-        .slide-video-thumb:active img {
-            filter: brightness(1)
+        .slide-video-thumb:hover img {
+            transform: scale(1.04)
         }
 
         .play-circle {
@@ -421,7 +419,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            pointer-events: none
+            pointer-events: none;
+            transition: transform 0.2s
+        }
+
+        .slide-video-thumb:hover .play-circle {
+            transform: translate(-50%, -50%) scale(1.12)
         }
 
         .play-circle span {
@@ -477,7 +480,7 @@
             right: 8px
         }
 
-        .gdrive-ruta-wrap {
+        .yt-ruta-wrap {
             position: relative;
             width: 100%;
             padding-bottom: 56.25%;
@@ -486,7 +489,7 @@
             overflow: hidden
         }
 
-        .gdrive-ruta-wrap iframe {
+        .yt-ruta-wrap iframe {
             position: absolute;
             inset: 0;
             width: 100%;
@@ -815,7 +818,7 @@
         #video-modal-caption {
             color: #94a3b8;
             font-size: 0.9rem;
-            margin-top: 12px;
+            margin-top: 10px;
             font-family: 'Teko';
             letter-spacing: 1px;
             text-align: center
@@ -826,19 +829,19 @@
             top: 12px;
             right: 16px;
             color: white;
-            font-size: 2.8rem;
+            font-size: 2rem;
             cursor: pointer;
             padding: 8px;
             transition: color 0.2s;
             z-index: 10;
-            line-height: 1;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             border-radius: 50%;
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
-            justify-content: center
+            justify-content: center;
+            line-height: 1
         }
 
         #video-modal-close:hover {
@@ -1386,9 +1389,10 @@
             <div id="ruta" class="content-section" style="text-align:center;">
                 <h2 class="section-title"><i class="fa-solid fa-location-dot"></i> DESAFÍO COSTERO</h2>
                 <div class="route-img-wrap">
-                    <div class="gdrive-ruta-wrap">
-                        <iframe src="https://drive.google.com/file/d/1_vEGYUKYSQxQN_OAsjRtYv9sMIzEa7AQ/preview"
-                            allow="autoplay"></iframe>
+                    <div class="yt-ruta-wrap">
+                        <iframe src="https://www.youtube.com/embed/I9vby7J5OAQ?rel=0&modestbranding=1"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
                     </div>
                     <div class="route-badge"><i class="fa-solid fa-mountain"></i> ALTITUD: 60m</div>
                 </div>
@@ -1418,30 +1422,24 @@
                     </div>
                     <div class="slide" data-titulo="2023 — CLIMA HOSPIDO"
                         data-texto="Nadie esperaba un clima frio, con lluvisna, pero eso no fue impedimiento para que los atletas completaran su meta.">
-                        <div class="slide-video-thumb"
-                            onclick="abrirVideo('1BdBtH0qtFq31b0zCb774s5QqrFHiNKRR','2023 — Clima Hospido')">
-                            <img src="https://images.unsplash.com/photo-1461897104016-0b3b00cc81ee?w=800&q=80"
-                                alt="2023">
+                        <div class="slide-video-thumb" onclick="abrirVideo('QH8_5PiU-aQ','2023 — Clima Hospido',true)">
+                            <img src="https://img.youtube.com/vi/QH8_5PiU-aQ/hqdefault.jpg" alt="2023">
                             <div class="play-circle"><span>▶</span></div>
                             <div class="video-label">▶ 2023</div>
                         </div>
                     </div>
                     <div class="slide" data-titulo="2024 — EL RECORD"
                         data-texto="Mas de 300 atletas participando en esta cuarta edicion, con sudor, esfuerzo y disciplina llegan a la meta.">
-                        <div class="slide-video-thumb"
-                            onclick="abrirVideo('1RGHhoyKO23FrE3Odr4cxL3wGqMkccQY3','2024 — El Record')">
-                            <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80"
-                                alt="2024">
+                        <div class="slide-video-thumb" onclick="abrirVideo('xZQzZXkTFMo','2024 — El Record',false)">
+                            <img src="https://img.youtube.com/vi/xZQzZXkTFMo/hqdefault.jpg" alt="2024">
                             <div class="play-circle"><span>▶</span></div>
                             <div class="video-label">▶ 2024</div>
                         </div>
                     </div>
                     <div class="slide" data-titulo="2025 — EL PRESENTE"
                         data-texto="Se estrenó el sendero técnico más exigente, con seguridad de la Policia Nacional, 3 km de curvas cerradas con vista al mar. Más de 250 finishers.">
-                        <div class="slide-video-thumb"
-                            onclick="abrirVideo('15nVPY_sA_Q66uj-fysimS4bNGXDMJA-J','2025 — El Presente')">
-                            <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=800&q=80"
-                                alt="2025">
+                        <div class="slide-video-thumb" onclick="abrirVideo('TCfR-9bBU0g','2025 — El Presente',true)">
+                            <img src="https://img.youtube.com/vi/TCfR-9bBU0g/hqdefault.jpg" alt="2025">
                             <div class="play-circle"><span>▶</span></div>
                             <div class="video-label">▶ 2025</div>
                         </div>
@@ -1674,7 +1672,9 @@
 
     <div id="video-modal" onclick="if(event.target===this)cerrarVideo()">
         <span id="video-modal-close" onclick="cerrarVideo()">&times;</span>
-        <iframe id="video-modal-frame" src="" allow="autoplay"></iframe>
+        <iframe id="video-modal-frame" src=""
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
         <div id="video-modal-caption"></div>
     </div>
 
@@ -1715,26 +1715,41 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="/static/js/GLTFLoader.js"></script>
     <script>
-        const GD = {
-            ruta: '1_vEGYUKYSQxQN_OAsjRtYv9sMIzEa7AQ',
-            v2023: '1BdBtH0qtFq31b0zCb774s5QqrFHiNKRR',
-            cuarta_edicion: '1RGHhoyKO23FrE3Odr4cxL3wGqMkccQY3',
-            v2025: '1bVUHrJM2OYMaCbcXddnREo9d9cNlJwZ_',
-            v2025_2: '15nVPY_sA_Q66uj-fysimS4bNGXDMJA-J',
-            v2021: '1VYQ9DK08VNwTLxXZDWMCvDTDgyXdI_nK',
-            cuarta_1: '1X3yQsHFD49nRrzhBYfZvaKY-Il6vo-Mo',
-            v2024_1: '1rWNiRMIKQHI_PKjuTn_CGk8DYNE1eFy-',
-            nestor_bravo: '112yVbGSCte6DvnaBbLeY94X0n63VhRnV',
-            promo2025: '1NTeBQd2uQIX5vdSD38bXz3zN_cxD77Gc',
-            bajada: '1rZUrqsCmkWzW25HPgQa7hy53kOtkB1oT',
-            finalista: '1tBIQ2KsqBbLryru5Gq4Dv7nd5n62hx6o',
-            tercera: '13BPH9KHnWrfrOQae2S--IfWsy0ouBonp'
+        const YT = {
+            v2021: 'J6kqeLUdKgI',
+            v2023: 'QH8_5PiU-aQ',
+            v2024_1: 'yHsov1-xOMQ',
+            v2025: 'TCfR-9bBU0g',
+            v2025_2: 'OMveZ2-a-UA',
+            finalista: 'D9SnvmAYEw8',
+            bajada: 'nBb-UM7jQbk',
+            cuarta_1: 'P4HQQCENyAo',
+            cuarta_edicion: 'xZQzZXkTFMo',
+            promo2025: 'AZwnAngvkHE',
+            ruta: 'I9vby7J5OAQ',
+            tercera: 'ZOBB8cjooM0'
         };
 
-        function gdUrl(id) { return 'https://drive.google.com/file/d/' + id + '/preview'; }
+        function ytThumb(id) { return 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg'; }
+        function ytEmbed(id, isShort) {
+            if (isShort) return 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+            return 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+        }
 
-        function abrirVideo(id, caption) {
-            document.getElementById('video-modal-frame').src = gdUrl(id);
+        function abrirVideo(id, caption, isShort) {
+            const frame = document.getElementById('video-modal-frame');
+            frame.src = ytEmbed(id, isShort);
+            if (isShort) {
+                frame.style.width = 'min(400px,95vw)';
+                frame.style.height = 'min(711px,85vh)';
+                frame.style.maxWidth = '400px';
+                frame.style.maxHeight = '85vh';
+            } else {
+                frame.style.width = '98vw';
+                frame.style.height = '55vw';
+                frame.style.maxWidth = '960px';
+                frame.style.maxHeight = '82vh';
+            }
             document.getElementById('video-modal-caption').innerText = caption || '';
             document.getElementById('video-modal').classList.add('open');
             document.body.style.overflow = 'hidden';
@@ -1806,18 +1821,18 @@
 
         const memFotos = [
             { año: "2021", titulo: "PRIMERA EDICION.", desc: "Los primeros 30 valientes que abrieron el camino.", src: "/static/img/salida_2021.jpeg" },
-            { año: "2021", titulo: "LA VERDADERA COMPETENCIA", desc: "Sin arcos ni sponsors, solo tierra y adrenalina.", gdId: GD.v2021, tipo: "video" },
+            { año: "2021", titulo: "LA VERDADERA COMPETENCIA", desc: "Sin arcos ni sponsors, solo tierra y adrenalina.", ytId: YT.v2021, tipo: "video", short: false },
             { año: "2022", titulo: "SEGUNDA EDICION.", desc: "Se sumó 'El Lavadero' — el punto donde todo se complica.", src: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=800&q=80" },
             { año: "2022", titulo: "PODIO 2022", desc: "Primer podio oficial con premiación en la playa.", src: "https://images.unsplash.com/photo-1571008887538-b36bb32f4571?auto=format&fit=crop&w=800&q=80" },
             { año: "2023", titulo: "TERCERA EDICION", desc: "Salida de los participantes. Hacia el horizonte de la Victoria.", src: "/static/img/tercera.jpeg" },
-            { año: "2023", titulo: "CALENTAMIENTO", desc: "Un buen calentamiento para esta larga aventura.", src: "/static/img/calentamiento.jpeg" },
-            { año: "2024", titulo: "CUARTA EDICION.", desc: "Todo subiendo la loma las cabras.", gdId: GD.cuarta_1, tipo: "video" },
-            { año: "2024", titulo: "TIERRA, ASFALTO, MAR.", desc: "Que no te detenga ningun terreno.", gdId: GD.v2024_1, tipo: "video" },
-            { año: "2024", titulo: "PRIMER ATLETA 10K.", desc: "Nestor, primer atleta en cruzar la linea de meta.", gdId: GD.nestor_bravo, tipo: "video" },
-            { año: "2025", titulo: "QUINTA EDICION.", desc: "2025, seguiremos fortaleciendo esta historia. GRACIAS.", gdId: GD.promo2025, tipo: "video" },
-            { año: "2025", titulo: "BAILOTERAPIA", desc: "Nada mejor que una Bailoterapia para ejercitar el cuerpo antes del reto.", gdId: GD.v2025, tipo: "video" },
-            { año: "2025", titulo: "LOMA LAS CABRAS", desc: "La recompensa al final del esfuerzo es la perseverancia.", gdId: GD.bajada, tipo: "video" },
-            { año: "2025", titulo: "FINALISTAS", desc: "Cruzando la meta con todo el corazón.", gdId: GD.finalista, tipo: "video" },
+            { año: "2023", titulo: "CLIMA HOSPIDO", desc: "Nadie esperaba ese frío, pero los atletas no pararon.", ytId: YT.v2023, tipo: "video", short: true },
+            { año: "2024", titulo: "CUARTA EDICION.", desc: "Todo subiendo la loma las cabras.", ytId: YT.cuarta_1, tipo: "video", short: false },
+            { año: "2024", titulo: "TIERRA, ASFALTO, MAR.", desc: "Que no te detenga ningun terreno.", ytId: YT.v2024_1, tipo: "video", short: true },
+            { año: "2024", titulo: "PRIMER ATLETA 10K.", desc: "Nestor, primer atleta en cruzar la linea de meta.", ytId: YT.cuarta_edicion, tipo: "video", short: false },
+            { año: "2025", titulo: "PROMO 2025.", desc: "Todo lo que se vivió en la quinta edición.", ytId: YT.promo2025, tipo: "video", short: true },
+            { año: "2025", titulo: "BAILOTERAPIA", desc: "Nada mejor que una Bailoterapia para ejercitar el cuerpo antes del reto.", ytId: YT.v2025, tipo: "video", short: true },
+            { año: "2025", titulo: "LOMA LAS CABRAS", desc: "La recompensa al final del esfuerzo es la perseverancia.", ytId: YT.bajada, tipo: "video", short: true },
+            { año: "2025", titulo: "FINALISTAS", desc: "Cruzando la meta con todo el corazón.", ytId: YT.finalista, tipo: "video", short: true },
         ];
         let memActual = 0;
 
@@ -1827,8 +1842,8 @@
             memFotos.forEach((f, i) => {
                 const div = document.createElement("div");
                 div.style.cssText = 'flex-shrink:0;width:72px;height:52px;border-radius:6px;overflow:hidden;cursor:pointer;border:2px solid ' + (i === memActual ? '#ccff00' : 'transparent') + ';transition:border-color 0.2s;position:relative;background:#111;';
-                const imgSrc = f.tipo === 'video' ? 'https://images.unsplash.com/photo-1461897104016-0b3b00cc81ee?w=150&q=50' : f.src;
-                div.innerHTML = '<img src="' + imgSrc + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;">' + (f.tipo === 'video' ? '<div style="position:absolute;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;"><span style="color:#ccff00;font-size:1.1rem;">▶</span></div>' : '') + '<div style="position:absolute;bottom:2px;left:3px;background:rgba(0,0,0,0.75);color:#ccff00;font-family:Teko;font-size:0.6rem;padding:1px 4px;border-radius:3px;">' + f.año + '</div>';
+                const imgSrc = f.tipo === 'video' ? ytThumb(f.ytId) : f.src;
+                div.innerHTML = '<img src="' + imgSrc + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;">' + (f.tipo === 'video' ? '<div style="position:absolute;inset:0;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;"><span style="color:#ccff00;font-size:1rem;">▶</span></div>' : '') + '<div style="position:absolute;bottom:2px;left:3px;background:rgba(0,0,0,0.75);color:#ccff00;font-family:Teko;font-size:0.6rem;padding:1px 4px;border-radius:3px;">' + f.año + '</div>';
                 div.onclick = () => irAMem(i);
                 cont.appendChild(div);
             });
@@ -1841,20 +1856,16 @@
             const contenedor = document.getElementById("mem-main");
             const prev = document.getElementById("mem-main-img"); if (prev) prev.remove();
             const playIcon = document.getElementById("mem-play-icon");
-            let media;
+            const media = document.createElement("img");
+            media.loading = "lazy";
+            media.id = "mem-main-img";
             if (f.tipo === "video") {
-                media = document.createElement("img");
-                media.src = 'https://images.unsplash.com/photo-1461897104016-0b3b00cc81ee?auto=format&fit=crop&w=800&q=80';
-                media.loading = "lazy";
-                media.style.cssText = "width:100%;height:100%;object-fit:cover;filter:brightness(0.6);";
-                media.id = "mem-main-img";
+                media.src = ytThumb(f.ytId);
+                media.style.cssText = "width:100%;height:100%;object-fit:cover;filter:brightness(0.7);";
                 if (playIcon) playIcon.style.display = 'flex';
             } else {
-                media = document.createElement("img");
-                media.loading = "lazy";
-                media.style.cssText = "width:100%;height:100%;object-fit:cover;";
                 media.src = f.src;
-                media.id = "mem-main-img";
+                media.style.cssText = "width:100%;height:100%;object-fit:cover;";
                 if (playIcon) playIcon.style.display = 'none';
             }
             contenedor.insertBefore(media, contenedor.firstChild);
@@ -1876,7 +1887,7 @@
 
         function openMemModal() {
             const f = memFotos[memActual];
-            if (f.tipo === "video") { abrirVideo(f.gdId, f.año + ' — ' + f.titulo); }
+            if (f.tipo === "video") { abrirVideo(f.ytId, f.año + ' — ' + f.titulo, f.short); }
             else { openModal({ src: f.src, alt: f.año + ' — ' + f.titulo }); }
         }
 
