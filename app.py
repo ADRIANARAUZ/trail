@@ -227,7 +227,8 @@ def enviar_email_confirmacion(destinatario, nombre, cedula):
         msg['To']      = destinatario
         msg.attach(MIMEText(html_body, 'html', 'utf-8'))
 
-        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+        with smtplib.SMTP('smtp.gmail.com', 587, timeout=10) as server:
+            server.starttls()
             server.login(gmail_user, gmail_pass)
             server.sendmail(gmail_user, destinatario, msg.as_string())
 
