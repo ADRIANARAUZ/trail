@@ -167,7 +167,7 @@ def cedula_ya_registrada(cedula):
     return buscar_corredor(cedula) is not None
 
 
-def enviar_email_confirmacion(destinatario, nombre, cedula):
+def enviar_email_confirmacion(destinatario, nombre, link_certificado):
     try:
         gmail_user = os.getenv('GMAIL_USER')
         gmail_pass = os.getenv('GMAIL_PASS')
@@ -176,7 +176,6 @@ def enviar_email_confirmacion(destinatario, nombre, cedula):
             print("[AVISO] GMAIL_USER o GMAIL_PASS no definidos en .env")
             return False
 
-        link_certificado = url_for('ver_certificado', cedula=cedula, _external=True)
         texto_wa      = f"Estoy inscrito en Trail Running 2026 Del Bosque al Mar. Mi certificado: {link_certificado}"
         link_whatsapp = f"https://wa.me/?text={texto_wa.replace(' ', '%20')}"
 
@@ -482,7 +481,6 @@ def dashboard():
         role=session.get('role')
     )
 
-
 @app.route('/admin/marcar_pagado/<cedula>', methods=['POST'])
 @login_required()
 def marcar_pagado(cedula):
@@ -500,14 +498,15 @@ def marcar_pagado(cedula):
     modificar_csv(_marcar_pagado)
 
     if email_dest:
+        link = url_for('ver_certificado', cedula=cedula, _external=True)
         hilo = threading.Thread(
             target=enviar_email_confirmacion,
-            args=(email_dest, nombre_dest, cedula),
+            args=(email_dest, nombre_dest, link),
             daemon=True
         )
         hilo.start()
-    return redirect(url_for('dashboard'))
 
+    return redirect(url_for('dashboard'))
 
 @app.route('/admin/ver_comprobante/<cedula>')
 @login_required()
