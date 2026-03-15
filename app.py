@@ -3,7 +3,6 @@ from werkzeug.exceptions import RequestEntityTooLarge
 from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
 from collections import Counter
-import resend
 from functools import wraps
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
@@ -14,11 +13,12 @@ import socket
 import time
 import base64
 import threading
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 load_dotenv(override=True)
 _csv_lock = threading.Lock()
-
-resend.api_key = os.getenv('RESEND_API_KEY')
 
 app = Flask(__name__)
 
@@ -79,15 +79,15 @@ def agregar_headers_seguridad(response):
     response.headers['X-Frame-Options'] = 'DENY'
     response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
     response.headers['Content-Security-Policy'] = (
-    "default-src 'self'; "
-    "script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com; "
-    "style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com; "
-    "font-src fonts.gstatic.com cdnjs.cloudflare.com; "
-    "img-src 'self' data: blob: images.unsplash.com upload.wikimedia.org i.vimeocdn.com img.youtube.com placehold.co; "
-    "media-src 'self'; "
-    "frame-src 'self' https://www.youtube.com https://drive.google.com; "
-    "connect-src 'self' cdnjs.cloudflare.com blob: https://drive.google.com https://placehold.co; "
-    "worker-src blob:;"
+        "default-src 'self'; "
+        "script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com; "
+        "style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com; "
+        "font-src fonts.gstatic.com cdnjs.cloudflare.com; "
+        "img-src 'self' data: blob: images.unsplash.com upload.wikimedia.org i.vimeocdn.com img.youtube.com placehold.co; "
+        "media-src 'self'; "
+        "frame-src 'self' https://www.youtube.com https://drive.google.com; "
+        "connect-src 'self' cdnjs.cloudflare.com blob: https://drive.google.com https://placehold.co; "
+        "worker-src blob:;"
     )
     response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
     return response
@@ -169,15 +169,18 @@ def cedula_ya_registrada(cedula):
 
 def enviar_email_confirmacion(destinatario, nombre, cedula):
     try:
+        gmail_user = os.getenv('GMAIL_USER')
+        gmail_pass = os.getenv('GMAIL_PASS')
+
+        if not gmail_user or not gmail_pass:
+            print("[AVISO] GMAIL_USER o GMAIL_PASS no definidos en .env")
+            return False
+
         link_certificado = url_for('ver_certificado', cedula=cedula, _external=True)
         texto_wa      = f"Estoy inscrito en Trail Running 2026 Del Bosque al Mar. Mi certificado: {link_certificado}"
         link_whatsapp = f"https://wa.me/?text={texto_wa.replace(' ', '%20')}"
 
-        params = {
-            "from": "Trail Running 2026 <onboarding@resend.dev>",
-            "to": [destinatario],
-            "subject": "¡Inscripción Confirmada! - Trail Running 2026",
-            "html": f"""
+        html_body = f"""
         <html>
         <body style="font-family:Arial,sans-serif;background:#0f172a;color:white;padding:20px;">
           <div style="max-width:600px;margin:0 auto;background:#1e293b;padding:30px;
@@ -217,13 +220,24 @@ def enviar_email_confirmacion(destinatario, nombre, cedula):
           </div>
         </body>
         </html>"""
-        }
 
-        resend.Emails.send(params)
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = '¡Inscripción Confirmada! - Trail Running 2026'
+        msg['From']    = f'Trail Running 2026 <{gmail_user}>'
+        msg['To']      = destinatario
+        msg.attach(MIMEText(html_body, 'html', 'utf-8'))
+
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+            server.login(gmail_user, gmail_pass)
+            server.sendmail(gmail_user, destinatario, msg.as_string())
+
+        print(f"[OK] Email enviado a {destinatario}")
         return True
+
     except Exception as e:
         print(f"[ERROR] Enviando correo a {destinatario}: {e}")
         return False
+
 
 def authenticate(username, password):
     if not os.path.exists(USERS_FILE):
@@ -327,7 +341,7 @@ def register():
 
 
 @app.route('/payment/<cedula>', methods=['GET', 'POST'])
-@rate_limit(max_requests=5, window_seconds=300)
+@rate_limit(max_requests=10, window_seconds=300)
 def payment(cedula):
     cedula   = cedula_segura(cedula)
     corredor = buscar_corredor(cedula)
@@ -388,7 +402,7 @@ def ver_certificado(cedula):
     if not corredor:
         return render_template('error.html', mensaje="Atleta no encontrado."), 404
 
-    fondo_b64 = ''
+    fondo_b64  = ''
     fondo_path = os.path.join('static', 'img', 'fondo_certificado_oficial.jpg')
     if os.path.exists(fondo_path):
         with open(fondo_path, 'rb') as f:
