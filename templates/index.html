@@ -1946,6 +1946,14 @@
             [document.getElementById("mem-main"), document.getElementById("mem-thumbs")].forEach(el => { if (!el) return; el.addEventListener('mouseenter', () => clearInterval(autoM)); el.addEventListener('mouseleave', () => { autoM = setInterval(() => moverMem(1), 3500); }); });
         });
 
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) {
+                const rutaFrame = document.getElementById('ruta-iframe');
+                if (rutaFrame) rutaFrame.src = '';
+                cerrarVideo();
+            }
+        });
+
         window.onload = function () { const ced = localStorage.getItem("pago_pendiente_cedula"); if (ced) { document.getElementById("alert-cedula").innerText = ced; document.getElementById("custom-alert").style.display = "flex"; document.getElementById("btn-pay-alert").onclick = () => window.location.href = "/payment/" + ced; document.getElementById("close-x-alert").onclick = () => document.getElementById("custom-alert").style.display = "none"; document.getElementById("custom-alert").onclick = function (e) { if (e.target === this) this.style.display = "none"; }; } };
     </script>
 </body>
