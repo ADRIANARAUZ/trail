@@ -500,8 +500,12 @@ def marcar_pagado(cedula):
     modificar_csv(_marcar_pagado)
 
     if email_dest:
-        if not enviar_email_confirmacion(email_dest, nombre_dest, cedula):
-            print(f"[AVISO] No se pudo enviar email a {email_dest}")
+        hilo = threading.Thread(
+            target=enviar_email_confirmacion,
+            args=(email_dest, nombre_dest, cedula),
+            daemon=True
+        )
+        hilo.start()
     return redirect(url_for('dashboard'))
 
 
