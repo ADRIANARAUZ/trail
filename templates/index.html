@@ -815,6 +815,12 @@
             background: #000
         }
 
+        #video-modal-frame.short {
+            width: calc(82vh * 0.5625);
+            height: 82vh;
+            max-width: 95vw
+        }
+
         #video-modal-caption {
             color: #94a3b8;
             font-size: 0.9rem;
@@ -1723,19 +1729,7 @@
         function abrirVideo(id, caption, isShort) {
             const frame = document.getElementById('video-modal-frame');
             frame.src = 'https://www.youtube.com/embed/' + id + YT_PARAMS;
-            if (isShort) {
-                frame.style.width = 'min(400px,95vw)';
-                frame.style.height = 'min(711px,85vh)';
-                frame.style.maxWidth = '400px';
-                frame.style.maxHeight = '85vh';
-                frame.style.minHeight = '300px';
-            } else {
-                frame.style.width = '98vw';
-                frame.style.height = '55vw';
-                frame.style.maxWidth = '960px';
-                frame.style.maxHeight = '82vh';
-                frame.style.minHeight = '200px';
-            }
+            frame.className = isShort ? 'short' : '';
             document.getElementById('video-modal-caption').innerText = caption || '';
             document.getElementById('video-modal').classList.add('open');
             document.body.style.overflow = 'hidden';
@@ -1760,6 +1754,10 @@
         function switchTab(id) {
             document.querySelectorAll('.content-section').forEach(el => { el.classList.remove('active'); el.style.display = 'none'; });
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            const rutaFrame = document.getElementById('ruta-iframe');
+            if (rutaFrame && id !== 'ruta') {
+                rutaFrame.src = rutaFrame.src;
+            }
             const t = document.getElementById(id);
             if (t) { t.style.display = 'block'; setTimeout(() => t.classList.add('active'), 10); }
             const b = document.getElementById('btn-' + id);
