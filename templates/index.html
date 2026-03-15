@@ -1396,7 +1396,7 @@
                 <h2 class="section-title"><i class="fa-solid fa-location-dot"></i> DESAFÍO COSTERO</h2>
                 <div class="route-img-wrap">
                     <div class="yt-ruta-wrap">
-                        <div id="ruta-player"></div>
+                        <div id="ruta-player" style="position:absolute;inset:0;width:100%;height:100%;"></div>
                     </div>
                     <div class="route-badge"><i class="fa-solid fa-mountain"></i> ALTITUD: 60m</div>
                 </div>
@@ -1752,8 +1752,10 @@
         let rutaPlayer = null;
         function onYouTubeIframeAPIReady() {
             rutaPlayer = new YT.Player('ruta-player', {
+                width: '100%',
+                height: '100%',
                 videoId: 'I9vby7J5OAQ',
-                playerVars: { rel: 0, modestbranding: 1, controls: 1, showinfo: 0, iv_load_policy: 3 },
+                playerVars: { rel: 0, modestbranding: 1, controls: 1, showinfo: 0, iv_load_policy: 3, enablejsapi: 1 },
                 events: { onReady: function (e) { } }
             });
         }
