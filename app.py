@@ -79,15 +79,15 @@ def agregar_headers_seguridad(response):
     response.headers['X-Frame-Options'] = 'DENY'
     response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
     response.headers['Content-Security-Policy'] = (
-    "default-src 'self'; "
-    "script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com; "
-    "style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com; "
-    "font-src fonts.gstatic.com cdnjs.cloudflare.com; "
-    "img-src 'self' data: blob: images.unsplash.com upload.wikimedia.org i.vimeocdn.com img.youtube.com; "
-    "media-src 'self'; "
-    "frame-src 'self' https://www.youtube.com https://drive.google.com; "
-    "connect-src 'self' cdnjs.cloudflare.com blob: https://drive.google.com; "
-    "worker-src blob:;"
+        "default-src 'self'; "
+        "script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com https://www.youtube.com https://s.ytimg.com; "
+        "style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com; "
+        "font-src fonts.gstatic.com cdnjs.cloudflare.com; "
+        "img-src 'self' data: blob: images.unsplash.com upload.wikimedia.org img.youtube.com i.ytimg.com; "
+        "media-src 'self'; "
+        "frame-src 'self' https://www.youtube.com https://drive.google.com; "
+        "connect-src 'self' cdnjs.cloudflare.com blob: https://www.youtube.com https://s.ytimg.com; "
+        "worker-src blob:;"
     )
     response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
     return response
