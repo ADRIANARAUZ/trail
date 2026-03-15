@@ -1,6 +1,9 @@
-node_modules/
 __pycache__/
-*.pyc
-.env
-certificates/generated/
+.pytest_cache/
+.vscode/
+venv/
+.venv/
 data/uploads/
+certificates/generated/
+*.pyc
+test_app.py

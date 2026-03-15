@@ -1392,11 +1392,25 @@
                 <a href="/check" class="cta-link">¿Ya te registraste? Sube tu comprobante aquí →</a>
             </div>
 
+            <!-- PESTAÑA RUTA
+                 CAMBIOS vs versión anterior:
+                 1) Se eliminó el script de YouTube IFrame API (onYouTubeIframeAPIReady).
+                 2) El iframe arranca con src="" (vacío) para evitar que el player
+                    se inicialice cuando el contenedor mide 0×0 → ya no sale negro.
+                 3) initRutaPlayer() asigna la URL con enablejsapi=1 solo la primera
+                    vez que el usuario abre la pestaña, cuando el contenedor ya tiene
+                    dimensiones reales.
+                 4) pauseRutaPlayer() usa postMessage para pausar sin necesidad de la
+                    API de YT, solucionando el audio que seguía al cambiar de pestaña.
+            -->
             <div id="ruta" class="content-section" style="text-align:center;">
                 <h2 class="section-title"><i class="fa-solid fa-location-dot"></i> DESAFÍO COSTERO</h2>
                 <div class="route-img-wrap">
                     <div class="yt-ruta-wrap">
-                        <div id="ruta-player" style="position:absolute;inset:0;width:100%;height:100%;"></div>
+                        <iframe id="ruta-iframe" src=""
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
                     </div>
                     <div class="route-badge"><i class="fa-solid fa-mountain"></i> ALTITUD: 60m</div>
                 </div>
@@ -1468,7 +1482,8 @@
                         style="width:100%;height:100%;object-fit:cover;">
                     <div id="mem-play-icon"
                         style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,0.7);border:3px solid #ccff00;border-radius:50%;align-items:center;justify-content:center;pointer-events:none;z-index:5;">
-                        <span style="color:#ccff00;font-size:1.8rem;margin-left:6px;">▶</span></div>
+                        <span style="color:#ccff00;font-size:1.8rem;margin-left:6px;">▶</span>
+                    </div>
                     <div
                         style="position:absolute;bottom:0;left:0;right:0;padding:16px 14px 12px;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 100%);z-index:2;">
                         <div id="mem-year-badge"
@@ -1622,7 +1637,7 @@
                             <label>TELÉFONO</label>
                             <input type="tel" name="telefono" id="telefono" maxlength="10" pattern="\d{10}"
                                 inputmode="numeric" autocomplete="tel" placeholder="0999999999"
-                                oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
+                                oninput="this.value=this.value.replace(/[^0-9]/g,'')">
                             <span class="error-msg" id="error-telefono">10 dígitos requeridos.</span>
                         </div>
                     </div>
@@ -1716,10 +1731,38 @@
         </div>
     </div>
 
-    <script src="https://www.youtube.com/iframe_api"></script>
+    <!-- NOTA: Se eliminó <script src="youtube iframe_api"> — ya no es necesario -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="/static/js/GLTFLoader.js"></script>
     <script>
+
+        // ─────────────────────────────────────────────────────────────
+        // VIDEO DE RUTA  —  lazy load + pausa via postMessage
+        // ─────────────────────────────────────────────────────────────
+        const RUTA_VIDEO_ID = 'I9vby7J5OAQ';
+        let rutaPlayerReady = false;
+
+        // Se llama solo la primera vez que el usuario abre la pestaña RUTA.
+        // En ese momento el contenedor ya tiene dimensiones reales → no hay pantalla negra.
+        function initRutaPlayer() {
+            if (rutaPlayerReady) return;
+            rutaPlayerReady = true;
+            const iframe = document.getElementById('ruta-iframe');
+            // enablejsapi=1 es obligatorio para que postMessage (pauseVideo) funcione.
+            iframe.src = 'https://www.youtube.com/embed/' + RUTA_VIDEO_ID
+                + '?rel=0&modestbranding=1&controls=1&enablejsapi=1';
+        }
+
+        // Pausa el video de ruta sin necesidad de la API completa de YouTube.
+        function pauseRutaPlayer() {
+            const iframe = document.getElementById('ruta-iframe');
+            if (!iframe || !iframe.src || !iframe.contentWindow) return;
+            iframe.contentWindow.postMessage(
+                '{"event":"command","func":"pauseVideo","args":""}', '*'
+            );
+        }
+        // ─────────────────────────────────────────────────────────────
+
         const YT_PARAMS = '?autoplay=1&rel=0&modestbranding=1&controls=0&showinfo=0&iv_load_policy=3&disablekb=1';
         const YT = { v2021: 'J6kqeLUdKgI', v2023: 'QH8_5PiU-aQ', v2024_1: 'yHsov1-xOMQ', v2025: 'TCfR-9bBU0g', v2025_2: 'OMveZ2-a-UA', finalista: 'D9SnvmAYEw8', bajada: 'nBb-UM7jQbk', cuarta_1: 'P4HQQCENyAo', cuarta_edicion: 'xZQzZXkTFMo', promo2025: 'AZwnAngvkHE', ruta: 'I9vby7J5OAQ', tercera: 'ZOBB8cjooM0' };
         function ytThumb(id) { return 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg'; }
@@ -1738,6 +1781,7 @@
             document.body.style.overflow = '';
         }
 
+        // Cuenta regresiva
         (function () {
             const f = new Date("September 21, 2026 06:00:00").getTime();
             setInterval(() => {
@@ -1749,29 +1793,28 @@
             }, 1000);
         })();
 
-        let rutaPlayer = null;
-        function onYouTubeIframeAPIReady() {
-            rutaPlayer = new YT.Player('ruta-player', {
-                width: '100%',
-                height: '100%',
-                videoId: 'I9vby7J5OAQ',
-                playerVars: { rel: 0, modestbranding: 1, controls: 1, showinfo: 0, iv_load_policy: 3, enablejsapi: 1 },
-                events: { onReady: function (e) { } }
-            });
-        }
-
+        // ─────────────────────────────────────────────────────────────
+        // switchTab  —  controla pestañas + video de ruta
+        // ─────────────────────────────────────────────────────────────
         function switchTab(id) {
             document.querySelectorAll('.content-section').forEach(el => { el.classList.remove('active'); el.style.display = 'none'; });
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            if (rutaPlayer && typeof rutaPlayer.pauseVideo === 'function' && id !== 'ruta') {
-                rutaPlayer.pauseVideo();
+
+            if (id === 'ruta') {
+                // Carga el iframe la primera vez que se abre la pestaña
+                initRutaPlayer();
+            } else {
+                // Al salir de la pestaña ruta, pausa el video
+                pauseRutaPlayer();
             }
+
             const t = document.getElementById(id);
             if (t) { t.style.display = 'block'; setTimeout(() => t.classList.add('active'), 10); }
             const b = document.getElementById('btn-' + id);
             if (b) { b.classList.add('active'); b.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); }
         }
 
+        // Carrusel historia
         let slideIndex = 1;
         function buildSlideDots() {
             const slides = document.getElementsByClassName("slide");
@@ -1811,6 +1854,7 @@
             el.addEventListener('touchend', e => { const d = x - e.changedTouches[0].clientX; if (Math.abs(d) > 40) moveSlide(d > 0 ? 1 : -1); }, { passive: true });
         })();
 
+        // Memorias
         const memFotos = [
             { año: "2021", titulo: "PRIMERA EDICION.", desc: "Los primeros 30 valientes que abrieron el camino.", src: "/static/img/salida_2021.jpeg" },
             { año: "2021", titulo: "LA VERDADERA COMPETENCIA", desc: "Sin arcos ni sponsors, solo tierra y adrenalina.", ytId: YT.v2021, tipo: "video", short: false },
@@ -1822,7 +1866,7 @@
             { año: "2024", titulo: "TIERRA, ASFALTO, MAR.", desc: "Que no te detenga ningun terreno.", ytId: YT.v2024_1, tipo: "video", short: true },
             { año: "2024", titulo: "PRIMER ATLETA 10K.", desc: "Nestor, primer atleta en cruzar la linea de meta.", ytId: YT.cuarta_edicion, tipo: "video", short: false },
             { año: "2025", titulo: "PROMO 2025.", desc: "Todo lo que se vivió en la quinta edición.", ytId: YT.promo2025, tipo: "video", short: true },
-            { año: "2025", titulo: "BAILOTERAPIA", desc: "Nada mejor que una Bailoterapia para ejercitar el cuerpo antes del reto.", ytId: YT.v2025, tipo: "video", short: true },
+            { año: "2025", titulo: "BAILOTERAPIA", desc: "Nada mejor que una Bailoterapia para ejercitar el cuerpo.", ytId: YT.v2025, tipo: "video", short: true },
             { año: "2025", titulo: "LOMA LAS CABRAS", desc: "La recompensa al final del esfuerzo es la perseverancia.", ytId: YT.bajada, tipo: "video", short: true },
             { año: "2025", titulo: "FINALISTAS", desc: "Cruzando la meta con todo el corazón.", ytId: YT.finalista, tipo: "video", short: true },
         ];
@@ -1835,7 +1879,9 @@
                 const div = document.createElement("div");
                 div.style.cssText = 'flex-shrink:0;width:72px;height:52px;border-radius:6px;overflow:hidden;cursor:pointer;border:2px solid ' + (i === memActual ? '#ccff00' : 'transparent') + ';transition:border-color 0.2s;position:relative;background:#111;';
                 const imgSrc = f.tipo === 'video' ? ytThumb(f.ytId) : f.src;
-                div.innerHTML = '<img src="' + imgSrc + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;">' + (f.tipo === 'video' ? '<div style="position:absolute;inset:0;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;"><span style="color:#ccff00;font-size:1rem;">▶</span></div>' : '') + '<div style="position:absolute;bottom:2px;left:3px;background:rgba(0,0,0,0.75);color:#ccff00;font-family:Teko;font-size:0.6rem;padding:1px 4px;border-radius:3px;">' + f.año + '</div>';
+                div.innerHTML = '<img src="' + imgSrc + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;">'
+                    + (f.tipo === 'video' ? '<div style="position:absolute;inset:0;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;"><span style="color:#ccff00;font-size:1rem;">▶</span></div>' : '')
+                    + '<div style="position:absolute;bottom:2px;left:3px;background:rgba(0,0,0,0.75);color:#ccff00;font-family:Teko;font-size:0.6rem;padding:1px 4px;border-radius:3px;">' + f.año + '</div>';
                 div.onclick = () => irAMem(i);
                 cont.appendChild(div);
             });
@@ -1882,6 +1928,7 @@
             else { openModal({ src: f.src, alt: f.año + ' — ' + f.titulo }); }
         }
 
+        // Lightbox
         function openModal(el) {
             document.getElementById("img01").src = el.src;
             document.getElementById("img01").style.display = "block";
@@ -1896,6 +1943,7 @@
             lb.addEventListener('touchend', e => { if (e.changedTouches[0].clientY - y > 60) closeModal(); }, { passive: true });
         })();
 
+        // Formulario — subcategorías
         function actualizarSubcategorias() {
             const dist = document.getElementById("distancia").value;
             const genero = document.getElementById("genero").value;
@@ -1915,9 +1963,11 @@
             cats.forEach(cat => { const opt = document.createElement("option"); opt.value = '10K ' + prefijo + ' - ' + cat; opt.innerHTML = '10K ' + prefijo + ' - ' + cat; sub.appendChild(opt); });
         }
 
+        // Validaciones formulario
         const validaciones = { nombre: v => /^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+$/.test(v.trim()) && v.trim().length > 1, cedula: v => /^\d{10}$/.test(v), email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), telefono: v => /^\d{10}$/.test(v) };
         function marcarCampo(id, valido) { const ig = document.getElementById('ig-' + id); const err = document.getElementById('error-' + id); if (!ig) return; ig.classList.toggle('has-error', !valido); if (err) err.style.display = valido ? 'none' : 'block'; }
 
+        // Ediciones 3D
         const edicionesData = [
             { año: "2021", nombre: "1ª EDICIÓN", desc: "La que empezó todo · 30 valientes", color: "#e74c3c", colorB: "#c0392b", img: "/static/img/camisa_2021.jpeg" },
             { año: "2022", nombre: "2ª EDICIÓN", desc: "El Lavadero hace su debut · 80 corredores", color: "#8e44ad", colorB: "#6c3483", img: "/static/img/camisa_2022.jpeg" },
@@ -1949,14 +1999,26 @@
             [document.getElementById("mem-main"), document.getElementById("mem-thumbs")].forEach(el => { if (!el) return; el.addEventListener('mouseenter', () => clearInterval(autoM)); el.addEventListener('mouseleave', () => { autoM = setInterval(() => moverMem(1), 3500); }); });
         });
 
+        // Pausa el video de ruta y cierra modales cuando el usuario minimiza
+        // la ventana o cambia de pestaña del navegador
         document.addEventListener('visibilitychange', function () {
             if (document.hidden) {
-                if (rutaPlayer && typeof rutaPlayer.pauseVideo === 'function') rutaPlayer.pauseVideo();
+                pauseRutaPlayer();
                 cerrarVideo();
             }
         });
 
-        window.onload = function () { const ced = localStorage.getItem("pago_pendiente_cedula"); if (ced) { document.getElementById("alert-cedula").innerText = ced; document.getElementById("custom-alert").style.display = "flex"; document.getElementById("btn-pay-alert").onclick = () => window.location.href = "/payment/" + ced; document.getElementById("close-x-alert").onclick = () => document.getElementById("custom-alert").style.display = "none"; document.getElementById("custom-alert").onclick = function (e) { if (e.target === this) this.style.display = "none"; }; } };
+        window.onload = function () {
+            const ced = localStorage.getItem("pago_pendiente_cedula");
+            if (ced) {
+                document.getElementById("alert-cedula").innerText = ced;
+                document.getElementById("custom-alert").style.display = "flex";
+                document.getElementById("btn-pay-alert").onclick = () => window.location.href = "/payment/" + ced;
+                document.getElementById("close-x-alert").onclick = () => document.getElementById("custom-alert").style.display = "none";
+                document.getElementById("custom-alert").onclick = function (e) { if (e.target === this) this.style.display = "none"; };
+            }
+        };
+
     </script>
 </body>
 

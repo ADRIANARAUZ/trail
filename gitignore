@@ -15,3 +15,6 @@ venv/
 # Editor
 .vscode/
 *.suo
+
+certificates/generated/
+data/uploads/
