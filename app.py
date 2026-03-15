@@ -83,10 +83,10 @@ def agregar_headers_seguridad(response):
     "script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com; "
     "style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com; "
     "font-src fonts.gstatic.com cdnjs.cloudflare.com; "
-    "img-src 'self' data: blob: images.unsplash.com upload.wikimedia.org i.vimeocdn.com img.youtube.com; "
+    "img-src 'self' data: blob: images.unsplash.com upload.wikimedia.org i.vimeocdn.com img.youtube.com placehold.co; "
     "media-src 'self'; "
     "frame-src 'self' https://www.youtube.com https://drive.google.com; "
-    "connect-src 'self' cdnjs.cloudflare.com blob: https://drive.google.com; "
+    "connect-src 'self' cdnjs.cloudflare.com blob: https://drive.google.com https://placehold.co; "
     "worker-src blob:;"
     )
     response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
