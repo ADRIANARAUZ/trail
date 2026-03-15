@@ -1751,12 +1751,17 @@
             }, 1000);
         })();
 
+        const RUTA_SRC = 'https://www.youtube.com/embed/I9vby7J5OAQ?rel=0&modestbranding=1&controls=0&showinfo=0&iv_load_policy=3&disablekb=1';
         function switchTab(id) {
             document.querySelectorAll('.content-section').forEach(el => { el.classList.remove('active'); el.style.display = 'none'; });
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             const rutaFrame = document.getElementById('ruta-iframe');
-            if (rutaFrame && id !== 'ruta') {
-                rutaFrame.src = rutaFrame.src;
+            if (rutaFrame) {
+                if (id === 'ruta') {
+                    rutaFrame.src = RUTA_SRC;
+                } else {
+                    rutaFrame.src = '';
+                }
             }
             const t = document.getElementById(id);
             if (t) { t.style.display = 'block'; setTimeout(() => t.classList.add('active'), 10); }
