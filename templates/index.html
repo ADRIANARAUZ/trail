@@ -1396,10 +1396,7 @@
                 <h2 class="section-title"><i class="fa-solid fa-location-dot"></i> DESAFÍO COSTERO</h2>
                 <div class="route-img-wrap">
                     <div class="yt-ruta-wrap">
-                        <iframe
-                            src="https://www.youtube.com/embed/I9vby7J5OAQ?rel=0&modestbranding=1&controls=0&showinfo=0&iv_load_policy=3&disablekb=1"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
+                        <div id="ruta-player"></div>
                     </div>
                     <div class="route-badge"><i class="fa-solid fa-mountain"></i> ALTITUD: 60m</div>
                 </div>
@@ -1719,6 +1716,7 @@
         </div>
     </div>
 
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="/static/js/GLTFLoader.js"></script>
     <script>
@@ -1751,17 +1749,20 @@
             }, 1000);
         })();
 
-        const RUTA_SRC = 'https://www.youtube.com/embed/I9vby7J5OAQ?rel=0&modestbranding=1&controls=0&showinfo=0&iv_load_policy=3&disablekb=1';
+        let rutaPlayer = null;
+        function onYouTubeIframeAPIReady() {
+            rutaPlayer = new YT.Player('ruta-player', {
+                videoId: 'I9vby7J5OAQ',
+                playerVars: { rel: 0, modestbranding: 1, controls: 1, showinfo: 0, iv_load_policy: 3 },
+                events: { onReady: function (e) { } }
+            });
+        }
+
         function switchTab(id) {
             document.querySelectorAll('.content-section').forEach(el => { el.classList.remove('active'); el.style.display = 'none'; });
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            const rutaFrame = document.getElementById('ruta-iframe');
-            if (rutaFrame) {
-                if (id === 'ruta') {
-                    rutaFrame.src = RUTA_SRC;
-                } else {
-                    rutaFrame.src = '';
-                }
+            if (rutaPlayer && typeof rutaPlayer.pauseVideo === 'function' && id !== 'ruta') {
+                rutaPlayer.pauseVideo();
             }
             const t = document.getElementById(id);
             if (t) { t.style.display = 'block'; setTimeout(() => t.classList.add('active'), 10); }
@@ -1948,8 +1949,7 @@
 
         document.addEventListener('visibilitychange', function () {
             if (document.hidden) {
-                const rutaFrame = document.getElementById('ruta-iframe');
-                if (rutaFrame) rutaFrame.src = '';
+                if (rutaPlayer && typeof rutaPlayer.pauseVideo === 'function') rutaPlayer.pauseVideo();
                 cerrarVideo();
             }
         });
