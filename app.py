@@ -226,7 +226,7 @@ def enviar_email_confirmacion(destinatario, nombre, link_certificado):
                 'Content-Type': 'application/json'
             },
             json={
-                'sender': {'name': 'Trail Running 2026', 'email': 'sr.records.198@gmail.com'},
+                'sender': {'name': 'Trail Running 2026', 'email': 'carreratrailrunningbosquealmar@gmail.com'},
                 'to': [{'email': destinatario}],
                 'subject': '¡Inscripción Confirmada! - Trail Running 2026',
                 'htmlContent': html_body
