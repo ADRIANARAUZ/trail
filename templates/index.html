@@ -1906,11 +1906,11 @@
         }
 
         const edicionesData = [
-            { año: "2021", nombre: "1ª EDICIÓN", desc: "La que empezó todo · 30 valientes", img: "/static/img/camisa_2021.jpeg" },
-            { año: "2022", nombre: "2ª EDICIÓN", desc: "El Lavadero hace su debut · 80 corredores", img: "/static/img/camisa_2022.jpeg" },
-            { año: "2023", nombre: "3ª EDICIÓN", desc: "La Tormenta legendaria · 120 atletas", img: "/static/img/camisa_2023.jpeg" },
+            { año: "2021", nombre: "1ª EDICIÓN", desc: "La que empezó todo · 30 valientes", img: "https://placehold.co/512x512/1e293b/ccff00?text=2021" },
+            { año: "2022", nombre: "2ª EDICIÓN", desc: "El Lavadero hace su debut · 80 corredores", img: "https://placehold.co/512x512/1e293b/ccff00?text=2022" },
+            { año: "2023", nombre: "3ª EDICIÓN", desc: "La Tormenta legendaria · 120 atletas", img: "https://placehold.co/512x512/1e293b/ccff00?text=2023" },
             { año: "2024", nombre: "4ª EDICIÓN", desc: "El año del récord · Juan M. 3h 15m", img: "/static/img/camisa_2024.jpeg" },
-            { año: "2025", nombre: "5ª EDICIÓN", desc: "La Víbora · 200 finishers", img: "/static/img/Camisa sin mangas.jpeg" },
+            { año: "2025", nombre: "5ª EDICIÓN", desc: "La Víbora · 200 finishers", img: "/static/img/camisa_2025.jpeg" },
         ];
 
         function buildEdicionesGrid() {
@@ -1971,8 +1971,12 @@
             scene.add(new THREE.AmbientLight(0xffffff, 0.9));
             const dL = new THREE.DirectionalLight(0xffffff, 1.2);
             dL.position.set(3, 5, 5); dL.castShadow = true; scene.add(dL);
-            scene.add(Object.assign(new THREE.DirectionalLight(0xffffff, 0.5), { position: new THREE.Vector3(-3, 2, 3) }));
-            scene.add(Object.assign(new THREE.DirectionalLight(0xffffff, 0.3), { position: new THREE.Vector3(0, -3, 2) }));
+            const dL2 = new THREE.DirectionalLight(0xffffff, 0.5);
+            dL2.position.set(-3, 2, 3);
+            scene.add(dL2);
+            const dL3 = new THREE.DirectionalLight(0xffffff, 0.3);
+            dL3.position.set(0, -3, 2);
+            scene.add(dL3);
 
             let model = null;
             let isDragging = false, prevX = 0, prevY = 0, rotY = Math.PI, rotX = 0;
