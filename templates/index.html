@@ -1055,33 +1055,6 @@
             font-family: 'Teko'
         }
 
-        #modal3d-foto-wrap {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px
-        }
-
-        #modal3d-foto {
-            width: min(220px, 85vw);
-            height: min(320px, 50vh);
-            object-fit: contain;
-            border-radius: 10px;
-            border: 1px solid rgba(204, 255, 0, 0.2);
-            background: rgba(255, 255, 255, 0.03)
-        }
-
-        #modal3d-foto-label {
-            font-family: 'Teko';
-            font-size: 0.85rem;
-            color: #ccff00;
-            letter-spacing: 2px
-        }
-
-        #modal3d-foto-wrap.sin-foto {
-            display: none
-        }
-
         #modal3d-close {
             position: absolute;
             top: 16px;
@@ -1392,25 +1365,13 @@
                 <a href="/check" class="cta-link">¿Ya te registraste? Sube tu comprobante aquí →</a>
             </div>
 
-            <!-- PESTAÑA RUTA
-                 CAMBIOS vs versión anterior:
-                 1) Se eliminó el script de YouTube IFrame API (onYouTubeIframeAPIReady).
-                 2) El iframe arranca con src="" (vacío) para evitar que el player
-                    se inicialice cuando el contenedor mide 0×0 → ya no sale negro.
-                 3) initRutaPlayer() asigna la URL con enablejsapi=1 solo la primera
-                    vez que el usuario abre la pestaña, cuando el contenedor ya tiene
-                    dimensiones reales.
-                 4) pauseRutaPlayer() usa postMessage para pausar sin necesidad de la
-                    API de YT, solucionando el audio que seguía al cambiar de pestaña.
-            -->
             <div id="ruta" class="content-section" style="text-align:center;">
                 <h2 class="section-title"><i class="fa-solid fa-location-dot"></i> DESAFÍO COSTERO</h2>
                 <div class="route-img-wrap">
                     <div class="yt-ruta-wrap">
                         <iframe id="ruta-iframe" src=""
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                        </iframe>
+                            allowfullscreen></iframe>
                     </div>
                     <div class="route-badge"><i class="fa-solid fa-mountain"></i> ALTITUD: 60m</div>
                 </div>
@@ -1708,11 +1669,6 @@
                 <canvas id="canvas3d"></canvas>
                 <div id="modal3d-hint">🖱️ ARRASTRA PARA GIRAR &nbsp;·&nbsp; 📱 TOCA Y DESLIZA</div>
             </div>
-            <div id="modal3d-foto-wrap">
-                <img id="modal3d-foto" src="" alt="Diseño oficial"
-                    onerror="this.closest('#modal3d-foto-wrap').classList.add('sin-foto')">
-                <div id="modal3d-foto-label">DISEÑO OFICIAL</div>
-            </div>
         </div>
     </div>
 
@@ -1731,40 +1687,27 @@
         </div>
     </div>
 
-    <!-- NOTA: Se eliminó <script src="youtube iframe_api"> — ya no es necesario -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="/static/js/GLTFLoader.js"></script>
     <script>
-
-        // ─────────────────────────────────────────────────────────────
-        // VIDEO DE RUTA  —  lazy load + pausa via postMessage
-        // ─────────────────────────────────────────────────────────────
         const RUTA_VIDEO_ID = 'I9vby7J5OAQ';
         let rutaPlayerReady = false;
 
-        // Se llama solo la primera vez que el usuario abre la pestaña RUTA.
-        // En ese momento el contenedor ya tiene dimensiones reales → no hay pantalla negra.
         function initRutaPlayer() {
             if (rutaPlayerReady) return;
             rutaPlayerReady = true;
-            const iframe = document.getElementById('ruta-iframe');
-            // enablejsapi=1 es obligatorio para que postMessage (pauseVideo) funcione.
-            iframe.src = 'https://www.youtube.com/embed/' + RUTA_VIDEO_ID
-                + '?rel=0&modestbranding=1&controls=1&enablejsapi=1';
+            document.getElementById('ruta-iframe').src =
+                'https://www.youtube.com/embed/' + RUTA_VIDEO_ID + '?rel=0&modestbranding=1&controls=1&enablejsapi=1';
         }
 
-        // Pausa el video de ruta sin necesidad de la API completa de YouTube.
         function pauseRutaPlayer() {
             const iframe = document.getElementById('ruta-iframe');
             if (!iframe || !iframe.src || !iframe.contentWindow) return;
-            iframe.contentWindow.postMessage(
-                '{"event":"command","func":"pauseVideo","args":""}', '*'
-            );
+            iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
         }
-        // ─────────────────────────────────────────────────────────────
 
         const YT_PARAMS = '?autoplay=1&rel=0&modestbranding=1&controls=0&showinfo=0&iv_load_policy=3&disablekb=1';
-        const YT = { v2021: 'J6kqeLUdKgI', v2023: 'QH8_5PiU-aQ', v2024_1: 'yHsov1-xOMQ', v2025: 'TCfR-9bBU0g', v2025_2: 'OMveZ2-a-UA', finalista: 'D9SnvmAYEw8', bajada: 'nBb-UM7jQbk', cuarta_1: 'P4HQQCENyAo', cuarta_edicion: 'xZQzZXkTFMo', promo2025: 'AZwnAngvkHE', ruta: 'I9vby7J5OAQ', tercera: 'ZOBB8cjooM0' };
+        const YT = { v2021: 'J6kqeLUdKgI', v2023: 'QH8_5PiU-aQ', v2024_1: 'yHsov1-xOMQ', v2025: 'TCfR-9bBU0g', finalista: 'D9SnvmAYEw8', bajada: 'nBb-UM7jQbk', cuarta_1: 'P4HQQCENyAo', cuarta_edicion: 'xZQzZXkTFMo', promo2025: 'AZwnAngvkHE' };
         function ytThumb(id) { return 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg'; }
 
         function abrirVideo(id, caption, isShort) {
@@ -1775,13 +1718,13 @@
             document.getElementById('video-modal').classList.add('open');
             document.body.style.overflow = 'hidden';
         }
+
         function cerrarVideo() {
             document.getElementById('video-modal').classList.remove('open');
             document.getElementById('video-modal-frame').src = '';
             document.body.style.overflow = '';
         }
 
-        // Cuenta regresiva
         (function () {
             const f = new Date("September 21, 2026 06:00:00").getTime();
             setInterval(() => {
@@ -1793,28 +1736,16 @@
             }, 1000);
         })();
 
-        // ─────────────────────────────────────────────────────────────
-        // switchTab  —  controla pestañas + video de ruta
-        // ─────────────────────────────────────────────────────────────
         function switchTab(id) {
             document.querySelectorAll('.content-section').forEach(el => { el.classList.remove('active'); el.style.display = 'none'; });
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-
-            if (id === 'ruta') {
-                // Carga el iframe la primera vez que se abre la pestaña
-                initRutaPlayer();
-            } else {
-                // Al salir de la pestaña ruta, pausa el video
-                pauseRutaPlayer();
-            }
-
+            if (id === 'ruta') { initRutaPlayer(); } else { pauseRutaPlayer(); }
             const t = document.getElementById(id);
             if (t) { t.style.display = 'block'; setTimeout(() => t.classList.add('active'), 10); }
             const b = document.getElementById('btn-' + id);
             if (b) { b.classList.add('active'); b.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); }
         }
 
-        // Carrusel historia
         let slideIndex = 1;
         function buildSlideDots() {
             const slides = document.getElementsByClassName("slide");
@@ -1854,7 +1785,6 @@
             el.addEventListener('touchend', e => { const d = x - e.changedTouches[0].clientX; if (Math.abs(d) > 40) moveSlide(d > 0 ? 1 : -1); }, { passive: true });
         })();
 
-        // Memorias
         const memFotos = [
             { año: "2021", titulo: "PRIMERA EDICION.", desc: "Los primeros 30 valientes que abrieron el camino.", src: "/static/img/salida_2021.jpeg" },
             { año: "2021", titulo: "LA VERDADERA COMPETENCIA", desc: "Sin arcos ni sponsors, solo tierra y adrenalina.", ytId: YT.v2021, tipo: "video", short: false },
@@ -1928,7 +1858,6 @@
             else { openModal({ src: f.src, alt: f.año + ' — ' + f.titulo }); }
         }
 
-        // Lightbox
         function openModal(el) {
             document.getElementById("img01").src = el.src;
             document.getElementById("img01").style.display = "block";
@@ -1943,7 +1872,6 @@
             lb.addEventListener('touchend', e => { if (e.changedTouches[0].clientY - y > 60) closeModal(); }, { passive: true });
         })();
 
-        // Formulario — subcategorías
         function actualizarSubcategorias() {
             const dist = document.getElementById("distancia").value;
             const genero = document.getElementById("genero").value;
@@ -1960,52 +1888,201 @@
             const cats = ['JUVENIL (HASTA 19 AÑOS)', 'SENIOR (20-29 AÑOS)', 'MASTER A (30-39 AÑOS)', 'MASTER B (40-49 AÑOS)', 'MASTER C (50-59 AÑOS)', 'INVENCIBLE (60+ AÑOS)'];
             sub.innerHTML = '<option value="" disabled selected>Selecciona tu categoría</option>';
             sub.disabled = false; sub.style.pointerEvents = ""; sub.style.opacity = "";
-            cats.forEach(cat => { const opt = document.createElement("option"); opt.value = '10K ' + prefijo + ' - ' + cat; opt.innerHTML = '10K ' + prefijo + ' - ' + cat; sub.appendChild(opt); });
+            cats.forEach(cat => { const opt = document.createElement("option"); opt.value = '10K ' + prefijo + ' - ' + cat; opt.innerHTML = opt.value; sub.appendChild(opt); });
         }
 
-        // Validaciones formulario
-        const validaciones = { nombre: v => /^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+$/.test(v.trim()) && v.trim().length > 1, cedula: v => /^\d{10}$/.test(v), email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), telefono: v => /^\d{10}$/.test(v) };
-        function marcarCampo(id, valido) { const ig = document.getElementById('ig-' + id); const err = document.getElementById('error-' + id); if (!ig) return; ig.classList.toggle('has-error', !valido); if (err) err.style.display = valido ? 'none' : 'block'; }
+        const validaciones = {
+            nombre: v => /^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+$/.test(v.trim()) && v.trim().length > 1,
+            cedula: v => /^\d{10}$/.test(v),
+            email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
+            telefono: v => /^\d{10}$/.test(v)
+        };
+        function marcarCampo(id, valido) {
+            const ig = document.getElementById('ig-' + id);
+            const err = document.getElementById('error-' + id);
+            if (!ig) return;
+            ig.classList.toggle('has-error', !valido);
+            if (err) err.style.display = valido ? 'none' : 'block';
+        }
 
-        // Ediciones 3D
         const edicionesData = [
-            { año: "2021", nombre: "1ª EDICIÓN", desc: "La que empezó todo · 30 valientes", color: "#e74c3c", colorB: "#c0392b", img: "/static/img/camisa_2021.jpeg" },
-            { año: "2022", nombre: "2ª EDICIÓN", desc: "El Lavadero hace su debut · 80 corredores", color: "#8e44ad", colorB: "#6c3483", img: "/static/img/camisa_2022.jpeg" },
-            { año: "2023", nombre: "3ª EDICIÓN", desc: "La Tormenta legendaria · 120 atletas", color: "#2980b9", colorB: "#1a5276", img: "/static/img/camisa_2023.jpeg" },
-            { año: "2024", nombre: "4ª EDICIÓN", desc: "El año del récord · Juan M. 3h 15m", color: "#d35400", colorB: "#a04000", img: "/static/img/camisa_2024.jpeg" },
-            { año: "2025", nombre: "5ª EDICIÓN", desc: "La Víbora · 200 finishers", color: "#27ae60", colorB: "#1e8449", img: "/static/img/Camisa sin mangas.jpeg" },
+            { año: "2021", nombre: "1ª EDICIÓN", desc: "La que empezó todo · 30 valientes", img: "/static/img/camisa_2021.jpeg" },
+            { año: "2022", nombre: "2ª EDICIÓN", desc: "El Lavadero hace su debut · 80 corredores", img: "/static/img/camisa_2022.jpeg" },
+            { año: "2023", nombre: "3ª EDICIÓN", desc: "La Tormenta legendaria · 120 atletas", img: "/static/img/camisa_2023.jpeg" },
+            { año: "2024", nombre: "4ª EDICIÓN", desc: "El año del récord · Juan M. 3h 15m", img: "/static/img/camisa_2024.jpeg" },
+            { año: "2025", nombre: "5ª EDICIÓN", desc: "La Víbora · 200 finishers", img: "/static/img/Camisa sin mangas.jpeg" },
         ];
-        function generarThumbCanvas(ed) { const c = document.createElement("canvas"); c.width = 300; c.height = 200; const ctx = c.getContext("2d"); const g = ctx.createLinearGradient(0, 0, 300, 200); g.addColorStop(0, ed.color); g.addColorStop(1, ed.colorB); ctx.fillStyle = g; ctx.fillRect(0, 0, 300, 200); ctx.fillStyle = "rgba(0,0,0,0.25)"; ctx.fillRect(0, 0, 300, 200); ctx.fillStyle = "white"; ctx.font = "bold 48px Teko,sans-serif"; ctx.textAlign = "center"; ctx.fillText("TRAIL " + ed.año, 150, 90); ctx.font = "22px Roboto,sans-serif"; ctx.fillStyle = "rgba(255,255,255,0.7)"; ctx.fillText(ed.nombre, 150, 125); ctx.fillStyle = "#ccff00"; ctx.font = "bold 28px Teko,sans-serif"; ctx.fillText("VER EN 3D ↗", 150, 170); return c.toDataURL(); }
-        function buildEdicionesGrid() { const grid = document.getElementById("ediciones-grid"); if (!grid) return; edicionesData.forEach((ed, i) => { const card = document.createElement("div"); card.className = "edicion-card"; card.onclick = () => abrir3D(i); const thumbSrc = ed.img || generarThumbCanvas(ed); card.innerHTML = '<div style="overflow:hidden;height:160px;position:relative;"><img class="edicion-thumb" src="' + thumbSrc + '" alt="' + ed.nombre + '" loading="lazy"><div class="edicion-badge">' + ed.año + '</div></div><div class="edicion-info"><h3>' + ed.nombre + '</h3><p>' + ed.desc + '</p><div class="edicion-3d-hint">⬡ VER EN 3D</div></div>'; grid.appendChild(card); }); }
+
+        function buildEdicionesGrid() {
+            const grid = document.getElementById("ediciones-grid"); if (!grid) return;
+            edicionesData.forEach((ed, i) => {
+                const card = document.createElement("div");
+                card.className = "edicion-card";
+                card.onclick = () => abrir3D(i);
+                card.innerHTML =
+                    '<div style="overflow:hidden;height:160px;position:relative;">' +
+                    '<img class="edicion-thumb" src="' + ed.img + '" alt="' + ed.nombre + '" loading="lazy">' +
+                    '<div class="edicion-badge">' + ed.año + '</div>' +
+                    '</div>' +
+                    '<div class="edicion-info">' +
+                    '<h3>' + ed.nombre + '</h3>' +
+                    '<p>' + ed.desc + '</p>' +
+                    '<div class="edicion-3d-hint">⬡ VER EN 3D</div>' +
+                    '</div>';
+                grid.appendChild(card);
+            });
+        }
 
         let three = null;
-        function abrir3D(idx) { const ed = edicionesData[idx]; document.getElementById("modal3d-title").innerText = ed.año + " — " + ed.nombre; document.getElementById("modal3d-sub").innerText = ed.desc; const fw = document.getElementById("modal3d-foto-wrap"); const fi = document.getElementById("modal3d-foto"); if (ed.img) { fi.src = ed.img; fw.classList.remove("sin-foto"); } else { fi.src = ""; fw.classList.add("sin-foto"); } document.getElementById("modal3d-overlay").classList.add("open"); document.body.style.overflow = "hidden"; iniciar3D(ed); }
-        function cerrar3D() { document.getElementById("modal3d-overlay").classList.remove("open"); document.body.style.overflow = ""; if (three) { cancelAnimationFrame(three.rafId); three.renderer.dispose(); three = null; } }
-        function iniciar3D(ed) { if (three) { cancelAnimationFrame(three.rafId); three.renderer.dispose(); three = null; } const canvas = document.getElementById("canvas3d"); const W = canvas.clientWidth || 480, H = canvas.clientHeight || 480; const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true }); renderer.setSize(W, H); renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); renderer.setClearColor(0x000000, 0); renderer.outputEncoding = THREE.sRGBEncoding; renderer.shadowMap.enabled = true; const scene = new THREE.Scene(); const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 100); camera.position.set(0, 0.5, 3.5); scene.add(new THREE.AmbientLight(0xffffff, 0.7)); const dL = new THREE.DirectionalLight(0xffffff, 1.0); dL.position.set(3, 5, 5); dL.castShadow = true; scene.add(dL); scene.add(Object.assign(new THREE.DirectionalLight(0xccff00, 0.25), { position: new THREE.Vector3(-3, -2, 3) })); scene.add(Object.assign(new THREE.DirectionalLight(0xffffff, 0.4), { position: new THREE.Vector3(0, -3, 2) })); let model = null; const gl = new THREE.GLTFLoader(); gl.load('/static/3d/t-shirt.glb', gltf => { model = gltf.scene; const box = new THREE.Box3().setFromObject(model); const center = box.getCenter(new THREE.Vector3()); const size = box.getSize(new THREE.Vector3()); const scale = 2.2 / Math.max(size.x, size.y, size.z); model.scale.setScalar(scale); model.position.set(-center.x * scale, -center.y * scale, -center.z * scale); model.rotation.y = Math.PI; model.traverse(c => { if (c.isMesh) { c.castShadow = true; c.receiveShadow = true; } }); scene.add(model); }, undefined, () => { const c2 = document.createElement("canvas"); c2.width = 512; c2.height = 512; const ctx = c2.getContext("2d"); const g = ctx.createLinearGradient(0, 0, 512, 512); g.addColorStop(0, ed.color); g.addColorStop(1, ed.colorB); ctx.fillStyle = g; ctx.fillRect(0, 0, 512, 512); ctx.fillStyle = "white"; ctx.font = "bold 72px sans-serif"; ctx.textAlign = "center"; ctx.fillText("TRAIL", 256, 190); ctx.fillText(ed.año, 256, 275); ctx.fillStyle = "#ccff00"; ctx.font = "bold 38px sans-serif"; ctx.fillText(ed.nombre, 256, 350); const mat = new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(c2), side: THREE.DoubleSide, roughness: 0.8 }); model = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 2, 20, 20), mat); scene.add(model); }); let isDragging = false, prevX = 0, prevY = 0, rotY = Math.PI, rotX = 0; canvas.addEventListener("mousedown", e => { isDragging = true; prevX = e.clientX; prevY = e.clientY; }); canvas.addEventListener("mousemove", e => { if (!isDragging || !model) return; rotY += (e.clientX - prevX) * 0.012; rotX += (e.clientY - prevY) * 0.008; prevX = e.clientX; prevY = e.clientY; }); canvas.addEventListener("mouseup", () => isDragging = false); canvas.addEventListener("mouseleave", () => isDragging = false); canvas.addEventListener("touchstart", e => { isDragging = true; prevX = e.touches[0].clientX; prevY = e.touches[0].clientY; }, { passive: true }); canvas.addEventListener("touchmove", e => { if (!isDragging || !model) return; rotY += (e.touches[0].clientX - prevX) * 0.012; rotX += (e.touches[0].clientY - prevY) * 0.008; prevX = e.touches[0].clientX; prevY = e.touches[0].clientY; e.preventDefault(); }, { passive: false }); canvas.addEventListener("touchend", () => isDragging = false); three = { renderer, rafId: null }; function animate() { three.rafId = requestAnimationFrame(animate); if (model) { if (!isDragging) rotY += 0.005; model.rotation.y = rotY; model.rotation.x = Math.max(-0.5, Math.min(0.5, rotX)); } renderer.render(scene, camera); } animate(); }
 
-        function seguridadAdmin() { const clave = prompt("🔐 ACCESO RESTRINGIDO\nIngresa la llave maestra:"); if (clave === "trail2026") window.location.href = "{{ url_for('admin_login') }}"; else if (clave !== null) alert("❌ Acceso Denegado"); }
+        function abrir3D(idx) {
+            const ed = edicionesData[idx];
+            document.getElementById("modal3d-title").innerText = ed.año + " — " + ed.nombre;
+            document.getElementById("modal3d-sub").innerText = ed.desc;
+            document.getElementById("modal3d-overlay").classList.add("open");
+            document.body.style.overflow = "hidden";
+            iniciar3D(ed);
+        }
+
+        function cerrar3D() {
+            document.getElementById("modal3d-overlay").classList.remove("open");
+            document.body.style.overflow = "";
+            if (three) { cancelAnimationFrame(three.rafId); three.renderer.dispose(); three = null; }
+        }
+
+        function iniciar3D(ed) {
+            if (three) { cancelAnimationFrame(three.rafId); three.renderer.dispose(); three = null; }
+
+            const canvas = document.getElementById("canvas3d");
+            const W = canvas.clientWidth || 380;
+            const H = canvas.clientHeight || 380;
+
+            const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+            renderer.setSize(W, H);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setClearColor(0x000000, 0);
+            renderer.outputEncoding = THREE.sRGBEncoding;
+            renderer.shadowMap.enabled = true;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 100);
+            camera.position.set(0, 0.5, 3.5);
+
+            scene.add(new THREE.AmbientLight(0xffffff, 0.9));
+            const dL = new THREE.DirectionalLight(0xffffff, 1.2);
+            dL.position.set(3, 5, 5); dL.castShadow = true; scene.add(dL);
+            scene.add(Object.assign(new THREE.DirectionalLight(0xffffff, 0.5), { position: new THREE.Vector3(-3, 2, 3) }));
+            scene.add(Object.assign(new THREE.DirectionalLight(0xffffff, 0.3), { position: new THREE.Vector3(0, -3, 2) }));
+
+            let model = null;
+            let isDragging = false, prevX = 0, prevY = 0, rotY = Math.PI, rotX = 0;
+
+            const texLoader = new THREE.TextureLoader();
+            texLoader.load(ed.img, (texture) => {
+                texture.encoding = THREE.sRGBEncoding;
+                texture.flipY = false;
+
+                const loader = new THREE.GLTFLoader();
+                loader.load('/static/3d/sleeveless_shirt.glb', (gltf) => {
+                    model = gltf.scene;
+
+                    const box = new THREE.Box3().setFromObject(model);
+                    const center = box.getCenter(new THREE.Vector3());
+                    const size = box.getSize(new THREE.Vector3());
+                    const scale = 2.2 / Math.max(size.x, size.y, size.z);
+                    model.scale.setScalar(scale);
+                    model.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
+                    model.rotation.y = Math.PI;
+
+                    model.traverse((child) => {
+                        if (child.isMesh) {
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                            child.material = new THREE.MeshStandardMaterial({
+                                map: texture,
+                                roughness: 0.85,
+                                metalness: 0.0,
+                                side: THREE.DoubleSide,
+                            });
+                        }
+                    });
+
+                    scene.add(model);
+
+                }, undefined, () => {
+                    const mat = new THREE.MeshStandardMaterial({ map: texture, side: THREE.DoubleSide, roughness: 0.8 });
+                    model = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 2), mat);
+                    scene.add(model);
+                });
+            });
+
+            canvas.addEventListener("mousedown", e => { isDragging = true; prevX = e.clientX; prevY = e.clientY; });
+            canvas.addEventListener("mousemove", e => { if (!isDragging || !model) return; rotY += (e.clientX - prevX) * 0.012; rotX += (e.clientY - prevY) * 0.008; prevX = e.clientX; prevY = e.clientY; });
+            canvas.addEventListener("mouseup", () => isDragging = false);
+            canvas.addEventListener("mouseleave", () => isDragging = false);
+            canvas.addEventListener("touchstart", e => { isDragging = true; prevX = e.touches[0].clientX; prevY = e.touches[0].clientY; }, { passive: true });
+            canvas.addEventListener("touchmove", e => { if (!isDragging || !model) return; rotY += (e.touches[0].clientX - prevX) * 0.012; rotX += (e.touches[0].clientY - prevY) * 0.008; prevX = e.touches[0].clientX; prevY = e.touches[0].clientY; e.preventDefault(); }, { passive: false });
+            canvas.addEventListener("touchend", () => isDragging = false);
+
+            three = { renderer, rafId: null };
+
+            function animate() {
+                three.rafId = requestAnimationFrame(animate);
+                if (model) {
+                    if (!isDragging) rotY += 0.005;
+                    model.rotation.y = rotY;
+                    model.rotation.x = Math.max(-0.5, Math.min(0.5, rotX));
+                }
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+
+        function seguridadAdmin() {
+            const clave = prompt("🔐 ACCESO RESTRINGIDO\nIngresa la llave maestra:");
+            if (clave === "trail2026") window.location.href = "{{ url_for('admin_login') }}";
+            else if (clave !== null) alert("❌ Acceso Denegado");
+        }
 
         document.addEventListener("DOMContentLoaded", () => {
-            ['nombre', 'cedula', 'email', 'telefono'].forEach(id => { const el = document.getElementById(id); if (!el) return; el.addEventListener('input', function () { if (validaciones[id]) marcarCampo(id, validaciones[id](this.value)); }); el.addEventListener('blur', function () { if (validaciones[id]) marcarCampo(id, validaciones[id](this.value)); }); });
-            const form = document.getElementById('form-inscripcion'); const btn = document.getElementById('btn-submit');
-            if (form && btn) { form.addEventListener('submit', function (e) { let ok = true;['nombre', 'cedula', 'email', 'telefono'].forEach(id => { const el = document.getElementById(id); if (el && validaciones[id]) { const v = validaciones[id](el.value); marcarCampo(id, v); if (!v) ok = false; } }); if (!ok) { e.preventDefault(); return; } btn.disabled = true; btn.innerHTML = '<span class="btn-spinner"></span> PROCESANDO...'; }); }
+            ['nombre', 'cedula', 'email', 'telefono'].forEach(id => {
+                const el = document.getElementById(id); if (!el) return;
+                el.addEventListener('input', function () { if (validaciones[id]) marcarCampo(id, validaciones[id](this.value)); });
+                el.addEventListener('blur', function () { if (validaciones[id]) marcarCampo(id, validaciones[id](this.value)); });
+            });
+            const form = document.getElementById('form-inscripcion');
+            const btn = document.getElementById('btn-submit');
+            if (form && btn) {
+                form.addEventListener('submit', function (e) {
+                    let ok = true;
+                    ['nombre', 'cedula', 'email', 'telefono'].forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el && validaciones[id]) { const v = validaciones[id](el.value); marcarCampo(id, v); if (!v) ok = false; }
+                    });
+                    if (!ok) { e.preventDefault(); return; }
+                    btn.disabled = true;
+                    btn.innerHTML = '<span class="btn-spinner"></span> PROCESANDO...';
+                });
+            }
             buildSlideDots(); updateHistoryText(1); updateCounter(1); buildEdicionesGrid();
             const cnt = document.getElementById("mem-counter"); if (cnt) cnt.innerText = '1 / ' + memFotos.length;
             renderMemThumbs();
             let autoH = setInterval(() => moveSlide(1), 4000);
             const ch = document.getElementById('carrusel-historia');
-            if (ch) { ch.addEventListener('mouseenter', () => clearInterval(autoH)); ch.addEventListener('mouseleave', () => { autoH = setInterval(() => moveSlide(1), 4000); }); }
+            if (ch) {
+                ch.addEventListener('mouseenter', () => clearInterval(autoH));
+                ch.addEventListener('mouseleave', () => { autoH = setInterval(() => moveSlide(1), 4000); });
+            }
             let autoM = setInterval(() => moverMem(1), 3500);
-            [document.getElementById("mem-main"), document.getElementById("mem-thumbs")].forEach(el => { if (!el) return; el.addEventListener('mouseenter', () => clearInterval(autoM)); el.addEventListener('mouseleave', () => { autoM = setInterval(() => moverMem(1), 3500); }); });
+            [document.getElementById("mem-main"), document.getElementById("mem-thumbs")].forEach(el => {
+                if (!el) return;
+                el.addEventListener('mouseenter', () => clearInterval(autoM));
+                el.addEventListener('mouseleave', () => { autoM = setInterval(() => moverMem(1), 3500); });
+            });
         });
 
-        // Pausa el video de ruta y cierra modales cuando el usuario minimiza
-        // la ventana o cambia de pestaña del navegador
         document.addEventListener('visibilitychange', function () {
-            if (document.hidden) {
-                pauseRutaPlayer();
-                cerrarVideo();
-            }
+            if (document.hidden) { pauseRutaPlayer(); cerrarVideo(); }
         });
 
         window.onload = function () {
@@ -2018,7 +2095,6 @@
                 document.getElementById("custom-alert").onclick = function (e) { if (e.target === this) this.style.display = "none"; };
             }
         };
-
     </script>
 </body>
 
