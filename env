@@ -1,4 +1,4 @@
 SECRET_KEY=trail2026
-MAIL_USERNAME=sr.records.198@gmail.com
-MAIL_PASSWORD="engs tpqr xyor bjoe"
+GMAIL_USER=carreratrailrunningbosquealmar@gmail.com
+GMAIL_PASS=nqsd grbr dpaf ndsk
 FLASK_DEBUG=true
