@@ -169,11 +169,9 @@ def cedula_ya_registrada(cedula):
 
 def enviar_email_confirmacion(destinatario, nombre, link_certificado):
     try:
-        gmail_user = os.getenv('GMAIL_USER')
-        gmail_pass = os.getenv('GMAIL_PASS')
-
-        if not gmail_user or not gmail_pass:
-            print("[AVISO] GMAIL_USER o GMAIL_PASS no definidos en .env")
+        api_key = os.getenv('BREVO_API_KEY')
+        if not api_key:
+            print("[AVISO] BREVO_API_KEY no definida")
             return False
 
         texto_wa      = f"Estoy inscrito en Trail Running 2026 Del Bosque al Mar. Mi certificado: {link_certificado}"
@@ -220,19 +218,28 @@ def enviar_email_confirmacion(destinatario, nombre, link_certificado):
         </body>
         </html>"""
 
-        msg = MIMEMultipart('alternative')
-        msg['Subject'] = '¡Inscripción Confirmada! - Trail Running 2026'
-        msg['From']    = f'Trail Running 2026 <{gmail_user}>'
-        msg['To']      = destinatario
-        msg.attach(MIMEText(html_body, 'html', 'utf-8'))
+        import requests
+        response = requests.post(
+            'https://api.brevo.com/v3/smtp/email',
+            headers={
+                'api-key': api_key,
+                'Content-Type': 'application/json'
+            },
+            json={
+                'sender': {'name': 'Trail Running 2026', 'email': 'sr.records.198@gmail.com'},
+                'to': [{'email': destinatario}],
+                'subject': '¡Inscripción Confirmada! - Trail Running 2026',
+                'htmlContent': html_body
+            },
+            timeout=10
+        )
 
-        with smtplib.SMTP('smtp.gmail.com', 587, timeout=10) as server:
-            server.starttls()
-            server.login(gmail_user, gmail_pass)
-            server.sendmail(gmail_user, destinatario, msg.as_string())
-
-        print(f"[OK] Email enviado a {destinatario}")
-        return True
+        if response.status_code == 201:
+            print(f"[OK] Email enviado a {destinatario}")
+            return True
+        else:
+            print(f"[ERROR] Brevo: {response.status_code} - {response.text}")
+            return False
 
     except Exception as e:
         print(f"[ERROR] Enviando correo a {destinatario}: {e}")
