@@ -121,7 +121,7 @@ def agregar_headers_seguridad(response):
     )
     response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
     # ── Marca de agua en cada respuesta HTTP ──────────────────────────────────
-    response.headers['X-Powered-By'] = 'Adrian Jose Arauz Espinal — Trail Dev 2026'
+    response.headers['X-Powered-By'] = 'Adrian Jose Arauz Espinal - Trail Dev 2026'
     response.headers['X-Watermark']  = _AUTHOR_SIGNATURE['watermark']
     # ─────────────────────────────────────────────────────────────────────────
     return response
@@ -680,7 +680,7 @@ def obtener_ip_local():
 
 
 if __name__ == '__main__':
-    _print_authorship_banner()   
+    _print_authorship_banner()  
     debug_mode = os.getenv('FLASK_DEBUG', 'false').lower() == 'true'
     ip_local   = obtener_ip_local()
     print(f"\n Servidor arrancando en http://{ip_local}:5000")
