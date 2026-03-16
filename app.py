@@ -174,9 +174,6 @@ def enviar_email_confirmacion(destinatario, nombre, link_certificado):
             print("[AVISO] BREVO_API_KEY no definida")
             return False
 
-        texto_wa      = f"Estoy inscrito en Trail Running 2026 Del Bosque al Mar. Mi certificado: {link_certificado}"
-        link_whatsapp = f"https://wa.me/?text={texto_wa.replace(' ', '%20')}"
-
         html_body = f"""
         <html>
         <body style="font-family:Arial,sans-serif;background:#0f172a;color:white;padding:20px;">
@@ -197,13 +194,6 @@ def enviar_email_confirmacion(destinatario, nombre, link_certificado):
                         text-decoration:none;font-weight:bold;border-radius:5px;
                         font-size:18px;display:inline-block;">
                 VER MI CERTIFICADO OFICIAL
-              </a>
-              <br><br>
-              <a href="{link_whatsapp}"
-                 style="background:#25d366;color:white;padding:12px 24px;
-                        text-decoration:none;font-weight:bold;border-radius:5px;
-                        font-size:15px;display:inline-block;">
-                📲 COMPARTIR EN WHATSAPP
               </a>
             </div>
             <p style="color:#94a3b8;font-size:14px;text-align:center;">
@@ -415,14 +405,10 @@ def ver_certificado(cedula):
         with open(fondo_path, 'rb') as f:
             fondo_b64 = 'data:image/jpeg;base64,' + base64.b64encode(f.read()).decode()
 
-    url_validacion   = url_for('validar_kit', cedula=corredor['cedula'], _external=True)
-    url_cert_externo = url_for('ver_certificado', cedula=cedula, _external=True)
-    texto_wa         = f"Estoy inscrito en Trail Running 2026 Del Bosque al Mar. Mi certificado: {url_cert_externo}"
-    link_whatsapp    = f"https://wa.me/?text={texto_wa.replace(' ', '%20')}"
+    url_validacion = url_for('validar_kit', cedula=corredor['cedula'], _external=True)
 
     return render_template('certificado.html', corredor=corredor,
                            url_validacion=url_validacion,
-                           link_whatsapp=link_whatsapp,
                            fondo_b64=fondo_b64)
 
 
