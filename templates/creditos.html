@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════╗
+  ║  Sistema Trail Running 2026                          ║
+  ║  © 2026 Adrian Jose Arauz Espinal                    ║
+  ║  Marca de agua: AJA-TRAIL-2026-EC-f7c3b1a9           ║
+  ║  Licencia: Solo uso. Prohibida reventa.              ║
+  ╚══════════════════════════════════════════════════════╝
+-->
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créditos del Sistema - Trail Running 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #070d1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "Roboto", sans-serif;
+            color: white;
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(15, 23, 42, 0.95);
+            border: 2px solid #ccff00;
+            border-radius: 20px;
+            padding: 50px 40px;
+            max-width: 560px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 0 60px rgba(204, 255, 0, 0.15);
+        }
+
+        .badge {
+            font-size: 3.5rem;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-family: "Teko", sans-serif;
+            font-size: 2.8rem;
+            color: #ccff00;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 36px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .info-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #475569;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: left;
+            flex: 1;
+        }
+
+        .info-value {
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-align: right;
+            flex: 2;
+        }
+
+        .info-value.neon {
+            color: #ccff00;
+        }
+
+        .license-box {
+            margin-top: 30px;
+            background: rgba(204, 255, 0, 0.05);
+            border: 1px solid rgba(204, 255, 0, 0.2);
+            border-radius: 10px;
+            padding: 16px 20px;
+            font-size: 0.82rem;
+            color: #94a3b8;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .license-box strong {
+            color: #ccff00;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 28px;
+            color: #475569;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #ccff00;
+        }
+
+        /* Marca de agua oculta — visible solo en código fuente */
+        .watermark {
+            margin-top: 20px;
+            font-size: 0.65rem;
+            color: #0d1117;
+            /* mismo color que fondo: invisible visualmente */
+            font-family: monospace;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="badge">🏔️</div>
+        <h1>Trail Running 2026</h1>
+        <p class="subtitle">Créditos &amp; Licencia del Sistema</p>
+
+        <div class="info-row">
+            <span class="info-label">Desarrollador</span>
+            <span class="info-value neon">Adrian Jose Arauz Espinal</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">País</span>
+            <span class="info-value">Ecuador 🇪🇨</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Versión</span>
+            <span class="info-value">{{ info.version }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Año</span>
+            <span class="info-value">{{ info.year }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Licencia ID</span>
+            <span class="info-value">{{ info.license_id }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Stack</span>
+            <span class="info-value">Python · Flask · Railway</span>
+        </div>
+
+        <div class="license-box">
+            <strong>© {{ info.year }} {{ info.author }}</strong><br><br>
+            Este sistema es propiedad intelectual exclusiva del desarrollador.
+            Su uso está permitido únicamente bajo los términos del contrato de
+            licencia firmado. Queda <strong>estrictamente prohibido</strong> copiar,
+            modificar, redistribuir o revender este software sin autorización
+            escrita del autor.
+        </div>
+
+        <a href="/" class="back-link">← Volver al inicio</a>
+
+        <!-- Marca de agua: AJA-TRAIL-2026-EC-f7c3b1a9 | LIC-TRAIL-2026-001 -->
+        <p class="watermark" aria-hidden="true">AJA-TRAIL-2026-EC-f7c3b1a9</p>
+    </div>
+</body>
+
+</html>

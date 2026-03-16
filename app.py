@@ -20,6 +20,36 @@ from email.mime.multipart import MIMEMultipart
 load_dotenv(override=True)
 _csv_lock = threading.Lock()
 
+# =============================================================================
+# © 2026 Adrian Jose Arauz Espinal — Todos los derechos reservados.
+# Sistema de Inscripciones Trail Running 2026
+# Queda prohibida la reproducción, modificación, distribución o reventa
+# sin autorización escrita del titular.
+# Marca de agua digital: AJA-TRAIL-2026-EC-f7c3b1a9
+# ID de Licencia:        LIC-TRAIL-2026-001
+# =============================================================================
+_AUTHOR_SIGNATURE = {
+    "software":    "Sistema de Inscripciones Trail Running",
+    "version":     "2026.1.0",
+    "author":      "Adrian Jose Arauz Espinal",
+    "country":     "Ecuador",
+    "year":        "2026",
+    "watermark":   "AJA-TRAIL-2026-EC-f7c3b1a9",
+    "license_id":  "LIC-TRAIL-2026-001",
+    "license_type":"Licencia de Uso — Solo uso permitido. Prohibida reventa, redistribucion y modificacion.",
+    "contact":     "adrianarauz@dev",
+    "repo":        "github.com/ADRIANARAUZ/trail",
+}
+
+def _print_authorship_banner():
+    print("\n" + "=" * 60)
+    print(f"  {_AUTHOR_SIGNATURE['software']} v{_AUTHOR_SIGNATURE['version']}")
+    print(f"  (c) {_AUTHOR_SIGNATURE['year']} {_AUTHOR_SIGNATURE['author']}")
+    print(f"  Licencia : {_AUTHOR_SIGNATURE['license_type']}")
+    print(f"  Marca    : {_AUTHOR_SIGNATURE['watermark']}")
+    print("=" * 60 + "\n")
+# =============================================================================
+
 app = Flask(__name__)
 
 app.secret_key = os.getenv('SECRET_KEY')
@@ -65,7 +95,7 @@ def rate_limit(max_requests: int, window_seconds: int):
             bucket = _rate_store.get(ip, [])
             bucket = [t for t in bucket if now - t < window_seconds]
             if len(bucket) >= max_requests:
-                return render_template('error.html', mensaje="Demasiadas solicitudes. Espera un momento e inténtalo de nuevo."), 429
+                return render_template('error.html', mensaje="Demasiadas solicitudes. Espera un momento e intentalo de nuevo."), 429
             bucket.append(now)
             _rate_store[ip] = bucket
             return func(*args, **kwargs)
@@ -90,6 +120,10 @@ def agregar_headers_seguridad(response):
         "worker-src blob:;"
     )
     response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
+    # ── Marca de agua en cada respuesta HTTP ──────────────────────────────────
+    response.headers['X-Powered-By'] = 'Adrian Jose Arauz Espinal — Trail Dev 2026'
+    response.headers['X-Watermark']  = _AUTHOR_SIGNATURE['watermark']
+    # ─────────────────────────────────────────────────────────────────────────
     return response
 
 
@@ -120,15 +154,15 @@ def validar_datos_formulario(form):
         errores.append("El nombre debe contener solo letras y espacios.")
     cedula = form.get('cedula', '').strip()
     if not cedula.isdigit() or len(cedula) != 10:
-        errores.append("La cédula debe tener exactamente 10 dígitos numéricos.")
+        errores.append("La cedula debe tener exactamente 10 digitos numericos.")
     email = form.get('email', '').strip()
     if not re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', email):
-        errores.append("El formato del correo electrónico no es válido.")
+        errores.append("El formato del correo electronico no es valido.")
     telefono = form.get('telefono', '').strip()
     if not telefono.isdigit() or len(telefono) != 10:
-        errores.append("El teléfono debe tener exactamente 10 dígitos numéricos.")
+        errores.append("El telefono debe tener exactamente 10 digitos numericos.")
     if not form.get('categoria'):
-        errores.append("Debes seleccionar una distancia y una categoría válida.")
+        errores.append("Debes seleccionar una distancia y una categoria valida.")
     if not form.get('talla'):
         errores.append("Debes seleccionar una talla de camiseta.")
     return errores
@@ -180,13 +214,13 @@ def enviar_email_confirmacion(destinatario, nombre, link_certificado):
           <div style="max-width:600px;margin:0 auto;background:#1e293b;padding:30px;
                       border-radius:10px;border:1px solid #ccff00;">
             <h2 style="color:#ccff00;text-align:center;text-transform:uppercase;">
-              ¡INSCRIPCIÓN CONFIRMADA!
+              INSCRIPCION CONFIRMADA!
             </h2>
             <p style="color:#cbd5e1;font-size:16px;">
               Hola <strong style="color:white;">{nombre}</strong>,
             </p>
             <p style="color:#cbd5e1;font-size:16px;line-height:1.5;">
-              Hemos verificado tu pago. Tu lugar en la línea de partida está asegurado.
+              Hemos verificado tu pago. Tu lugar en la linea de partida esta asegurado.
             </p>
             <div style="text-align:center;margin:40px 0;">
               <a href="{link_certificado}"
@@ -201,9 +235,10 @@ def enviar_email_confirmacion(destinatario, nombre, link_certificado):
             </p>
             <div style="text-align:center;margin-top:30px;padding-top:20px;
                         border-top:1px solid rgba(255,255,255,0.1);">
-              <p style="color:#94a3b8;font-size:14px;margin:0;">¡Nos vemos en la ruta!</p>
+              <p style="color:#94a3b8;font-size:14px;margin:0;">Nos vemos en la ruta!</p>
               <strong style="color:white;font-size:16px;">Equipo Trail Running 2026</strong>
             </div>
+            <!-- Sistema desarrollado por Adrian Jose Arauz Espinal | AJA-TRAIL-2026-EC-f7c3b1a9 -->
           </div>
         </body>
         </html>"""
@@ -218,7 +253,7 @@ def enviar_email_confirmacion(destinatario, nombre, link_certificado):
             json={
                 'sender': {'name': 'Trail Running 2026', 'email': 'carreratrailrunningbosquealmar@gmail.com'},
                 'to': [{'email': destinatario}],
-                'subject': '¡Inscripción Confirmada! - Trail Running 2026',
+                'subject': 'Inscripcion Confirmada! - Trail Running 2026',
                 'htmlContent': html_body
             },
             timeout=10
@@ -259,7 +294,7 @@ def login_required(role=None):
             if 'user' not in session:
                 return redirect(url_for('admin_login'))
             if role and session.get('role') != role:
-                return render_template('error.html', mensaje="No tienes permisos para esta sección."), 403
+                return render_template('error.html', mensaje="No tienes permisos para esta seccion."), 403
             return func(*args, **kwargs)
         return decorated
     return wrapper
@@ -267,11 +302,11 @@ def login_required(role=None):
 
 @app.errorhandler(RequestEntityTooLarge)
 def archivo_muy_grande(e):
-    return render_template('error.html', mensaje="El archivo supera el límite de 5 MB."), 413
+    return render_template('error.html', mensaje="El archivo supera el limite de 5 MB."), 413
 
 @app.errorhandler(404)
 def pagina_no_encontrada(e):
-    return render_template('error.html', mensaje="Página no encontrada."), 404
+    return render_template('error.html', mensaje="Pagina no encontrada."), 404
 
 @app.errorhandler(500)
 def error_interno(e):
@@ -282,9 +317,19 @@ def demasiadas_solicitudes(e):
     return render_template('error.html', mensaje="Demasiadas solicitudes. Espera un momento."), 429
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# RUTAS PÚBLICAS
+# ─────────────────────────────────────────────────────────────────────────────
+
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
+@app.route('/creditos')
+def creditos():
+    """Pagina publica de creditos y licencia del sistema."""
+    return render_template('creditos.html', info=_AUTHOR_SIGNATURE)
 
 
 @app.route('/register', methods=['POST'])
@@ -343,14 +388,14 @@ def payment(cedula):
     cedula   = cedula_segura(cedula)
     corredor = buscar_corredor(cedula)
     if not corredor:
-        return render_template('error.html', mensaje="Cédula no encontrada en el sistema."), 404
+        return render_template('error.html', mensaje="Cedula no encontrada en el sistema."), 404
 
     if request.method == 'POST':
         if 'comprobante' not in request.files:
-            return render_template('error.html', mensaje="No se recibió ningún archivo."), 400
+            return render_template('error.html', mensaje="No se recibio ningun archivo."), 400
         file = request.files['comprobante']
         if file.filename == '':
-            return render_template('error.html', mensaje="No seleccionaste ningún archivo."), 400
+            return render_template('error.html', mensaje="No seleccionaste ningun archivo."), 400
         if not allowed_file(file.filename):
             return render_template('error.html', mensaje="Formato no permitido. Sube PNG, JPG o PDF."), 400
         if not verificar_contenido_archivo(file):
@@ -378,7 +423,7 @@ def check_registration():
     if request.method == 'POST':
         cedula = request.form.get('cedula', '').strip()
         if not cedula.isdigit() or len(cedula) != 10:
-            error = "Ingresa una cédula válida de 10 dígitos."
+            error = "Ingresa una cedula valida de 10 digitos."
         else:
             corredor = buscar_corredor(cedula)
             if corredor:
@@ -388,7 +433,7 @@ def check_registration():
                 else:
                     return redirect(url_for('payment', cedula=cedula))
             else:
-                error = "Esa cédula no aparece en nuestros registros."
+                error = "Esa cedula no aparece en nuestros registros."
     return render_template('check.html', error=error)
 
 
@@ -417,7 +462,7 @@ def descarga_exito(cedula):
     cedula   = cedula_segura(cedula)
     pdf_path = f'certificates/generated/{cedula}.pdf'
     if not os.path.exists(pdf_path):
-        return render_template('error.html', mensaje="Certificado aún no generado. Espera la confirmación de tu pago."), 404
+        return render_template('error.html', mensaje="Certificado aun no generado. Espera la confirmacion de tu pago."), 404
     return render_template('success_download.html', cedula=cedula)
 
 
@@ -429,6 +474,10 @@ def download_public_certificate(cedula):
         return render_template('error.html', mensaje="Certificado no encontrado."), 404
     return send_file(file_path, as_attachment=True, download_name=f'Certificado_Trail_{cedula}.pdf')
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# RUTAS ADMINISTRATIVAS
+# ─────────────────────────────────────────────────────────────────────────────
 
 @app.route('/admin', methods=['GET', 'POST'])
 @rate_limit(max_requests=5, window_seconds=900)
@@ -442,7 +491,7 @@ def admin_login():
             session['role']       = role
             session['login_time'] = datetime.now().isoformat()
             return redirect(url_for('dashboard'))
-        error = "Usuario o contraseña incorrectos."
+        error = "Usuario o contrasena incorrectos."
     return render_template('admin/login.html', error=error)
 
 
@@ -474,6 +523,7 @@ def dashboard():
         role=session.get('role')
     )
 
+
 @app.route('/admin/marcar_pagado/<cedula>', methods=['POST'])
 @login_required()
 def marcar_pagado(cedula):
@@ -501,6 +551,7 @@ def marcar_pagado(cedula):
 
     return redirect(url_for('dashboard'))
 
+
 @app.route('/admin/ver_comprobante/<cedula>')
 @login_required()
 def ver_comprobante(cedula):
@@ -509,7 +560,7 @@ def ver_comprobante(cedula):
         path = os.path.join(UPLOAD_FOLDER, f"comprobante_{cedula}.{ext}")
         if os.path.exists(path):
             return send_file(path)
-    return render_template('error.html', mensaje="Comprobante no encontrado (quizás aún no lo subió)."), 404
+    return render_template('error.html', mensaje="Comprobante no encontrado (quizas aun no lo subio)."), 404
 
 
 @app.route('/admin/delete/<cedula>', methods=['POST'])
@@ -567,7 +618,7 @@ def validar_kit(cedula):
     entregados_count = sum(1 for i in pagados_total if i.get('entrega') == 'SI')
 
     if not corredor:
-        return render_template('admin/validador.html', estado='error', mensaje='CÉDULA NO ENCONTRADA', corredor=None)
+        return render_template('admin/validador.html', estado='error', mensaje='CEDULA NO ENCONTRADA', corredor=None)
 
     pago = corredor.get('pago', '').upper()
     if pago in ('SI', 'PAGADO', 'VERIFICADO'):
@@ -629,6 +680,7 @@ def obtener_ip_local():
 
 
 if __name__ == '__main__':
+    _print_authorship_banner()   
     debug_mode = os.getenv('FLASK_DEBUG', 'false').lower() == 'true'
     ip_local   = obtener_ip_local()
     print(f"\n Servidor arrancando en http://{ip_local}:5000")
