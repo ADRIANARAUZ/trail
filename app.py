@@ -20,14 +20,6 @@ from email.mime.multipart import MIMEMultipart
 load_dotenv(override=True)
 _csv_lock = threading.Lock()
 
-# =============================================================================
-# © 2026 Adrian Jose Arauz Espinal — Todos los derechos reservados.
-# Sistema de Inscripciones Trail Running 2026
-# Queda prohibida la reproducción, modificación, distribución o reventa
-# sin autorización escrita del titular.
-# Marca de agua digital: AJA-TRAIL-2026-EC-f7c3b1a9
-# ID de Licencia:        LIC-TRAIL-2026-001
-# =============================================================================
 _AUTHOR_SIGNATURE = {
     "software":    "Sistema de Inscripciones Trail Running",
     "version":     "2026.1.0",
@@ -48,9 +40,10 @@ def _print_authorship_banner():
     print(f"  Licencia : {_AUTHOR_SIGNATURE['license_type']}")
     print(f"  Marca    : {_AUTHOR_SIGNATURE['watermark']}")
     print("=" * 60 + "\n")
-# =============================================================================
 
 app = Flask(__name__)
+
+_print_authorship_banner()
 
 app.secret_key = os.getenv('SECRET_KEY')
 if not app.secret_key:
@@ -120,10 +113,9 @@ def agregar_headers_seguridad(response):
         "worker-src blob:;"
     )
     response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
-    # ── Marca de agua en cada respuesta HTTP ──────────────────────────────────
     response.headers['X-Powered-By'] = 'Adrian Jose Arauz Espinal - Trail Dev 2026'
     response.headers['X-Watermark']  = _AUTHOR_SIGNATURE['watermark']
-    # ─────────────────────────────────────────────────────────────────────────
+    # 
     return response
 
 
@@ -317,10 +309,6 @@ def demasiadas_solicitudes(e):
     return render_template('error.html', mensaje="Demasiadas solicitudes. Espera un momento."), 429
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# RUTAS PÚBLICAS
-# ─────────────────────────────────────────────────────────────────────────────
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -474,14 +462,13 @@ def download_public_certificate(cedula):
         return render_template('error.html', mensaje="Certificado no encontrado."), 404
     return send_file(file_path, as_attachment=True, download_name=f'Certificado_Trail_{cedula}.pdf')
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# RUTAS ADMINISTRATIVAS
-# ─────────────────────────────────────────────────────────────────────────────
-
 @app.route('/admin', methods=['GET', 'POST'])
 @rate_limit(max_requests=5, window_seconds=900)
 def admin_login():
+    if request.method == 'GET' and 'user' not in session:
+        token_valido = request.args.get('tk') == os.getenv('ADMIN_TOKEN', 'trail_adm_2026')
+        if not token_valido:
+            return render_template('error.html', mensaje="Acceso no permitido. Usa el acceso oficial del sitio."), 403
     error = None
     if request.method == 'POST':
         role = authenticate(request.form.get('username', ''), request.form.get('password', ''))

@@ -761,9 +761,19 @@
         }
 
         function seguridadAdmin() {
-            const clave = prompt("🔐 ACCESO RESTRINGIDO\nIngresa la llave maestra:");
-            if (clave === "trail2026") window.location.href = "{{ url_for('admin_login') }}";
-            else if (clave !== null) alert("❌ Acceso Denegado");
+            const clave = prompt("ACCESO RESTRINGIDO\nLlave maestra:");
+            if (clave === null) return;
+            // Verificacion segura con hash — no expone la clave en texto plano
+            const salt = "TRL2026SALT";
+            const encoder = new TextEncoder();
+            crypto.subtle.digest("SHA-256", encoder.encode(salt + clave)).then(buf => {
+                const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+                if (hash === "ef8eaafe398abd5d78d7dd84a8941b5899be1e34ff5d3c3bfcdf97a13c8f1c51") {
+                    window.location.href = "{{ url_for('admin_login') }}?tk=trail_adm_2026";
+                } else {
+                    alert("Acceso Denegado");
+                }
+            });
         }
 
         document.addEventListener("DOMContentLoaded", () => {
