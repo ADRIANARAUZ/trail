@@ -7,6 +7,8 @@
     <title>Certificado Oficial - {{ corredor.nombre }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Roboto:wght@400;700&display=swap"
         rel="stylesheet">
+    <link rel="icon" type="image/png" href="/static/img/logo_2026.png">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -202,7 +204,6 @@
             margin-top: 5px;
         }
 
-        /* Overlay de carga */
         #loading-overlay {
             display: none;
             position: fixed;
@@ -249,7 +250,6 @@
             text-transform: uppercase;
         }
 
-        /* Clon oculto para captura */
         #cert-captura {
             position: fixed;
             left: -9999px;
